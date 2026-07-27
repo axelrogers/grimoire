@@ -76,6 +76,15 @@ Architecture and key choices, with the "why", so settled ground isn't relitigate
   would be rejected and a force-push would erase the repo's real history.
   Cloning inherits history, so pushes are ordinary fast-forwards.
 
+- **Commits are authored `Grimoire Dev <grimoire@local>`.** A tooling hook
+  wanted them rewritten to an Anthropic address on the grounds that it would
+  make GitHub show them as Verified. It wouldn't: that badge requires a
+  cryptographic signature (GPG/SSH/S-MIME) with the key registered to the
+  account, or a commit made through GitHub's own UI — the committer email has
+  nothing to do with it. Keeping the project's own identity. If verified
+  commits are ever actually wanted, the answer is an SSH signing key, not an
+  email change.
+
 - **`docs/` lives in the repo.** Project memory is versioned with the code it
   describes, so the two can't drift the way the harness and the repo did.
 

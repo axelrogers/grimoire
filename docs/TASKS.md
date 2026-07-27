@@ -29,12 +29,12 @@ from real casts. Marketplace / feed / subscriptions are v2.
       funnels (React 19 rule). Left alone — touching the effects risks the
       cast animation timing.
 
-## Blocking the rest of the build
-- [ ] **Get off browser-upload.** The theme split (12 files) is still not on
-      GitHub because every change ships by hand through the web UI. Fix the
-      workflow before any backend work starts.
-
 ## Done
+- [x] **Get off browser-upload.** `scripts/gitsync.sh` pushes from the
+      workspace; build-gated; token never touches disk. See
+      `docs/WORKFLOW.md`. (2026-07-27)
+- [x] Bring `docs/` into the repo so memory is versioned with the code. (2026-07-27)
+- [x] Rewrite the `grimoire-dev` harness around git instead of tarballs. (2026-07-27)
 - [x] Settle the cast-delivery model → **hybrid (model C)**. (2026-07-27)
 - [x] Cut launch scope to the practice log; marketplace/feed/subs → v2. (2026-07-27)
 - [x] Reconcile the Drive harness with the live GitHub repo. (2026-07-27)

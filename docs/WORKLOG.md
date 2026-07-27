@@ -3,6 +3,41 @@
 Newest session first. Each checkpoint appends a dated entry: what changed,
 what's in flight, and anything the next session needs to know.
 
+## 2026-07-27 — Session 3
+
+**Killed the browser-upload workflow.** Every change used to ship by hand
+through the GitHub web UI, which is why the twelve-file theme split sat
+un-pushed for two sessions. Changes now go straight from the workspace:
+`scripts/gitsync.sh push "message"` builds first, refuses to push a broken
+tree, and lets the Pages workflow redeploy. The credential is a fine-grained
+PAT scoped to this one repo, stored in the `Grimoire App` Drive folder and
+loaded into `$GRIMOIRE_GH_TOKEN` for the session — it is never written to
+disk, to `.git/config`, or into a commit.
+
+**Re-verified the theme split before shipping it,** rather than trusting last
+session's note: against `origin/main`'s `theme.js`, `THEME` and `FONTS` are
+byte-identical, `makeStyles` is 144/144 keys deep-equal in both palettes, and
+`seg()` matches across its argument space.
+
+**Caught a history problem on restore.** The old harness re-`git init`ed on
+every restore, so the in-session repo had history unrelated to GitHub's — a
+push would have been rejected, and a force-push would have erased the repo's
+real history. Fixed by resetting onto `origin/main` before committing. The new
+harness clones instead of re-initialising, so this can't recur.
+
+**Brought `docs/` into the repo.** Project memory is now versioned with the
+code it describes. Added `docs/WORKFLOW.md`.
+
+**Harness rewritten.** `grimoire-dev` now clones on resume and pushes on
+checkpoint; Drive keeps only the small state card. The tar-to-base64-to-Drive
+path is retired — it failed twice in one session (tarball outgrew a single
+upload and had to be split; one part arrived with a corrupt trailer). The
+updated skill was delivered to Axel to save.
+
+**Next session:** spell content. The reference spell (Salt Line at the
+Threshold) against the §2 schema, then render the payload in `SuccessState` /
+`CastSheet`. Axel writes the rites.
+
 ## 2026-07-27 — Session 2
 
 **Reconciled the harness with reality.** Session 1's snapshot claimed the app

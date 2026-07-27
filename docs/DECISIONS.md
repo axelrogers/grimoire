@@ -55,6 +55,30 @@ Architecture and key choices, with the "why", so settled ground isn't relitigate
   own numbers, and accumulates the verdict data the v2 trust layer needs —
   which cannot be bought or faked.
 
+- **Push to GitHub from the workspace; retire browser-upload.** Hand-uploading
+  through the web UI stranded a twelve-file change for two sessions and made
+  every refactor cost more than it was worth. `scripts/gitsync.sh` now pushes
+  directly, gated on a passing build. The credential is a fine-grained PAT
+  scoped to `axelrogers/grimoire` with Contents: read+write, held in Drive and
+  loaded into `$GRIMOIRE_GH_TOKEN` — chosen over pasting it per session
+  (breaks unattended runs) and over the desktop bridge (only works when the
+  desktop app is open). Blast radius if it leaks is one already-public repo.
+
+- **GitHub is the backup; Drive keeps only the state card.** The tar → base64
+  → Drive snapshot path failed twice in one session: the tarball outgrew a
+  single Drive upload and had to be hand-split, and one part arrived with a
+  corrupt gzip trailer. A real git remote gives real history, diffs and
+  integrity checking for free. Drive still holds the small state card, because
+  briefing the next session shouldn't require cloning anything.
+
+- **The harness clones; it never re-`git init`s.** The old restore path
+  initialised a fresh repo, producing history unrelated to GitHub's — a push
+  would be rejected and a force-push would erase the repo's real history.
+  Cloning inherits history, so pushes are ordinary fast-forwards.
+
+- **`docs/` lives in the repo.** Project memory is versioned with the code it
+  describes, so the two can't drift the way the harness and the repo did.
+
 ## Critical path to 18 September
 1. **Spell content** — ~5000 words across twelve spells, Axel writing.
    Reference spell (Salt Line at the Threshold) first; template issued

@@ -1,0 +1,107 @@
+// ─── Grimoire · browse styles ─────────────────────────────────────────────
+// Search, category rail, catalogue grid.
+// Receives the active palette (C) — plus the system-sheet palette where the
+// surface needs it. Returns a flat slice of the composed style object.
+
+export const browseStyles = (C) => ({
+  // ── Browse ──────────────────────────────────────
+  searchWrap: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    background: C.parchmentDeep,
+    border: `1px solid ${C.hair}`,
+    borderRadius: 12,
+    padding: "10px 14px",
+    marginBottom: 14,
+    transition: "background 0.5s ease, border-color 0.5s ease",
+  },
+  searchGlyph: { fontSize: 16, color: C.inkSoft },
+  searchInput: {
+    flex: 1,
+    border: "none",
+    background: "transparent",
+    outline: "none",
+    fontFamily: "'Crimson Pro', Georgia, serif",
+    fontSize: 16,
+    color: C.ink,
+  },
+  chipRow: {
+    display: "flex",
+    gap: 8,
+    overflowX: "auto",
+    paddingBottom: 4,
+    marginBottom: 16,
+  },
+  chip: {
+    flexShrink: 0,
+    display: "flex",
+    alignItems: "center",
+    gap: 5,
+    background: C.parchmentDeep,
+    border: `1px solid ${C.hair}`,
+    borderRadius: 20,
+    padding: "7px 13px",
+    fontFamily: "'Crimson Pro', Georgia, serif",
+    fontSize: 14,
+    color: C.ink,
+    cursor: "pointer",
+    whiteSpace: "nowrap",
+    transition: "background 0.2s ease, border-color 0.2s ease",
+  },
+  chipGlyph: { fontSize: 13 },
+  grid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: 10,
+  },
+  gridCard: {
+    background: C.parchmentDeep,
+    border: `1px solid ${C.hair}`,
+    borderRadius: 14,
+    padding: "14px 12px 12px",
+    textAlign: "left",
+    cursor: "pointer",
+    fontFamily: "'Crimson Pro', Georgia, serif",
+    display: "flex",
+    flexDirection: "column",
+    transition: "background 0.5s ease, border-color 0.5s ease",
+  },
+  gridGlyph: { fontSize: 26, marginBottom: 8 },
+  gridTitle: {
+    fontFamily: "'Cinzel', serif",
+    fontSize: 14.5,
+    color: C.ink,
+    fontWeight: 600,
+    lineHeight: 1.2,
+  },
+  gridSub: {
+    fontSize: 13.5,
+    fontStyle: "italic",
+    color: C.inkSoft,
+    marginTop: 3,
+    lineHeight: 1.3,
+    flex: 1,
+  },
+  gridFoot: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  gridRate: { fontFamily: "system-ui", fontSize: 10.5, fontWeight: 700 },
+  gridPrice: {
+    fontFamily: "system-ui",
+    fontSize: 14,
+    fontWeight: 700,
+    color: C.ink,
+  },
+  emptyState: { textAlign: "center", padding: "48px 20px" },
+  emptyGlyph: { fontSize: 34, color: C.inkSoft },
+  emptyText: {
+    fontSize: 15,
+    fontStyle: "italic",
+    color: C.inkSoft,
+    marginTop: 10,
+  }
+});

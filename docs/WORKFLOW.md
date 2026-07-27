@@ -21,13 +21,21 @@ Go to **https://github.com/settings/personal-access-tokens/new**
 |---|---|
 | Token name | `grimoire-cowork` |
 | Expiration | 90 days (set a reminder to rotate) |
-| Repository access | **Only select repositories** → `axelrogers/grimoire` |
+| Repository access | **Only select repositories** → `axelrogers/grimoire` **and** `axelrogers/grimoire-prototype` |
 | Permissions → Contents | **Read and write** |
 | Permissions → Actions | **Read-only** *(optional — lets me report deploy status)* |
 
 Nothing else. Not "all repositories", not account-level scopes. If this token
-leaks, the blast radius is one public repo that already shows its whole
+leaks, the blast radius is two public repos that already show their whole
 contents to the world.
+
+> **There are two repos and the names are close enough to bite.**
+> `axelrogers/grimoire` is the **React app** — this is the one that deploys.
+> `axelrogers/grimoire-prototype` is the **design repo** — `DESIGN.md`,
+> `tokens.css`, the HTML prototypes and logo assets. A token scoped to only
+> the prototype repo will clone the app fine (it's public) and then fail the
+> push with `403 Permission to axelrogers/grimoire.git denied`. If you see
+> that error, this is why.
 
 Click **Generate token** and copy it. It starts with `github_pat_`.
 

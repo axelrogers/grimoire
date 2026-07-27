@@ -12,11 +12,23 @@ from real casts. Marketplace / feed / subscriptions are v2.
 - [ ] Render the payload in `SuccessState` / `CastSheet` so a cast delivers
       something. This is the prototype → product change.
 - [ ] Write the remaining eleven spells against the reference template.
-- [ ] Locate `DESIGN.md` + `tokens.css` and commit them into the repo — they
-      aren't versioned with the code and will drift.
-- [ ] Reconcile the documented font stack (EB Garamond / Source Serif 4 /
-      Instrument Sans / Martian Mono / Cinzel Decorative) with what the code
-      actually loads (Cinzel + Crimson Pro). One of the two is out of date.
+- [ ] **The app is off the design system.** `DESIGN.md` + `tokens.css` were
+      found in `axelrogers/grimoire-prototype` (a second repo — design
+      artifacts, HTML prototypes, logo assets). DESIGN.md is dated July 2026
+      and calls itself "the source of truth for all visual work — prototype
+      iterations and the app rebuild", so **the code is the stale record, not
+      the docs**. Specifically:
+      - System: EB Garamond (display) / Source Serif 4 (body, upright) /
+        Instrument Sans (UI) / Martian Mono (numerals); Cinzel Decorative is
+        **brand/wordmark only, never UI copy**.
+      - App loads: Cinzel + Crimson Pro only — and uses Cinzel throughout the
+        UI, which the system explicitly forbids.
+      - Also unimplemented: the amber/amethyst palette axis, the semantic
+        `--p-*` / `--g-*` token layer, the 12-step type scale.
+      Decide the size of this: retrofit the token layer now, or ship the
+      practice log on the current look and align after. Not a small job.
+- [ ] Bring `DESIGN.md` + `tokens.css` into the app repo (or a shared
+      location) so the design system and the code can't drift again.
 - [ ] Decide on `rate`: derive from real verdicts or hide it. Hardcoded
       success rates are a fabricated trust signal at launch.
 

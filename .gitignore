@@ -1,0 +1,15 @@
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+dist/
+build/
+
+# Secrets — the GitHub token lives in Drive and in $GRIMOIRE_GH_TOKEN only,
+# never in a file here. See docs/WORKFLOW.md.
+.env
+.env.*
+*.token
+*-token
+.netrc
+.git-credentials

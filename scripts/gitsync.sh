@@ -18,7 +18,12 @@ BRANCH="${GRIMOIRE_BRANCH:-main}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-GIT="git -c user.name=${GIT_AUTHOR_NAME:-Grimoire Dev} -c user.email=${GIT_AUTHOR_EMAIL:-grimoire@local}"
+# Identity via environment, not `git -c name=value` — the latter word-splits on
+# the space in "Grimoire Dev" the moment it's held in a shell variable.
+export GIT_AUTHOR_NAME="${GIT_AUTHOR_NAME:-Grimoire Dev}"
+export GIT_AUTHOR_EMAIL="${GIT_AUTHOR_EMAIL:-grimoire@local}"
+export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
 die() { echo "error: $*" >&2; exit 1; }
 
@@ -38,7 +43,7 @@ scrub() { sed -e "s#x-access-token:[^@]*@#x-access-token:***@#g" -e "s#${GRIMOIR
 case "${1:-}" in
 
   setup)
-    [ -d .git ] || $GIT init -q
+    [ -d .git ] || git init -q
     # Fetch-only remote holds no credential, so it is safe to persist.
     git remote remove origin 2>/dev/null || true
     git remote add origin "https://github.com/${REPO_SLUG}.git"
@@ -74,11 +79,11 @@ case "${1:-}" in
       echo "build ok"
     fi
 
-    $GIT add -A
+    git add -A
     if git diff --cached --quiet; then
       echo "nothing to commit"
     else
-      $GIT commit -qm "$MSG"
+      git commit -qm "$MSG"
       echo "committed: $(git log --oneline -1)"
     fi
 

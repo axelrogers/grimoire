@@ -34,6 +34,21 @@ path is retired — it failed twice in one session (tarball outgrew a single
 upload and had to be split; one part arrived with a corrupt trailer). The
 updated skill was delivered to Axel to save.
 
+**Two repo surprises.** `axelrogers/grimoire` had been renamed to
+`grimoire_old` — GitHub's redirect meant the clone worked and nothing looked
+wrong until the push came back 403. Axel renamed it back, so `base:
+'/grimoire/'` and the Pages URL are unchanged. Separately, `DESIGN.md` and
+`tokens.css` turned up in `axelrogers/grimoire-prototype`, a second repo
+holding design artifacts — see TASKS.md, the app is off-system.
+
+**Sandbox limits worth knowing:** the Cowork container's proxy blocks
+`api.github.com` entirely, so `gitsync.sh deploy-status` can't report and says
+so plainly rather than claiming "no runs". Git over HTTPS is unaffected.
+Two self-inflicted bugs caught by actually running the thing: `git -c
+user.name=Grimoire Dev` word-splits when held in a shell variable (now set via
+`GIT_AUTHOR_*` env), and `deploy-status` silently converted an API error into
+"no runs found".
+
 **Next session:** spell content. The reference spell (Salt Line at the
 Threshold) against the §2 schema, then render the payload in `SuccessState` /
 `CastSheet`. Axel writes the rites.

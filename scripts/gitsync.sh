@@ -95,14 +95,35 @@ case "${1:-}" in
 
   deploy-status)
     need_token
-    curl -sS -H "Authorization: Bearer ${GRIMOIRE_GH_TOKEN}" \
-         -H "Accept: application/vnd.github+json" \
-         "https://api.github.com/repos/${REPO_SLUG}/actions/runs?per_page=1" \
-      | python3 -c 'import json,sys
-d=json.load(sys.stdin).get("workflow_runs") or []
-if not d: print("no runs found"); sys.exit()
-r=d[0]
-print(f'"'"'{r["name"]}: {r["status"]} / {r.get("conclusion") or "-"}  ({r["head_sha"][:7]}) {r["html_url"]}'"'"')'
+    TMP="$(mktemp)"; trap 'rm -f "$TMP"' EXIT
+    CODE="$(curl -sS -o "$TMP" -w '%{http_code}' \
+      -H "Authorization: Bearer ${GRIMOIRE_GH_TOKEN}" \
+      -H "Accept: application/vnd.github+json" \
+      "https://api.github.com/repos/${REPO_SLUG}/actions/runs?per_page=3" || echo 000)"
+
+    # Never report "no runs" when the truth is "couldn't ask". A status tool
+    # that can't tell those apart is worse than no status tool.
+    if [ "$CODE" != "200" ]; then
+      echo "cannot read deploy status (HTTP ${CODE})"
+      python3 -c 'import json,sys
+try: print("  reason:", json.load(open(sys.argv[1])).get("message","(no message)"))
+except Exception: print("  reason: unparseable response")' "$TMP" 2>/dev/null || true
+      if grep -q 'not enabled for this session' "$TMP" 2>/dev/null; then
+        echo "  This is the Cowork sandbox blocking api.github.com, not your token."
+        echo "  Git push works; the REST API does not. Check the run in a browser:"
+      fi
+      echo "  https://github.com/${REPO_SLUG}/actions"
+      exit 0
+    fi
+
+    python3 -c 'import json,sys
+runs=json.load(open(sys.argv[1])).get("workflow_runs") or []
+if not runs:
+    print("API reachable, but no workflow runs exist yet."); raise SystemExit
+for r in runs:
+    print("  %s: %s / %s  (%s)  %s" % (
+        r["name"], r["status"], r.get("conclusion") or "-",
+        r["head_sha"][:7], r["html_url"]))' "$TMP"
     ;;
 
   *)

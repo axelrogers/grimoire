@@ -77,6 +77,12 @@ scripts/gitsync.sh push "what changed"
 scripts/gitsync.sh deploy-status
 ```
 
+**`deploy-status` does not work from the Cowork sandbox.** The container's
+proxy blocks `api.github.com` outright — unrelated to the token, which is why
+the command now says so instead of pretending there are no runs. Git push
+works; the REST API doesn't. Check deploys in a browser:
+https://github.com/axelrogers/grimoire/actions
+
 `push` runs `npm run build` first and **refuses to push if the build fails**.
 That guard matters more now than it did under browser-upload: a bad commit
 auto-deploys to the live site within two minutes.

@@ -148,3 +148,38 @@ Architecture and key choices, with the "why", so settled ground isn't relitigate
   Martian Mono / Cinzel Decorative) doesn't match what the code loads
   (Cinzel + Crimson Pro). One record is stale.
 - `rate` is hardcoded per spell — derive from real verdicts or hide it.
+
+## 2026-07-28 — composition
+
+- **Port the prototype's composition, screen by screen.** The React app and
+  `axelrogers/grimoire-prototype` are the same product at two different
+  levels of finish, and the prototype is the further along. The gap isn't
+  colour — that was fixed by the token retrofit — it's *scale contrast,
+  spacing and atmosphere*. The app had no dominant element, so nothing read
+  as ceremonial; it read as a list.
+
+- **What the prototype actually does** (measured, not eyeballed, by running
+  it locally with React/Babel vendored from npm since the sandbox blocks
+  unpkg): display line at 44px EB Garamond, tracking −0.01em, line-height 1;
+  hero folio as a glass card (radius 20, `--p-glass`, `--p-glassBorder`,
+  `--p-cardShadow`) leading with a 150px image well; spell title 30px;
+  body 16px Source Serif 4 at 1.4; eyebrows 10px uppercase at 0.22em tracking
+  and 0.6 opacity; CTA a 100-radius pill in `--p-ctaBg`/`--p-ctaGold`,
+  Instrument Sans 12px at 0.14em; dock a floating pill, not a bordered strip;
+  frame radius 48 with a lit hairline.
+
+- **Two blurred glow orbs carry the atmosphere.** 300×300 circles at
+  `blur(80px)/0.33` and `blur(85px)/0.25` behind the content, in `--p-glow1`
+  and `--p-glow2`. This is most of the depth. Without them the ground reads
+  flat and each card has to carry the mood alone.
+
+- **Deferred v2 features stay out of the port.** The prototype's hero carries
+  a verified-practitioner row and an oath module — marketplace and
+  subscription, both cut to v2. The composition is adapted around their
+  absence rather than dragging the scope back in.
+
+### Open
+- **Content is not reconciled.** The prototype and the app have different
+  spells (*Deadline Ward*, *Still Life No. 11* vs *Deep Water Severance*),
+  different copy voice and a different Today IA. Which is canonical is
+  undecided, and it directly affects the spell-writing task.

@@ -7,10 +7,10 @@ import { TYPE } from "./fonts.js";
 export const modulesStyles = () => ({
   // ── Modules container ──────────────────────────
   modules: {
-    marginTop: 16,
+    marginTop: 26,
     display: "flex",
     flexDirection: "column",
-    gap: 12,
+    gap: 16,
     transition: "opacity 0.5s ease",
   },
   modulesMuted: { opacity: 0.25, pointerEvents: "none" },
@@ -18,10 +18,11 @@ export const modulesStyles = () => ({
   // shared module shell
   module: {
     width: "100%",
-    background: "var(--p-plate1)",
-    border: `1px solid var(--p-hair)`,
-    borderRadius: 16,
-    padding: "14px 16px",
+    background: "var(--p-glass)",
+    border: `1px solid var(--p-glassBorder)`,
+    borderRadius: 20,               // --r-xl, same as the folio
+    boxShadow: "var(--p-cardShadow)",
+    padding: "15px 18px",
     textAlign: "left",
     cursor: "pointer",
     fontFamily: TYPE.body,
@@ -30,22 +31,43 @@ export const modulesStyles = () => ({
   moduleHead: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 10,
+    alignItems: "baseline",
+    gap: 10,
+    marginBottom: 6,
   },
   moduleEyebrow: {
     fontFamily: TYPE.ui,
-    fontSize: 12,
-    letterSpacing: 1.5,
+    fontSize: 10,
+    letterSpacing: "0.22em",
     textTransform: "uppercase",
-    fontWeight: 700,
-    color: "var(--p-textSoft)",
+    fontWeight: 600,
+    color: "var(--p-text)",
+    opacity: 0.6,
+  },
+  // Module titles carry the display face at --t-h4. This is what stops the
+  // modules reading as a list of equal-weight rows.
+  moduleTitle: {
+    fontFamily: TYPE.display,
+    fontSize: 19,
+    fontWeight: 500,
+    color: "var(--p-text)",
+    lineHeight: 1.15,
+  },
+  moduleMeta: {
+    fontFamily: TYPE.body,
+    fontSize: 12,
+    color: "var(--p-text)",
+    opacity: 0.6,
+    marginTop: 3,
   },
   moduleLink: {
     fontFamily: TYPE.ui,
-    fontSize: 12,
-    color: "var(--p-litDeep)",
+    fontSize: 10,
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    color: "var(--p-accent)",
     fontWeight: 600,
+    whiteSpace: "nowrap",
   },
   moduleFree: {
     fontFamily: TYPE.ui,
@@ -122,9 +144,10 @@ export const modulesStyles = () => ({
   tarotGlyph: { fontSize: 30 },
   tarotName: {
     fontFamily: TYPE.display,
-    fontSize: 16,
+    fontSize: 19,
+    fontWeight: 500,
+    lineHeight: 1.15,
     color: "var(--p-text)",
-    fontWeight: 600,
   },
   tarotMeaning: {
     fontSize: 14,
@@ -144,9 +167,9 @@ export const modulesStyles = () => ({
   },
   undrawnText: {
     fontFamily: TYPE.display,
-    fontSize: 16,
-    color: "var(--p-text)",
+    fontSize: 19,
     fontWeight: 500,
+    color: "var(--p-text)",
   },
 
   // Community feed

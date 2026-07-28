@@ -45,12 +45,13 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
 
   return (
     <>
-      {/* Today header */}
+      {/* Today header — the display line dominates, everything else recedes */}
       <div style={S.todayHead}>
         <div style={S.headRow}>
           <div>
-            <div style={S.eyebrow}>Thursday · 18 June</div>
             <div style={S.todayTitle}>Today</div>
+            <div style={S.greeting}>Good evening, Axel.</div>
+            <div style={S.eyebrow}>Waning moon in Sagittarius · Mercury retrograde</div>
           </div>
           <button
             style={S.themeToggle}
@@ -79,28 +80,32 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
                 : {}),
             }}
           >
-            <div style={S.cardEyebrow}>{hero.eyebrow}</div>
-
             {step !== "casting" && step !== "done" && (
-              <div style={S.glyphWrap}>
-                <span style={{ ...S.glyph, color: accent }}>
-                  {hero.glyph}
-                </span>
-              </div>
+              <>
+                <div style={S.folioWell}>
+                  <span style={S.folioWellGlyph}>{hero.glyph}</span>
+                </div>
+                <div style={S.folioMetaRow}>
+                  <span style={S.cardEyebrow}>{hero.eyebrow}</span>
+                  <span style={S.folioLink}>Open the folio ›</span>
+                </div>
+              </>
             )}
 
-            <div style={S.cardTitle}>{hero.title}</div>
-            {step !== "done" && <div style={S.cardSub}>{hero.sub}</div>}
-            {step === "idle" && (
-              <div style={S.rationale}>{hero.rationale}</div>
-            )}
+            <div style={S.cardInner}>
+              <div style={S.cardTitle}>{hero.title}</div>
+              {step !== "done" && <div style={S.cardSub}>{hero.sub}</div>}
+              {step === "idle" && (
+                <div style={S.rationale}>{hero.rationale}</div>
+              )}
+            </div>
           </div>
 
           {/* ── FUNNEL ────────────────────────────── */}
           {step === "idle" && (
             // TAP 1 — select the pre-chosen hero
             <button style={S.castBtn} onClick={() => tap("pay")}>
-              <span>Cast tonight</span>
+              <span>Cast tonight · ${hero.price}</span>
             </button>
           )}
 

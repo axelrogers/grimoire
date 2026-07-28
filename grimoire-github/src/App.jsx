@@ -51,6 +51,10 @@ export default function App() {
       </div>
 
       <div style={S.phone}>
+        {/* Ambient glow, behind everything */}
+        <div style={S.glowA} />
+        <div style={S.glowB} />
+
         <div style={S.viewport}>
           {tab === "today" && (
             <TodayView
@@ -74,7 +78,7 @@ export default function App() {
             return (
               <button
                 key={t.id}
-                style={S.tabBtn}
+                style={{ ...S.tabBtn, ...(active ? S.tabBtnActive : {}) }}
                 onClick={() => setTab(t.id)}
               >
                 <span

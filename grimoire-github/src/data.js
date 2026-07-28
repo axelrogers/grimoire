@@ -117,11 +117,63 @@ export const CATEGORIES = [
   { id: "cleansing", label: "Cleansing", glyph: "≈" },
 ];
 
+// ── The spell body ──────────────────────────────────────────────────────
+// A cast is hybrid (DECISIONS.md, 2026-07-27): Grimoire performs the working
+// AND the caster gets their part. `performed` is Grimoire's half; materials /
+// rite / after / hold are the caster's. Full shape in docs/SPELL-SCHEMA.md §2.
+//
+// UNWRITTEN CONTENT IS MARKED ⟨like this⟩ and renders visibly as a gap. The
+// rites are Axel's to write — these are structural slots, not drafts. Nothing
+// with a ⟨slot⟩ left in it should reach a paying caster; `unwrittenSlots()`
+// below counts them so that can be enforced rather than remembered.
+export const isSlot = (v) => typeof v === "string" && v.startsWith("⟨");
+export const hasBody = (s) => Array.isArray(s?.rite) && s.rite.length > 0;
+
+export function unwrittenSlots(spell) {
+  const found = [];
+  const walk = (v, path) => {
+    if (isSlot(v)) found.push(path);
+    else if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${path}[${i}]`));
+    else if (v && typeof v === "object")
+      Object.entries(v).forEach(([k, x]) => walk(x, path ? `${path}.${k}` : k));
+  };
+  walk(spell, "");
+  return found;
+}
+
 export const CATALOGUE = [
   { id: "s1", cat: "severance", title: "Deep Water Severance", sub: "Cut a tie that's outlived its season", price: 14, rate: 94, glyph: "☽" },
   { id: "s2", cat: "divination", title: "Still Water Reflection", sub: "A scrying rite for what's surfacing", price: 12, rate: 91, glyph: "◉" },
   { id: "s3", cat: "prosperity", title: "Rent Money Coming In", sub: "A fast prosperity draw", price: 9, rate: 89, glyph: "✦" },
-  { id: "s4", cat: "protection", title: "Salt Line at the Threshold", sub: "Ward the door against what's unwanted", price: 11, rate: 96, glyph: "⊕" },
+  // s4 is the reference spell — the first built out to the full shape.
+  // The other eleven are still title-only and render the short success state.
+  {
+    id: "s4", cat: "protection", title: "Salt Line at the Threshold",
+    sub: "Ward the door against what's unwanted", price: 11, rate: 96, glyph: "⊕",
+
+    premise: "⟨premise — 2–3 sentences, what the working does⟩",
+
+    timing: { window: "after dark", moon: ["waning", "dark"], urgency: "same night" },
+
+    materials: [
+      { item: "Coarse salt", note: "Sea or rock. Not table salt.", optional: false },
+      { item: "⟨second material⟩", note: "⟨note⟩", optional: false },
+    ],
+    preparation: "⟨preparation — or delete this line⟩",
+    rite: [
+      { step: 1, text: "⟨step 1⟩" },
+      { step: 2, text: "⟨step 2⟩", spoken: "⟨the line said aloud⟩" },
+      { step: 3, text: "⟨step 3⟩" },
+    ],
+    after: "⟨what to do with what's left⟩",
+    hold: "⟨hold — what keeps them with the working until the verdict⟩",
+
+    performed: { at: "the moment of casting", text: "⟨what Grimoire does on their behalf⟩" },
+
+    verdict: { askAfter: "P3D", prompt: "⟨verdict prompt — specific, not 'did it work?'⟩" },
+
+    authored: { by: "Grimoire", rank: null },
+  },
   { id: "s5", cat: "cleansing", title: "Smoke & Running Water", sub: "Clear a space that's gone heavy", price: 8, rate: 92, glyph: "≈" },
   { id: "s6", cat: "healing", title: "Mend the Quiet Ache", sub: "Slow healing for a long grief", price: 13, rate: 88, glyph: "❋" },
   { id: "s7", cat: "protection", title: "Mirror Turned Outward", sub: "Return ill intent to its sender", price: 15, rate: 93, glyph: "⊕" },

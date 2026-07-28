@@ -3,6 +3,34 @@
 Newest session first. Each checkpoint appends a dated entry: what changed,
 what's in flight, and anything the next session needs to know.
 
+## 2026-07-28 — Session 3 (cont.)
+
+**Built the vessel for spell content.** `SuccessState` used to say "X is in
+motion, let it work" — pure model B, the service reading Axel rejected. It now
+delivers the caster's half of the hybrid: what Grimoire did, what to gather,
+the numbered rite with the spoken line set apart, what to do after, the hold,
+and when the verdict fires. Spells with no body fall back to the short form,
+so the other eleven are unaffected.
+
+**Unwritten content is visible, not hidden.** Any string starting with `⟨`
+renders as a dashed oxblood chip in the running app. `unwrittenSlots(spell)`
+in `data.js` counts them so a launch check can enforce "no slots in a paid
+spell" rather than relying on memory. Claude did not draft any rite text —
+the slots are structural.
+
+**Found a real bug the moment content got longer.** The cast sheet had no
+`maxHeight` or `overflowY`. With a four-line success state that never showed;
+with a full rite the sheet grew to 1044px inside a 932px frame and — because
+the scrim aligns to flex-end — overflowed off the *top*, silently clipping the
+title, glyph and Grimoire's part with no way to scroll to them. Fixed and
+verified by measurement: sheet now 914px, scrollable, both ends reachable.
+
+**Re-verified the theme split properly.** The earlier check passed a boolean
+where a palette belongs, so it never exercised any colour-dependent code. Redone
+against the pre-split `theme.js` with real palettes: all 144 original keys
+identical in both modes, 23 additions from this session, nothing removed or
+changed. Lint is unchanged at the 6 pre-existing errors.
+
 ## 2026-07-27 — Session 3
 
 **Killed the browser-upload workflow.** Every change used to ship by hand

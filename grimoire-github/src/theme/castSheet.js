@@ -22,6 +22,14 @@ export const castSheetStyles = (C) => ({
     boxShadow: "0 -12px 40px rgba(0,0,0,0.25)",
     transition: "background 0.5s ease",
     animation: "sheetUp 0.32s cubic-bezier(.2,.7,.2,1) both",
+    // The sheet must be able to scroll. Once a cast delivers a full rite the
+    // content exceeds the frame, and because the scrim aligns to flex-end the
+    // overflow runs off the TOP — silently clipping the title and Grimoire's
+    // part with no way to reach them. Cheap style, real bug.
+    maxHeight: "calc(100% - 18px)",
+    overflowY: "auto",
+    overscrollBehavior: "contain",
+    WebkitOverflowScrolling: "touch",
   },
   sheetGrip: {
     width: 38,

@@ -7,10 +7,11 @@ authored spells, cast → hold → verdict, history that survives refresh, rank
 from real casts. Marketplace / feed / subscriptions are v2.
 
 ## Next
-- [ ] Build **Salt Line at the Threshold** out completely as the reference
-      spell (full schema, real content — Axel writes the rite).
-- [ ] Render the payload in `SuccessState` / `CastSheet` so a cast delivers
-      something. This is the prototype → product change.
+- [ ] **Write Salt Line at the Threshold.** The vessel is built and renders;
+      every unwritten field shows as a ⟨slot⟩ in the running app. ~400 words,
+      Axel's voice. Template issued 2026-07-28. `unwrittenSlots(spell)` in
+      `data.js` counts what's left — wire it into a launch check so no spell
+      with slots can ship to a paying caster.
 - [ ] Write the remaining eleven spells against the reference template.
 - [ ] **The app is off the design system.** `DESIGN.md` + `tokens.css` were
       found in `axelrogers/grimoire-prototype` (a second repo — design
@@ -42,6 +43,14 @@ from real casts. Marketplace / feed / subscriptions are v2.
       cast animation timing.
 
 ## Done
+- [x] Render the cast payload in `SuccessState` — a cast now delivers the
+      caster's part instead of "it's in motion". The prototype → product
+      change. (2026-07-28)
+- [x] Extend the catalogue to the §2 schema for the reference spell, with
+      unwritten content marked as visible ⟨slots⟩. (2026-07-28)
+- [x] Fix the cast sheet clipping its own contents — no `maxHeight`/
+      `overflowY`, so a full rite overflowed off the *top* of the phone with
+      no way to scroll back. (2026-07-28)
 - [x] **Get off browser-upload.** `scripts/gitsync.sh` pushes from the
       workspace; build-gated; token never touches disk. See
       `docs/WORKFLOW.md`. (2026-07-27)

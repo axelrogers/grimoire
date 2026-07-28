@@ -50,5 +50,132 @@ export const castingStyles = (C) => ({
     color: C.inkSoft,
     marginTop: 10,
     animation: "fadeUp 0.6s ease both",
-  }
+  },
+
+  // ── The delivered working (hybrid model) ──────────────
+  // Everything below is left-aligned: the success state's centred kicker is a
+  // moment, but the rite is something you read while holding a handful of
+  // salt. Centred body copy would be unusable at the exact instant it matters.
+
+  // An unwritten slot. Deliberately conspicuous — writing debt should be
+  // impossible to miss in the running app, not just in the repo.
+  slot: {
+    display: "inline-block",
+    fontFamily: "ui-monospace, monospace",
+    fontSize: 12,
+    color: C.oxblood,
+    background: C.parchmentDeep,
+    border: `1px dashed ${C.oxblood}`,
+    borderRadius: 5,
+    padding: "1px 6px",
+    opacity: 0.85,
+  },
+
+  // Grimoire's half of the working.
+  performed: {
+    textAlign: "left",
+    borderLeft: "2px solid",
+    padding: "8px 0 8px 12px",
+    margin: "14px 4px 4px",
+  },
+  performedLabel: {
+    fontFamily: "system-ui",
+    fontSize: 10,
+    letterSpacing: 2,
+    textTransform: "uppercase",
+    color: C.inkSoft,
+    marginBottom: 4,
+  },
+  performedText: { fontSize: 14.5, color: C.ink, lineHeight: 1.55 },
+
+  partLabel: {
+    fontFamily: "system-ui",
+    fontSize: 10,
+    letterSpacing: 3,
+    textTransform: "uppercase",
+    color: C.inkSoft,
+    textAlign: "left",
+    margin: "22px 4px 2px",
+    paddingTop: 14,
+    borderTop: `1px solid ${C.hair}`,
+  },
+
+  block: { textAlign: "left", margin: "14px 4px 0" },
+  blockHead: {
+    fontFamily: "'Cinzel', serif",
+    fontSize: 15,
+    fontWeight: 600,
+    color: C.ink,
+    marginBottom: 6,
+  },
+  blockBody: { fontSize: 14.5, color: C.ink, lineHeight: 1.6 },
+
+  matList: { listStyle: "none", padding: 0, margin: 0 },
+  matItem: {
+    display: "flex",
+    flexDirection: "column",
+    padding: "6px 0",
+    borderBottom: `1px solid ${C.hair}`,
+  },
+  matName: { fontSize: 14.5, color: C.ink },
+  matOpt: { fontSize: 12, color: C.inkSoft, fontStyle: "italic" },
+  matNote: { fontSize: 12.5, color: C.inkSoft, marginTop: 2, lineHeight: 1.45 },
+
+  riteStep: { display: "flex", gap: 10, alignItems: "flex-start", padding: "7px 0" },
+  riteNum: {
+    flex: "0 0 auto",
+    width: 22,
+    height: 22,
+    borderRadius: "50%",
+    border: "1px solid",
+    fontFamily: "system-ui",
+    fontSize: 11.5,
+    fontWeight: 700,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 1,
+  },
+  riteBody: { flex: 1 },
+  riteText: { fontSize: 14.5, color: C.ink, lineHeight: 1.6 },
+  // The said line. Set apart because it's spoken aloud, not read past.
+  spoken: {
+    fontStyle: "italic",
+    fontSize: 15,
+    color: C.ink,
+    borderLeft: "2px solid",
+    padding: "3px 0 3px 10px",
+    margin: "7px 0 2px",
+    lineHeight: 1.5,
+  },
+
+  // The window they hold between casting and verdict.
+  hold: {
+    textAlign: "left",
+    border: "1px solid",
+    borderRadius: 10,
+    padding: "11px 13px",
+    margin: "18px 4px 0",
+    // parchmentDeep is the raised-surface token in both palettes, so this
+    // needs no day/night branch — it's correct by construction.
+    background: C.parchmentDeep,
+  },
+  holdLabel: {
+    fontFamily: "system-ui",
+    fontSize: 10,
+    letterSpacing: 2.5,
+    textTransform: "uppercase",
+    color: C.inkSoft,
+    marginBottom: 4,
+  },
+  holdText: { fontSize: 14.5, color: C.ink, lineHeight: 1.55 },
+
+  verdictNote: {
+    textAlign: "left",
+    fontSize: 13,
+    color: C.inkSoft,
+    margin: "16px 4px 20px",
+    lineHeight: 1.55,
+  },
+  verdictQ: { fontStyle: "italic", color: C.ink },
 });

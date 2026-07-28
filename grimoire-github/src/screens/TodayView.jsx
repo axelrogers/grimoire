@@ -30,7 +30,7 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
     hasTransits: true,
   });
   const hero = HEROES[strategy];
-  const accent = C[hero.accentKey]; // resolve accent against active theme
+  const accent = "var(--p-accent)"; // one accent per palette (DESIGN.md §1)
 
   const tap = (next) => {
     setTaps((t) => t + 1);
@@ -151,21 +151,21 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
             ...(step === "idle" || step === "done" ? {} : S.modulesMuted),
           }}
         >
-        <PersonalStrip C={C} S={S} accent={accent} />
-        <DailyCard C={C} S={S} />
-        <CommunityPeek C={C} S={S} />
-        <FeaturedStrip C={C} S={S} />
+        <PersonalStrip S={S} />
+        <DailyCard S={S} />
+        <CommunityPeek S={S} />
+        <FeaturedStrip S={S} />
       </div>
     </>
   );
 }
 
 // ── PERSONAL STRIP ── rank progress + Grimoins, a thin glanceable bar.
-function PersonalStrip({ C, S, accent }) {
+function PersonalStrip({ S }) {
   return (
     <button style={S.strip}>
       <div style={S.stripRank}>
-        <span style={{ ...S.stripNumeral, color: C.gold }}>
+        <span style={{ ...S.stripNumeral, color: "var(--p-accent)" }}>
           {PROFILE.rankNumeral}
         </span>
         <div style={S.stripRankText}>
@@ -175,7 +175,7 @@ function PersonalStrip({ C, S, accent }) {
               style={{
                 ...S.stripProgressFill,
                 width: `${Math.round(PROFILE.progress * 100)}%`,
-                background: C.gold,
+                background: "var(--p-accent)",
               }}
             />
           </div>
@@ -185,7 +185,7 @@ function PersonalStrip({ C, S, accent }) {
         </div>
       </div>
       <div style={S.stripCoins}>
-        <span style={{ ...S.coinGlyph, color: C.gold }}>◉</span>
+        <span style={{ ...S.coinGlyph, color: "var(--p-accent)" }}>◉</span>
         <span style={S.coinAmount}>{PROFILE.grimoins}</span>
       </div>
     </button>
@@ -193,7 +193,7 @@ function PersonalStrip({ C, S, accent }) {
 }
 
 // ── DAILY CARD ── the free daily ritual draw. No Grimoins cost.
-function DailyCard({ C, S }) {
+function DailyCard({ S }) {
   return (
     <button style={S.module}>
       <div style={S.moduleHead}>
@@ -202,7 +202,7 @@ function DailyCard({ C, S }) {
       </div>
       {DAILY_CARD.drawn ? (
         <div style={S.cardDrawn}>
-          <span style={{ ...S.tarotGlyph, color: C.gold }}>✦</span>
+          <span style={{ ...S.tarotGlyph, color: "var(--p-accent)" }}>✦</span>
           <div>
             <div style={S.tarotName}>{DAILY_CARD.name}</div>
             <div style={S.tarotMeaning}>{DAILY_CARD.meaning}</div>
@@ -210,8 +210,8 @@ function DailyCard({ C, S }) {
         </div>
       ) : (
         <div style={S.cardUndrawn}>
-          <div style={{ ...S.cardBack, borderColor: C.gold }}>
-            <span style={{ color: C.gold }}>✦</span>
+          <div style={{ ...S.cardBack, borderColor: "var(--p-accent)" }}>
+            <span style={{ color: "var(--p-accent)" }}>✦</span>
           </div>
           <div style={S.undrawnText}>Pull today's card</div>
         </div>
@@ -221,7 +221,7 @@ function DailyCard({ C, S }) {
 }
 
 // ── COMMUNITY PEEK ── three recent acts; taps through to the full feed.
-function CommunityPeek({ C, S }) {
+function CommunityPeek({ S }) {
   return (
     <div style={S.module}>
       <div style={S.moduleHead}>
@@ -231,7 +231,7 @@ function CommunityPeek({ C, S }) {
       <div style={S.feedList}>
         {COMMUNITY.map((item, i) => (
           <div key={i} style={S.feedRow}>
-            <span style={{ ...S.feedDot, background: C.sage }} />
+            <span style={{ ...S.feedDot, background: "var(--p-accent)" }} />
             <span style={S.feedText}>
               <strong style={S.feedWho}>{item.who}</strong> {item.did}
             </span>
@@ -244,7 +244,7 @@ function CommunityPeek({ C, S }) {
 }
 
 // ── FEATURED STRIP ── trusted practitioners; taps through to Browse.
-function FeaturedStrip({ C, S }) {
+function FeaturedStrip({ S }) {
   return (
     <div style={S.module}>
       <div style={S.moduleHead}>
@@ -254,10 +254,10 @@ function FeaturedStrip({ C, S }) {
       <div style={S.featRow}>
         {FEATURED.map((p, i) => (
           <button key={i} style={S.featCard}>
-            <span style={{ ...S.featGlyph, color: C.gold }}>{p.glyph}</span>
+            <span style={{ ...S.featGlyph, color: "var(--p-accent)" }}>{p.glyph}</span>
             <div style={S.featName}>{p.name}</div>
             <div style={S.featCraft}>{p.craft}</div>
-            <div style={{ ...S.featRate, color: C.sage }}>{p.rate}% worked</div>
+            <div style={{ ...S.featRate, color: "var(--p-accent)" }}>{p.rate}% worked</div>
           </button>
         ))}
       </div>

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { CATEGORIES, catAccent } from "../data.js";
+import { CATEGORIES } from "../data.js";
 import { ApplePaySheet, CastingBeat, SuccessState } from "./CastFunnel.jsx";
 
 // ── CAST SHEET ── opened from Browse. Runs the identical three-tap cast:
 // Cast → Apple Pay → Cast now → held beat → success. Same promise everywhere.
 export default function CastSheet({ spell, C, S, onClose }) {
-  const accent = C[catAccent(spell.cat)];
+  const accent = "var(--p-accent)";
   const [step, setStep] = useState("idle");
   const [phase, setPhase] = useState(null);
   const [taps, setTaps] = useState(0);
@@ -93,7 +93,7 @@ export default function CastSheet({ spell, C, S, onClose }) {
               glyph={spell.glyph}
               S={S}
               glow={C.glow}
-              mode={C.bgFrame === "#08060B" ? "night" : "day"}
+              mode={C.night ? "night" : "day"}
             />
           )}
           {step === "done" && (

@@ -3,6 +3,32 @@
 Newest session first. Each checkpoint appends a dated entry: what changed,
 what's in flight, and anything the next session needs to know.
 
+## 2026-07-28 — Session 3 (design system)
+
+**Retrofitted the design system**, reversing the "ship first, align later"
+call — Axel's read was that the aesthetic was too far off to keep building on.
+`DESIGN.md` and `tokens.css` are now in the repo, and colour flows through the
+`--p-*`/`--g-*` token layer ported verbatim from the prototype's
+`applyTheme()`. `palettes.js` is the only file holding raw hex. Two palettes
+(amber, amethyst) × two modes, all four verified end to end.
+
+**Cinzel and Crimson Pro are gone** — EB Garamond, Source Serif 4, Instrument
+Sans and Martian Mono in their place. Italics removed app-wide per rule 2.
+197 palette references and 41 font sizes rewritten.
+
+**Two bugs the mechanical sweep introduced, both caught before pushing:**
+`CastSheet` detected night mode by comparing a hex string that the sweep had
+turned into `"var(--p-desk)"`, so the condition was permanently false and the
+casting beat silently lost its glow. And stripping the now-unused `C` prop
+from `BrowseView`/`CovenView` broke the `CastSheet` they render — lint caught
+`'C' is not defined` where the build did not, since Vite doesn't type-check.
+
+**What I could not verify here:** the sandbox proxy blocks
+`fonts.googleapis.com`, so Chromium falls back to Times New Roman in my
+screenshots. The font *loading* is wired and the families are correct in the
+CSS, but how the real typefaces look is unverified — that needs a browser
+outside this container.
+
 ## 2026-07-28 — Session 3 (cont.)
 
 **Built the vessel for spell content.** `SuccessState` used to say "X is in

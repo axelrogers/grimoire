@@ -11,7 +11,7 @@ import { castSheetStyles } from "./castSheet.js";
 import { covenStyles } from "./coven.js";
 import { youStyles } from "./you.js";
 
-export const makeStyles = (C, mode = "day") => {
+export const makeStyles = (mode = "day") => {
   // The Apple Pay sheet is system UI — it renders dark in dark mode.
   const n = mode === "night";
   const sheet = {
@@ -26,12 +26,12 @@ export const makeStyles = (C, mode = "day") => {
     hint: n ? "#7C7C82" : "#999",
   };
   return {
-    ...shellStyles(C, sheet),
-    ...castingStyles(C),
-    ...modulesStyles(C),
-    ...browseStyles(C),
-    ...castSheetStyles(C),
-    ...covenStyles(C),
-    ...youStyles(C),
+    ...shellStyles(sheet),
+    ...castingStyles(),
+    ...modulesStyles(),
+    ...browseStyles(),
+    ...castSheetStyles(),
+    ...covenStyles(),
+    ...youStyles(),
   };
 };

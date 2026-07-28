@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CATEGORIES, CATALOGUE, catAccent } from "../data.js";
+import { CATEGORIES, CATALOGUE } from "../data.js";
 import CastSheet from "../components/CastSheet.jsx";
 
 // ── BROWSE ── search, category chips, filtered grid. Tapping a spell opens
@@ -45,12 +45,12 @@ export default function BrowseView({ C, S }) {
               style={{
                 ...S.chip,
                 ...(active
-                  ? { background: C.ink, color: C.parchment, borderColor: C.ink }
+                  ? { background: "var(--p-text)", color: "var(--p-ground)", borderColor: "var(--p-text)" }
                   : {}),
               }}
               onClick={() => setCat(c.id)}
             >
-              <span style={{ ...S.chipGlyph, color: active ? C.gold : C.goldDeep }}>
+              <span style={{ ...S.chipGlyph, color: active ? "var(--p-accent)" : "var(--p-litDeep)" }}>
                 {c.glyph}
               </span>
               {c.label}
@@ -62,20 +62,20 @@ export default function BrowseView({ C, S }) {
       {/* Grid */}
       {results.length === 0 ? (
         <div style={S.emptyState}>
-          <div style={{ ...S.emptyGlyph, color: C.goldDeep }}>☽</div>
+          <div style={{ ...S.emptyGlyph, color: "var(--p-litDeep)" }}>☽</div>
           <div style={S.emptyText}>No spells here yet. Try another category.</div>
         </div>
       ) : (
         <div style={S.grid}>
           {results.map((s) => (
             <button key={s.id} style={S.gridCard} onClick={() => setOpen(s)}>
-              <span style={{ ...S.gridGlyph, color: C[catAccent(s.cat)] }}>
+              <span style={{ ...S.gridGlyph, color: "var(--p-accent)" }}>
                 {s.glyph}
               </span>
               <div style={S.gridTitle}>{s.title}</div>
               <div style={S.gridSub}>{s.sub}</div>
               <div style={S.gridFoot}>
-                <span style={{ ...S.gridRate, color: C.sage }}>
+                <span style={{ ...S.gridRate, color: "var(--p-accent)" }}>
                   {s.rate}% worked
                 </span>
                 <span style={S.gridPrice}>${s.price}</span>

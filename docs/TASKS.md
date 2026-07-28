@@ -13,23 +13,13 @@ from real casts. Marketplace / feed / subscriptions are v2.
       `data.js` counts what's left — wire it into a launch check so no spell
       with slots can ship to a paying caster.
 - [ ] Write the remaining eleven spells against the reference template.
-- [ ] **The app is off the design system.** `DESIGN.md` + `tokens.css` were
-      found in `axelrogers/grimoire-prototype` (a second repo — design
-      artifacts, HTML prototypes, logo assets). DESIGN.md is dated July 2026
-      and calls itself "the source of truth for all visual work — prototype
-      iterations and the app rebuild", so **the code is the stale record, not
-      the docs**. Specifically:
-      - System: EB Garamond (display) / Source Serif 4 (body, upright) /
-        Instrument Sans (UI) / Martian Mono (numerals); Cinzel Decorative is
-        **brand/wordmark only, never UI copy**.
-      - App loads: Cinzel + Crimson Pro only — and uses Cinzel throughout the
-        UI, which the system explicitly forbids.
-      - Also unimplemented: the amber/amethyst palette axis, the semantic
-        `--p-*` / `--g-*` token layer, the 12-step type scale.
-      Decide the size of this: retrofit the token layer now, or ship the
-      practice log on the current look and align after. Not a small job.
-- [ ] Bring `DESIGN.md` + `tokens.css` into the app repo (or a shared
-      location) so the design system and the code can't drift again.
+- [ ] **Verdict colour has no token.** Collapsing to one accent means
+      "worked" and "not yet answered" render identically on cast history and
+      the verdict buttons. The trust mechanic is binary and the system has no
+      colour for it — needs a decision (see DECISIONS.md).
+- [ ] **Eyeball the type-scale snap.** 41 font sizes moved onto the 12-step
+      scale; visual rhythm changed and wants a human look, especially the
+      casting glyph (58→68).
 - [ ] Decide on `rate`: derive from real verdicts or hide it. Hardcoded
       success rates are a fabricated trust signal at launch.
 
@@ -43,6 +33,9 @@ from real casts. Marketplace / feed / subscriptions are v2.
       cast animation timing.
 
 ## Done
+- [x] **Retrofit the design system.** Tokens, two palettes × two modes, the
+      four real typefaces, italics removed, type scale snapped. (2026-07-28)
+- [x] Bring `DESIGN.md` + `tokens.css` into the app repo. (2026-07-28)
 - [x] Render the cast payload in `SuccessState` — a cast now delivers the
       caster's part instead of "it's in motion". The prototype → product
       change. (2026-07-28)

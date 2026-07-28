@@ -1,9 +1,10 @@
+import { TYPE } from "./fonts.js";
 // ─── Grimoire · casting styles ─────────────────────────────────────────────
 // Casting card, held beat, rings, success state.
 // Receives the active palette (C) — plus the system-sheet palette where the
 // surface needs it. Returns a flat slice of the composed style object.
 
-export const castingStyles = (C) => ({
+export const castingStyles = () => ({
   // ── Casting card + held beat ──────────────────────────
   cardBody: { transition: "opacity 0.7s ease" },
   cardBodyMuted: { opacity: 0.32 },
@@ -23,7 +24,7 @@ export const castingStyles = (C) => ({
     justifyContent: "center",
   },
   beatGlyph: {
-    fontSize: 58,
+    fontSize: 68,
     lineHeight: 1,
     position: "relative",
     zIndex: 2,
@@ -43,11 +44,11 @@ export const castingStyles = (C) => ({
   ringSend: { animation: "ringOut 1.3s ease-out forwards" },
   ringSend2: { animation: "ringOut 1.3s ease-out 0.15s forwards" },
   beatWord: {
-    fontFamily: "system-ui",
+    fontFamily: TYPE.ui,
     fontSize: 12,
     letterSpacing: 3,
     textTransform: "uppercase",
-    color: C.inkSoft,
+    color: "var(--p-textSoft)",
     marginTop: 10,
     animation: "fadeUp 0.6s ease both",
   },
@@ -61,11 +62,11 @@ export const castingStyles = (C) => ({
   // impossible to miss in the running app, not just in the repo.
   slot: {
     display: "inline-block",
-    fontFamily: "ui-monospace, monospace",
+    fontFamily: TYPE.mono,
     fontSize: 12,
-    color: C.oxblood,
-    background: C.parchmentDeep,
-    border: `1px dashed ${C.oxblood}`,
+    color: "var(--p-accent)",
+    background: "var(--p-plate1)",
+    border: `1px dashed var(--p-accent)`,
     borderRadius: 5,
     padding: "1px 6px",
     opacity: 0.85,
@@ -79,47 +80,47 @@ export const castingStyles = (C) => ({
     margin: "14px 4px 4px",
   },
   performedLabel: {
-    fontFamily: "system-ui",
+    fontFamily: TYPE.ui,
     fontSize: 10,
     letterSpacing: 2,
     textTransform: "uppercase",
-    color: C.inkSoft,
+    color: "var(--p-textSoft)",
     marginBottom: 4,
   },
-  performedText: { fontSize: 14.5, color: C.ink, lineHeight: 1.55 },
+  performedText: { fontSize: 14, color: "var(--p-text)", lineHeight: 1.55 },
 
   partLabel: {
-    fontFamily: "system-ui",
+    fontFamily: TYPE.ui,
     fontSize: 10,
     letterSpacing: 3,
     textTransform: "uppercase",
-    color: C.inkSoft,
+    color: "var(--p-textSoft)",
     textAlign: "left",
     margin: "22px 4px 2px",
     paddingTop: 14,
-    borderTop: `1px solid ${C.hair}`,
+    borderTop: `1px solid var(--p-hair)`,
   },
 
   block: { textAlign: "left", margin: "14px 4px 0" },
   blockHead: {
-    fontFamily: "'Cinzel', serif",
-    fontSize: 15,
+    fontFamily: TYPE.display,
+    fontSize: 16,
     fontWeight: 600,
-    color: C.ink,
+    color: "var(--p-text)",
     marginBottom: 6,
   },
-  blockBody: { fontSize: 14.5, color: C.ink, lineHeight: 1.6 },
+  blockBody: { fontSize: 14, color: "var(--p-text)", lineHeight: 1.6 },
 
   matList: { listStyle: "none", padding: 0, margin: 0 },
   matItem: {
     display: "flex",
     flexDirection: "column",
     padding: "6px 0",
-    borderBottom: `1px solid ${C.hair}`,
+    borderBottom: `1px solid var(--p-hair)`,
   },
-  matName: { fontSize: 14.5, color: C.ink },
-  matOpt: { fontSize: 12, color: C.inkSoft, fontStyle: "italic" },
-  matNote: { fontSize: 12.5, color: C.inkSoft, marginTop: 2, lineHeight: 1.45 },
+  matName: { fontSize: 14, color: "var(--p-text)" },
+  matOpt: { fontSize: 12, color: "var(--p-textSoft)" },
+  matNote: { fontSize: 12, color: "var(--p-textSoft)", marginTop: 2, lineHeight: 1.45 },
 
   riteStep: { display: "flex", gap: 10, alignItems: "flex-start", padding: "7px 0" },
   riteNum: {
@@ -128,8 +129,8 @@ export const castingStyles = (C) => ({
     height: 22,
     borderRadius: "50%",
     border: "1px solid",
-    fontFamily: "system-ui",
-    fontSize: 11.5,
+    fontFamily: TYPE.ui,
+    fontSize: 12,
     fontWeight: 700,
     display: "flex",
     alignItems: "center",
@@ -137,12 +138,11 @@ export const castingStyles = (C) => ({
     marginTop: 1,
   },
   riteBody: { flex: 1 },
-  riteText: { fontSize: 14.5, color: C.ink, lineHeight: 1.6 },
+  riteText: { fontSize: 14, color: "var(--p-text)", lineHeight: 1.6 },
   // The said line. Set apart because it's spoken aloud, not read past.
   spoken: {
-    fontStyle: "italic",
-    fontSize: 15,
-    color: C.ink,
+    fontSize: 16,
+    color: "var(--p-text)",
     borderLeft: "2px solid",
     padding: "3px 0 3px 10px",
     margin: "7px 0 2px",
@@ -158,24 +158,24 @@ export const castingStyles = (C) => ({
     margin: "18px 4px 0",
     // parchmentDeep is the raised-surface token in both palettes, so this
     // needs no day/night branch — it's correct by construction.
-    background: C.parchmentDeep,
+    background: "var(--p-plate1)",
   },
   holdLabel: {
-    fontFamily: "system-ui",
+    fontFamily: TYPE.ui,
     fontSize: 10,
     letterSpacing: 2.5,
     textTransform: "uppercase",
-    color: C.inkSoft,
+    color: "var(--p-textSoft)",
     marginBottom: 4,
   },
-  holdText: { fontSize: 14.5, color: C.ink, lineHeight: 1.55 },
+  holdText: { fontSize: 14, color: "var(--p-text)", lineHeight: 1.55 },
 
   verdictNote: {
     textAlign: "left",
-    fontSize: 13,
-    color: C.inkSoft,
+    fontSize: 14,
+    color: "var(--p-textSoft)",
     margin: "16px 4px 20px",
     lineHeight: 1.55,
   },
-  verdictQ: { fontStyle: "italic", color: C.ink },
+  verdictQ: { color: "var(--p-text)" },
 });

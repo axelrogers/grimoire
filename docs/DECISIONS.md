@@ -88,6 +88,53 @@ Architecture and key choices, with the "why", so settled ground isn't relitigate
 - **`docs/` lives in the repo.** Project memory is versioned with the code it
   describes, so the two can't drift the way the harness and the repo did.
 
+## 2026-07-28 — design system
+
+- **Retrofit the design system now, before spell content.** Reverses the
+  27 July "ship the practice log first, align after" call. Axel's read: the
+  aesthetic was too far from finished to keep building on. Doing it first
+  means everything written afterwards lands correct instead of needing a
+  second pass.
+
+- **One accent per palette; `catAccent()` is gone.** DESIGN.md §1 defines
+  accent at the palette level (amber `#A97E3F`, amethyst `#7B5AA6`). The app
+  had per-category accents — gold/oxblood/sage by spell category. Those two
+  models can't both hold, and the system wins. Cost, accepted knowingly: a
+  severance spell and a prosperity spell now look identical.
+
+- **Cinzel and Crimson Pro are gone.** They predated DESIGN.md. The app now
+  loads EB Garamond (display), Source Serif 4 (body, upright), Instrument
+  Sans (UI) and Martian Mono (numerals). Cinzel Decorative is defined as the
+  brand face but deliberately NOT loaded — no wordmark component exists yet,
+  and loading a decorative face nobody renders is pure download cost.
+
+- **Italics removed app-wide** (DESIGN.md rule 2). Nine uses, including the
+  spoken-line style added earlier the same day.
+
+- **Font sizes snapped to the 12-step scale.** Thirty distinct sizes became
+  eleven on-scale ones; 41 individual values moved (e.g. 14.5→14, 15→16,
+  58→68). This changes visual rhythm and wants Axel's eye.
+
+- **Colour lives in tokens, not in components.** `tokensFor(palette, mode)`
+  emits the `--p-*`/`--g-*` map ported verbatim from the prototype's
+  `applyTheme()`; the app sets it on its own frame rather than `:root`, so
+  the system is scoped to the subtree and two palettes could be rendered
+  side by side. `palettes.js` is the only file allowed raw hex.
+
+### Open — system-change proposals, not silent exceptions (DESIGN.md rule 4)
+
+- **`--p-textSoft` / `--p-textFaint` were added.** The system has one text
+  token and mutes secondary copy with `opacity`, but inline React styles
+  apply opacity to an element *and its children*, so that technique breaks on
+  any non-leaf node. These express the same intent as colour, at the
+  opacities the prototype actually uses. If accepted, they belong in
+  DESIGN.md.
+- **There is no verdict colour.** `C.sage` was carrying real meaning —
+  "worked" on cast history, the affirmative verdict button, success rates.
+  Collapsing to one accent means worked and not-yet-answered now render
+  identically. The product's core mechanic is a binary verdict and the design
+  system has no token for it. Needs Axel.
+
 ## Critical path to 18 September
 1. **Spell content** — ~5000 words across twelve spells, Axel writing.
    Reference spell (Salt Line at the Threshold) first; template issued

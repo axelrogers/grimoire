@@ -3,7 +3,7 @@
 // Receives the active palette (C) — plus the system-sheet palette where the
 // surface needs it. Returns a flat slice of the composed style object.
 
-export const castSheetStyles = (C) => ({
+export const castSheetStyles = () => ({
   // ── Cast sheet (Browse → cast) ──────────────────
   sheetScrim: {
     position: "absolute",
@@ -16,7 +16,7 @@ export const castSheetStyles = (C) => ({
   },
   sheet: {
     width: "100%",
-    background: C.parchment,
+    background: "var(--p-ground)",
     borderRadius: "22px 22px 28px 28px",
     padding: "10px 18px 24px",
     boxShadow: "0 -12px 40px rgba(0,0,0,0.25)",
@@ -35,7 +35,7 @@ export const castSheetStyles = (C) => ({
     width: 38,
     height: 4,
     borderRadius: 4,
-    background: C.hair,
+    background: "var(--p-hair)",
     margin: "0 auto 8px",
   }
 });

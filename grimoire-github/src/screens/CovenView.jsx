@@ -51,18 +51,18 @@ export default function CovenView({ C, S }) {
       <div style={S.covenList}>
         {COVEN.map((p) => (
           <div key={p.id} style={S.covenRow}>
-            <span style={{ ...S.covenGlyph, color: C.gold }}>{p.glyph}</span>
+            <span style={{ ...S.covenGlyph, color: "var(--p-accent)" }}>{p.glyph}</span>
             <div style={S.covenMid}>
               <div style={S.covenNameRow}>
                 <span style={S.covenName}>{p.name}</span>
                 {p.practitioner && (
-                  <span style={{ ...S.covenBadge, color: C.sage, borderColor: C.hair }}>
+                  <span style={{ ...S.covenBadge, color: "var(--p-accent)", borderColor: "var(--p-hair)" }}>
                     {p.rate}%
                   </span>
                 )}
               </div>
               <div style={S.covenLast}>
-                <span style={{ ...S.covenNumeral, color: C.goldDeep }}>
+                <span style={{ ...S.covenNumeral, color: "var(--p-litDeep)" }}>
                   {p.numeral}
                 </span>{" "}
                 {p.practitioner ? p.craft : p.last} · {p.when}
@@ -70,13 +70,13 @@ export default function CovenView({ C, S }) {
             </div>
             {p.practitioner ? (
               <button
-                style={{ ...S.castWithBtn, borderColor: C.ink, color: C.ink }}
+                style={{ ...S.castWithBtn, borderColor: "var(--p-text)", color: "var(--p-text)" }}
                 onClick={() => openCast(p)}
               >
                 Cast
               </button>
             ) : (
-              <span style={{ ...S.covenRank, color: C.inkSoft }}>{p.rank}</span>
+              <span style={{ ...S.covenRank, color: "var(--p-textSoft)" }}>{p.rank}</span>
             )}
           </div>
         ))}

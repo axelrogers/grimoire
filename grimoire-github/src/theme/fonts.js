@@ -2,8 +2,23 @@
 // Webfont imports and the animation vocabulary. Every keyframe the app uses
 // is declared here; components reference them by name via the style objects.
 
+// The four working families plus the brand face (DESIGN.md §3).
+// Cinzel Decorative is wordmark/logo ONLY — never UI copy. Cinzel and
+// Crimson Pro are gone; they predated the design system.
+export const TYPE = {
+  display: "'EB Garamond', Georgia, serif",       // --g-display
+  body: "'Source Serif 4', Georgia, serif",       // --g-body (upright only)
+  ui: "'Instrument Sans', system-ui, sans-serif", // --g-ui
+  mono: "'Martian Mono', ui-monospace, monospace",// --g-mono
+  // Brand only. NOT in the @import below — the app has no wordmark component
+  // yet, so loading a decorative face nobody renders is pure download cost.
+  // When a wordmark lands, add Cinzel+Decorative back to the import or this
+  // will silently fall back to a system serif.
+  brand: "'Cinzel Decorative', serif",
+};
+
 export const FONTS = `
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Crimson+Pro:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Instrument+Sans:wght@400;500;600;700&family=Martian+Mono:wght@400;500&display=swap');
 
 @keyframes breathe {
   0%, 100% { transform: scale(1);   opacity: 0.85; }

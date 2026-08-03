@@ -7,12 +7,15 @@ authored spells, cast → hold → verdict, history that survives refresh, rank
 from real casts. Marketplace / feed / subscriptions are v2.
 
 ## Next
-- [ ] **Write Salt Line at the Threshold.** The vessel is built and renders;
-      every unwritten field shows as a ⟨slot⟩ in the running app. ~400 words,
-      Axel's voice. Template issued 2026-07-28. `unwrittenSlots(spell)` in
-      `data.js` counts what's left — wire it into a launch check so no spell
-      with slots can ship to a paying caster.
-- [ ] Write the remaining eleven spells against the reference template.
+- [ ] **Write the remaining eight spells.** Four are authored and live
+      (ported from the prototype); eight slots wait in `data.js` as
+      ⟨spell 5⟩…⟨spell 12⟩. ~130 words each — working / theirs / yours /
+      quote. Guide at `docs/WRITING-spells.md`. Axel's voice; Claude edits
+      but does not draft. `unwrittenSlots()` counts what's left — wire it
+      into a launch check so no slot reaches a paying caster.
+- [ ] **`stats` and `rate` are fabricated.** Cast counts, success rates and
+      "entered 2016" dates came across with the ported spells and describe
+      casts that never happened. Derive or hide before launch.
 - [ ] **Verdict colour has no token.** Collapsing to one accent means
       "worked" and "not yet answered" render identically on cast history and
       the verdict buttons. The trust mechanic is binary and the system has no
@@ -33,6 +36,11 @@ from real casts. Marketplace / feed / subscriptions are v2.
       cast animation timing.
 
 ## Done
+- [x] **Adopt the prototype as canonical content.** Catalogue rewritten to its
+      shape and voice; four authored spells ported verbatim with their
+      chapters, keepers, prices and margin quotes. (2026-08-03)
+- [x] Rebuild the delivered screen to the lean form — working / ours / yours /
+      margin quote. No materials list, no numbered steps. (2026-08-03)
 - [x] **Retrofit the design system.** Tokens, two palettes × two modes, the
       four real typefaces, italics removed, type scale snapped. (2026-07-28)
 - [x] Bring `DESIGN.md` + `tokens.css` into the app repo. (2026-07-28)

@@ -53,129 +53,59 @@ export const castingStyles = () => ({
     animation: "fadeUp 0.6s ease both",
   },
 
-  // ── The delivered working (hybrid model) ──────────────
-  // Everything below is left-aligned: the success state's centred kicker is a
-  // moment, but the rite is something you read while holding a handful of
-  // salt. Centred body copy would be unusable at the exact instant it matters.
-
-  // An unwritten slot. Deliberately conspicuous — writing debt should be
-  // impossible to miss in the running app, not just in the repo.
-  slot: {
-    display: "inline-block",
-    fontFamily: TYPE.mono,
-    fontSize: 12,
-    color: "var(--p-accent)",
-    background: "var(--p-plate1)",
-    border: `1px dashed var(--p-accent)`,
-    borderRadius: 5,
-    padding: "1px 6px",
-    opacity: 0.85,
-  },
-
-  // Grimoire's half of the working.
-  performed: {
+  // ── The delivered working ─────────────────────────────
+  // Left-aligned and quiet. The prototype's form is two short halves and a
+  // margin voice; the restraint is the point, so these styles stay sparse.
+  workingText: {
     textAlign: "left",
-    borderLeft: "2px solid",
-    padding: "8px 0 8px 12px",
-    margin: "14px 4px 4px",
-  },
-  performedLabel: {
-    fontFamily: TYPE.ui,
-    fontSize: 10,
-    letterSpacing: 2,
-    textTransform: "uppercase",
-    color: "var(--p-textSoft)",
-    marginBottom: 4,
-  },
-  performedText: { fontSize: 14, color: "var(--p-text)", lineHeight: 1.55 },
-
-  partLabel: {
-    fontFamily: TYPE.ui,
-    fontSize: 10,
-    letterSpacing: 3,
-    textTransform: "uppercase",
-    color: "var(--p-textSoft)",
-    textAlign: "left",
-    margin: "22px 4px 2px",
-    paddingTop: 14,
-    borderTop: `1px solid var(--p-hair)`,
-  },
-
-  block: { textAlign: "left", margin: "14px 4px 0" },
-  blockHead: {
-    fontFamily: TYPE.display,
+    fontFamily: TYPE.body,
     fontSize: 16,
-    fontWeight: 600,
-    color: "var(--p-text)",
-    marginBottom: 6,
-  },
-  blockBody: { fontSize: 14, color: "var(--p-text)", lineHeight: 1.6 },
-
-  matList: { listStyle: "none", padding: 0, margin: 0 },
-  matItem: {
-    display: "flex",
-    flexDirection: "column",
-    padding: "6px 0",
-    borderBottom: `1px solid var(--p-hair)`,
-  },
-  matName: { fontSize: 14, color: "var(--p-text)" },
-  matOpt: { fontSize: 12, color: "var(--p-textSoft)" },
-  matNote: { fontSize: 12, color: "var(--p-textSoft)", marginTop: 2, lineHeight: 1.45 },
-
-  riteStep: { display: "flex", gap: 10, alignItems: "flex-start", padding: "7px 0" },
-  riteNum: {
-    flex: "0 0 auto",
-    width: 22,
-    height: 22,
-    borderRadius: "50%",
-    border: "1px solid",
-    fontFamily: TYPE.ui,
-    fontSize: 12,
-    fontWeight: 700,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 1,
-  },
-  riteBody: { flex: 1 },
-  riteText: { fontSize: 14, color: "var(--p-text)", lineHeight: 1.6 },
-  // The said line. Set apart because it's spoken aloud, not read past.
-  spoken: {
-    fontSize: 16,
-    color: "var(--p-text)",
-    borderLeft: "2px solid",
-    padding: "3px 0 3px 10px",
-    margin: "7px 0 2px",
     lineHeight: 1.5,
+    color: "var(--p-text)",
+    opacity: 0.85,
+    margin: "16px 4px 4px",
   },
-
-  // The window they hold between casting and verdict.
-  hold: {
+  halfBlock: {
     textAlign: "left",
-    border: "1px solid",
-    borderRadius: 10,
-    padding: "11px 13px",
-    margin: "18px 4px 0",
-    // parchmentDeep is the raised-surface token in both palettes, so this
-    // needs no day/night branch — it's correct by construction.
-    background: "var(--p-plate1)",
+    borderLeft: "2px solid",
+    padding: "6px 0 6px 12px",
+    margin: "14px 4px 0",
   },
-  holdLabel: {
+  halfLabel: {
     fontFamily: TYPE.ui,
     fontSize: 10,
-    letterSpacing: 2.5,
+    letterSpacing: "0.22em",
     textTransform: "uppercase",
-    color: "var(--p-textSoft)",
+    color: "var(--p-text)",
+    opacity: 0.6,
     marginBottom: 4,
   },
-  holdText: { fontSize: 14, color: "var(--p-text)", lineHeight: 1.55 },
-
-  verdictNote: {
-    textAlign: "left",
-    fontSize: 14,
-    color: "var(--p-textSoft)",
-    margin: "16px 4px 20px",
-    lineHeight: 1.55,
+  halfText: {
+    fontFamily: TYPE.body,
+    fontSize: 16,
+    lineHeight: 1.45,
+    color: "var(--p-text)",
   },
-  verdictQ: { color: "var(--p-text)" },
+  // The margin voice — testimony rendered as an annotation in the book.
+  margin: {
+    textAlign: "left",
+    margin: "22px 4px 20px",
+    paddingTop: 14,
+    borderTop: "1px solid var(--p-hair)",
+  },
+  marginQuote: {
+    fontFamily: TYPE.display,
+    fontSize: 19,
+    lineHeight: 1.3,
+    color: "var(--p-text)",
+  },
+  marginBy: {
+    fontFamily: TYPE.ui,
+    fontSize: 10,
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    color: "var(--p-text)",
+    opacity: 0.6,
+    marginTop: 8,
+  },
 });

@@ -3,6 +3,35 @@
 Newest session first. Each checkpoint appends a dated entry: what changed,
 what's in flight, and anything the next session needs to know.
 
+## 2026-08-03 — Session 4
+
+**The spells were already written.** Reading the prototype's source for the
+content-reconciliation decision turned up four fully authored spells — Inbox
+Severance, Ghost Unbinding, Deadline Ward, Small-Hours Tether — in a settled
+voice, with chapters, keepers, prices ($36–48) and margin quotes. More
+importantly they already implement the hybrid model as `yours` / `theirs`,
+which the app decided independently on 27 July. `SPELL-SCHEMA.md` had
+reinvented, more heavily, something that already existed.
+
+**Three corrections to what I told Axel earlier the same session:** the
+writing was not "~5000 words not started" — four of twelve exist and the
+prototype's spells run ~130 words, so the remaining work is nearer 1000 words
+across eight. The template I issued on 28 July was wrong for this voice (it
+asked for materials lists and numbered rite steps the prototype never uses)
+and has been deleted. And the app's prices were 3–4× under.
+
+**Adopted the prototype as canonical.** Catalogue rewritten to its shape, the
+four spells ported verbatim, categories reworked to its chapters (Severance,
+Protection, Sleep & Dreams, Divination, Healing), eight ⟨slots⟩ left for
+Axel. `SuccessState` rebuilt to the lean form: what the working is, ours,
+yours, and a voice from the margin. `hasBody()` now keys off the authored
+fields rather than a rite array.
+
+**A test that was asserting the wrong thing.** The four-way check required the
+cast sheet to be scrollable — true for the long rite, meaningless for the lean
+form, which fits. Rewritten to assert what matters: the end of the working is
+reachable, whether by fitting or by scrolling.
+
 ## 2026-07-28 — Session 3 (design system)
 
 **Retrofitted the design system**, reversing the "ship first, align later"

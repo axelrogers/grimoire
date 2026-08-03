@@ -5,15 +5,15 @@
 // Candidate heroes per selection strategy. In production these come from the
 // selection engine; here they're stubbed so both states render real content.
 export const HEROES = {
+  // The hero is a real, authored spell — see CATALOGUE s3.
   personalised: {
-    eyebrow: "For you · Moon in your 8th",
-    title: "Deep Water Severance",
-    sub: "Cut a tie that's outlived its season",
-    rationale:
-      "You've cast three release spells this month. With the Moon transiting your 8th, this one lands.",
-    price: 14,
-    glyph: "☽",
-    accentKey: "oxblood",
+    eyebrow: "Protection · still life no. 11",
+    title: "Deadline Ward",
+    sub: "Hold the week at arm\u2019s length while the work crests.",
+    rationale: "as kept by Marisol V., tested across three deadlines",
+    price: 42,
+    glyph: "⊕",
+    catalogueId: "s3",
   },
   astro: {
     eyebrow: "Tonight · Waning Moon in Scorpio",
@@ -109,12 +109,11 @@ export const FEATURED = [
 // or influence-over-others spells. That omission is an editorial stance.
 export const CATEGORIES = [
   { id: "all", label: "All", glyph: "✶" },
-  { id: "protection", label: "Protection", glyph: "⊕" },
-  { id: "prosperity", label: "Prosperity", glyph: "✦" },
   { id: "severance", label: "Severance", glyph: "☽" },
-  { id: "healing", label: "Healing", glyph: "❋" },
+  { id: "protection", label: "Protection", glyph: "⊕" },
+  { id: "sleep", label: "Sleep & Dreams", glyph: "◐" },
   { id: "divination", label: "Divination", glyph: "◉" },
-  { id: "cleansing", label: "Cleansing", glyph: "≈" },
+  { id: "healing", label: "Healing", glyph: "❋" },
 ];
 
 // ── The spell body ──────────────────────────────────────────────────────
@@ -127,7 +126,7 @@ export const CATEGORIES = [
 // with a ⟨slot⟩ left in it should reach a paying caster; `unwrittenSlots()`
 // below counts them so that can be enforced rather than remembered.
 export const isSlot = (v) => typeof v === "string" && v.startsWith("⟨");
-export const hasBody = (s) => Array.isArray(s?.rite) && s.rite.length > 0;
+export const hasBody = (s) => Boolean(s?.working && s?.yours && s?.theirs);
 
 export function unwrittenSlots(spell) {
   const found = [];
@@ -142,46 +141,87 @@ export function unwrittenSlots(spell) {
 }
 
 export const CATALOGUE = [
-  { id: "s1", cat: "severance", title: "Deep Water Severance", sub: "Cut a tie that's outlived its season", price: 14, rate: 94, glyph: "☽" },
-  { id: "s2", cat: "divination", title: "Still Water Reflection", sub: "A scrying rite for what's surfacing", price: 12, rate: 91, glyph: "◉" },
-  { id: "s3", cat: "prosperity", title: "Rent Money Coming In", sub: "A fast prosperity draw", price: 9, rate: 89, glyph: "✦" },
-  // s4 is the reference spell — the first built out to the full shape.
-  // The other eleven are still title-only and render the short success state.
+  // ── Authored. Ported verbatim from the prototype, which is the voice and
+  //    design source — prices, chapters, keepers and margin quotes included.
   {
-    id: "s4", cat: "protection", title: "Salt Line at the Threshold",
-    sub: "Ward the door against what's unwanted", price: 11, rate: 96, glyph: "⊕",
-
-    premise: "⟨premise — 2–3 sentences, what the working does⟩",
-
-    timing: { window: "after dark", moon: ["waning", "dark"], urgency: "same night" },
-
-    materials: [
-      { item: "Coarse salt", note: "Sea or rock. Not table salt.", optional: false },
-      { item: "⟨second material⟩", note: "⟨note⟩", optional: false },
-    ],
-    preparation: "⟨preparation — or delete this line⟩",
-    rite: [
-      { step: 1, text: "⟨step 1⟩" },
-      { step: 2, text: "⟨step 2⟩", spoken: "⟨the line said aloud⟩" },
-      { step: 3, text: "⟨step 3⟩" },
-    ],
-    after: "⟨what to do with what's left⟩",
-    hold: "⟨hold — what keeps them with the working until the verdict⟩",
-
-    performed: { at: "the moment of casting", text: "⟨what Grimoire does on their behalf⟩" },
-
-    verdict: { askAfter: "P3D", prompt: "⟨verdict prompt — specific, not 'did it work?'⟩" },
-
-    authored: { by: "Grimoire", rank: null },
+    id: "s1", cat: "severance", chapter: "Ch. II — Severance", page: "· 84 ·",
+    title: "Inbox Severance", price: 48, rate: 96, glyph: "☽",
+    sub: "Quietly close the loop with someone you keep almost-texting.",
+    plate: "Severance · still life no. 04",
+    keeper: "Ophelia Márk",
+    kept: "as kept by Ophelia Márk, after the Prague manuscript",
+    stats: "96% worked · 812 casts · entered 2016",
+    working:
+      "Quietly close the loop with someone you keep almost-texting. Not an " +
+      "unsending; an ending. The working holds for a moon, or until you reply " +
+      "— whichever you choose.",
+    yours: "Archive the conversation before you sleep. Do not reread it.",
+    theirs: "The seal, written at moonrise and kept for seven days.",
+    quote: "“It is not silence; it is an ending.”",
+    quoteBy: "— Marisol V. · Elder II · from the margin",
   },
-  { id: "s5", cat: "cleansing", title: "Smoke & Running Water", sub: "Clear a space that's gone heavy", price: 8, rate: 92, glyph: "≈" },
-  { id: "s6", cat: "healing", title: "Mend the Quiet Ache", sub: "Slow healing for a long grief", price: 13, rate: 88, glyph: "❋" },
-  { id: "s7", cat: "protection", title: "Mirror Turned Outward", sub: "Return ill intent to its sender", price: 15, rate: 93, glyph: "⊕" },
-  { id: "s8", cat: "prosperity", title: "The Open Hand", sub: "Draw steady abundance, not luck", price: 12, rate: 90, glyph: "✦" },
-  { id: "s9", cat: "divination", title: "Ask the Dark Moon", sub: "A question put to the new moon", price: 10, rate: 87, glyph: "◉" },
-  { id: "s10", cat: "severance", title: "Burn the Last Letter", sub: "Release what you can't stop rereading", price: 11, rate: 91, glyph: "☽" },
-  { id: "s11", cat: "cleansing", title: "Wash the Year Off", sub: "A threshold cleanse between seasons", price: 9, rate: 90, glyph: "≈" },
-  { id: "s12", cat: "healing", title: "Root & Recover", sub: "Steady the body after depletion", price: 13, rate: 89, glyph: "❋" },
+  {
+    id: "s2", cat: "severance", chapter: "Ch. II — Severance", page: "· 61 ·",
+    title: "Ghost Unbinding", price: 36, rate: 89, glyph: "☽",
+    sub: "For the one who left without ending it — an unbinding, not a forgetting.",
+    plate: "Severance · still life no. 09",
+    keeper: "Caleb North",
+    kept: "as kept by Caleb North, from the Louisiana folios",
+    stats: "89% worked · 407 casts · entered 2019",
+    working:
+      "For the one who left without ending it. Severance is not forgetting; " +
+      "it is letting go of the answer you were owed. Cast once. Do not cast " +
+      "it twice for the same ghost.",
+    yours: "Delete the thread, tonight, without reading it back.",
+    theirs: "The ward, cast at moonrise, held for seven days.",
+    quote: "“My part was deleting the thread. The ward held after that.”",
+    quoteBy: "— Theo · Adept I · from the margin",
+  },
+  {
+    id: "s3", cat: "protection", chapter: "Ch. III — Protection", page: "· 97 ·",
+    title: "Deadline Ward", price: 42, rate: 93, glyph: "⊕",
+    sub: "Hold the week at arm’s length while the work crests.",
+    plate: "Protection · still life no. 11",
+    keeper: "Marisol V.",
+    kept: "as kept by Marisol V., tested across three deadlines",
+    stats: "93% worked · 611 casts · entered 2021",
+    working:
+      "A ward for the week the work tries to bury you. It does not move the " +
+      "deadline; it moves you out from underneath it, one named hour at a time.",
+    yours: "Close the laptop at a named hour tonight. Write the hour down.",
+    theirs: "The ward, renewed at each dawn for five days.",
+    quote: "“The deadline moved. I did not.”",
+    quoteBy: "— Priya · Adept II · from the margin",
+  },
+  {
+    id: "s4", cat: "sleep", chapter: "Ch. V — Sleep & Dreams", page: "· 172 ·",
+    title: "Small-Hours Tether", price: 36, rate: 91, glyph: "◐",
+    sub: "Bring the racing mind home before midnight.",
+    plate: "Sleep · still life no. 02",
+    keeper: "Caleb North",
+    kept: "as kept by Caleb North, from the Louisiana folios",
+    stats: "91% worked · 358 casts · entered 2020",
+    working:
+      "For the mind that will not come home at night. The tether does not " +
+      "force sleep; it shortens the rope, hour by hour, until the bed is " +
+      "nearer than the worry.",
+    yours: "No screen after the named hour. Leave a glass of water by the bed.",
+    theirs: "The tether, sung at moonrise and kept until dawn.",
+    quote: "“I slept before the third night. That was the whole spell.”",
+    quoteBy: "— Noor · Novice II · from the margin",
+  },
+
+  // ── Awaiting Axel. Titles are placeholders; the four above are the target
+  //    shape. ~130 words each: working / yours / theirs / quote.
+  //    See docs/WRITING-spells.md. Claude does not draft these.
+  { id: "s5",  cat: "protection", chapter: "Ch. III — Protection",   title: "⟨spell 5⟩",  price: 0, rate: null, glyph: "⊕" },
+  { id: "s6",  cat: "protection", chapter: "Ch. III — Protection",   title: "⟨spell 6⟩",  price: 0, rate: null, glyph: "⊕" },
+  { id: "s7",  cat: "severance",  chapter: "Ch. II — Severance",     title: "⟨spell 7⟩",  price: 0, rate: null, glyph: "☽" },
+  { id: "s8",  cat: "sleep",      chapter: "Ch. V — Sleep & Dreams", title: "⟨spell 8⟩",  price: 0, rate: null, glyph: "◐" },
+  { id: "s9",  cat: "divination", chapter: "Ch. IV — Divination",    title: "⟨spell 9⟩",  price: 0, rate: null, glyph: "◉" },
+  { id: "s10", cat: "divination", chapter: "Ch. IV — Divination",    title: "⟨spell 10⟩", price: 0, rate: null, glyph: "◉" },
+  { id: "s11", cat: "healing",    chapter: "Ch. VI — Healing",       title: "⟨spell 11⟩", price: 0, rate: null, glyph: "❋" },
+  { id: "s12", cat: "healing",    chapter: "Ch. VI — Healing",       title: "⟨spell 12⟩", price: 0, rate: null, glyph: "❋" },
 ];
 
 // map a category to its accent theme key

@@ -216,11 +216,16 @@ Architecture and key choices, with the "why", so settled ground isn't relitigate
 
 ## 2026-08-03 — the window
 
-- **18 September is Practical Magic 2's cinema release date.** The launch date
-  was never arbitrary; it is pegged to the film. Verified, not assumed.
+- **The launch date is pegged to Practical Magic 2's cinema release.** The
+  date MOVED: originally 18 September, brought forward by Warner. Axel has it
+  at 9 September; press reports say 11 September. Plan against the earliest
+  credible date — **9 September** — and re-check before committing anything
+  that depends on it. This is the kind of fact that keeps moving; do not
+  re-derive it from memory.
 
-- **Ship lean BEFORE the build-up, ~late August.** Target moved forward by
-  roughly three weeks. Reason: if the press cycle is the window, being live,
+- **Ship lean BEFORE the build-up, ~26 August.** With the film at 9 September
+  that is about three weeks from 3 August, not the four the original 18 Sep
+  date implied. Reason: if the press cycle is the window, being live,
   indexed and already carrying real verdicts when opening weekend arrives beats
   being feature-complete on the day. A site that appears on 18 September has no
   reviews, no history and nothing accumulated.
@@ -235,7 +240,7 @@ Architecture and key choices, with the "why", so settled ground isn't relitigate
 
 - **Payments: Stripe remains the destination, but must not block the soft
   launch.** Manual payment links or a free soft launch first; full checkout by
-  18 September. (Confirm with Axel — he chose "Stripe on the critical path"
+  the film's release. (Confirm with Axel — he chose "Stripe on the critical path"
   before the date moved.)
 
 - **Stripe's Australian cut, checked:** 1.7% + A$0.30 domestic. The catch is

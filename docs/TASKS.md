@@ -2,13 +2,14 @@
 
 Open, in priority order. Checkpoint keeps this current.
 
-**SOFT LAUNCH ~LATE AUGUST**, ahead of the Practical Magic 2 press build-up
-(the film releases 18 Sep — that is where the original date came from).
+**SOFT LAUNCH ~26 AUGUST**, ahead of the Practical Magic 2 press build-up.
+The film moved forward: Axel has it at 9 Sep, press reports say 11 Sep — plan
+against 9 Sep. (The old 18 Sep target was the film's original date.)
 Ship lean and honest, then thicken through the cycle.
 
 Soft-launch scope: accounts + persistence, a seeded catalogue, cast → verdict
 that actually records, history that survives refresh. Payment via manual links
-or free at first; full Stripe checkout by 18 Sep. Practitioner submission,
+or free at first; full Stripe checkout by the film's release. Practitioner submission,
 moderation and payouts come after launch.
 
 ## Next

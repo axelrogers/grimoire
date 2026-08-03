@@ -213,3 +213,44 @@ Architecture and key choices, with the "why", so settled ground isn't relitigate
 - A Stripe account, and confirmation of the selling entity + GST position.
 - Legal input on efficacy claims and a refund policy for a service of this
   kind. Claude is not a lawyer and this is the sharpest risk in shipping paid.
+
+## 2026-08-03 — the window
+
+- **18 September is Practical Magic 2's cinema release date.** The launch date
+  was never arbitrary; it is pegged to the film. Verified, not assumed.
+
+- **Ship lean BEFORE the build-up, ~late August.** Target moved forward by
+  roughly three weeks. Reason: if the press cycle is the window, being live,
+  indexed and already carrying real verdicts when opening weekend arrives beats
+  being feature-complete on the day. A site that appears on 18 September has no
+  reviews, no history and nothing accumulated.
+
+- **Seeded catalogue for launch; practitioners come after.** Spells are
+  ultimately practitioner/consumer-driven — the twelve are category seeds, not
+  an authored canon. This sharply reduces Axel's writing load, but it means the
+  marketplace is the product rather than a v2 add-on, and submission,
+  moderation, ranking and payouts all arrive later. The verdict mechanic is
+  what will protect quality once anyone can publish, which is why the invented
+  rates had to go first.
+
+- **Payments: Stripe remains the destination, but must not block the soft
+  launch.** Manual payment links or a free soft launch first; full checkout by
+  18 September. (Confirm with Axel — he chose "Stripe on the critical path"
+  before the date moved.)
+
+- **Stripe's Australian cut, checked:** 1.7% + A$0.30 domestic. The catch is
+  international — 3.5% + A$0.30, plus 2% on currency conversion. A
+  film-driven audience is mostly American, so a US customer paying $42 costs
+  roughly 5.5% through an Australian account rather than 2.4%. Worth deciding
+  deliberately: price in USD, use a merchant-of-record, or eventually a US
+  entity. Stripe's published rates appear mid-change; confirm before modelling.
+
+- **Typography is NOT settled.** Axel is still evolving it. Nothing outside
+  `theme/fonts.js` names a family — swapping is a one-file change. Do not
+  hard-code type anywhere else.
+
+### Competitive read (Axel, 2026-08-03)
+Astrea is drifting — over-gamified and convoluted, and losing people. The
+opening is a product with a clear, restrained foundation. This argues for
+restraint as a feature, and against reintroducing Grimoins, ranks and streaks
+as engagement scaffolding.

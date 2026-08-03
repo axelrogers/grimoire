@@ -2,12 +2,23 @@
 
 Open, in priority order. Checkpoint keeps this current.
 
-Launch scope (18 Sep) = **the practice log**: auth + persistence, twelve
-authored spells, cast → hold → verdict, history that survives refresh, rank
-from real casts. Marketplace / feed / subscriptions are v2.
+**SOFT LAUNCH ~LATE AUGUST**, ahead of the Practical Magic 2 press build-up
+(the film releases 18 Sep — that is where the original date came from).
+Ship lean and honest, then thicken through the cycle.
+
+Soft-launch scope: accounts + persistence, a seeded catalogue, cast → verdict
+that actually records, history that survives refresh. Payment via manual links
+or free at first; full Stripe checkout by 18 Sep. Practitioner submission,
+moderation and payouts come after launch.
 
 ## Next
-- [ ] **Write the remaining eight spells.** Four are authored and live
+- [ ] **Write eight thin category seeds** (was: eight full spells). Spells are
+      practitioner-driven; these only need to open each category credibly.
+      Divination and Healing have nothing at all yet.
+- [ ] **BLOCKING: a Supabase project + keys.** Accounts and persistence are the
+      long pole and cannot start without them. The schema follows the settled
+      spell shape.
+- [ ] ~~Write the remaining eight full spells.~~ Superseded: Four are authored and live
       (ported from the prototype); eight slots wait in `data.js` as
       ⟨spell 5⟩…⟨spell 12⟩. ~130 words each — working / theirs / yours /
       quote. Guide at `docs/WRITING-spells.md`. Axel's voice; Claude edits

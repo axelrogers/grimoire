@@ -12,6 +12,7 @@
 // isn't here, add it HERE first, to every adapter, rather than reaching around.
 
 import { localAdapter } from "./local.js";
+import { supabaseAdapter } from "./supabase.js";
 
 /**
  * @typedef {Object} Cast
@@ -41,8 +42,19 @@ import { localAdapter } from "./local.js";
  */
 
 function pickAdapter() {
-  // When Supabase keys land: read them from import.meta.env and return
-  // supabaseAdapter(...) here. Nothing else in the app changes.
+  // Supabase the moment its keys exist; the browser-local store otherwise, so
+  // the app is always usable and always demoable. Nothing else changes.
+  const url = import.meta.env?.VITE_SUPABASE_URL;
+  const key = import.meta.env?.VITE_SUPABASE_ANON_KEY;
+  if (url && key) {
+    try {
+      return supabaseAdapter(url, key);
+    } catch (e) {
+      // A misconfigured backend must not white-screen the app. Fall back
+      // loudly rather than failing silently.
+      console.error("[grimoire] Supabase init failed; using local store:", e);
+    }
+  }
   return localAdapter();
 }
 

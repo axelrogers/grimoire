@@ -22,9 +22,11 @@ moderation and payouts come after launch.
 - [ ] **Write eight thin category seeds** (was: eight full spells). Spells are
       practitioner-driven; these only need to open each category credibly.
       Divination and Healing have nothing at all yet.
-- [ ] **BLOCKING: a Supabase project + keys.** Accounts and persistence are the
-      long pole and cannot start without them. The schema follows the settled
-      spell shape.
+- [ ] **BLOCKING: a Supabase project + keys.** The backend is now WRITTEN and
+      waiting — schema in `supabase/schema.sql`, adapter in
+      `src/store/supabase.js`, contract-verified against the local one. Paste
+      the SQL, put the two keys in `.env.local`, and it activates itself.
+      See `docs/SETUP-supabase-stripe.md`.
 - [ ] ~~Write the remaining eight full spells.~~ Superseded: Four are authored and live
       (ported from the prototype); eight slots wait in `data.js` as
       ⟨spell 5⟩…⟨spell 12⟩. ~130 words each — working / theirs / yours /

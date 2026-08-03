@@ -26,7 +26,7 @@ const write = (s) => {
   }
   return s;
 };
-const blank = () => ({ session: null, casts: [] });
+const blank = () => ({ session: null, casts: [], seq: 0 });
 
 // Stable enough for one browser; the real ids come from the database later.
 const newId = () =>
@@ -54,13 +54,20 @@ export function localAdapter() {
     },
 
     listCasts() {
-      return read().casts.slice().sort((a, b) => b.castAt - a.castAt);
+      // Two casts in the same millisecond share a castAt, and sorting on that
+      // alone leaves their order undefined — a caster casting twice quickly
+      // would see history flip between reads. `seq` is a monotonic tiebreak.
+      return read()
+        .casts.slice()
+        .sort((a, b) => b.castAt - a.castAt || (b.seq ?? 0) - (a.seq ?? 0));
     },
 
     recordCast({ spell }) {
       const s = read();
+      s.seq = (s.seq || 0) + 1;
       const cast = {
         id: newId(),
+        seq: s.seq,
         spellId: spell.id,
         title: spell.title,
         glyph: spell.glyph,

@@ -9,6 +9,7 @@ build/
 # never in a file here. See docs/WORKFLOW.md.
 .env
 .env.*
+.env.local
 *.token
 *-token
 .netrc

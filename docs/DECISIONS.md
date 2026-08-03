@@ -317,3 +317,24 @@ as engagement scaffolding.
   main.jsx, so a wordmark component can use `TYPE.brand` safely.
   The PNGs in `public/brand/` are obsolete for the wordmark (the monogram is
   still useful). Rule 3 stands: brand only, never UI copy.
+
+- **Backend built ahead of the credentials.** `supabase/schema.sql` and
+  `src/store/supabase.js` are done and contract-verified against the local
+  adapter; `pickAdapter()` switches automatically the moment
+  `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` exist, and falls back
+  loudly rather than white-screening if init fails.
+
+- **A practice is private; rates are public and aggregate only.** RLS scopes
+  every cast to its owner, and the client never filters by user_id — a
+  client-side filter is not a security boundary. Community success rates come
+  from the `spell_stats` view, which bypasses RLS but exposes counts only,
+  never a user_id or an individual verdict.
+
+- **`rate` stays NULL below five verdicts.** A percentage drawn from one or
+  two answers is noise presented as evidence, and on a paid product that is a
+  claim. Enforced in the view, not just the UI.
+
+- **Cast ordering has a monotonic tiebreak.** Two casts in the same
+  millisecond share a `castAt`, so sorting on that alone left their order
+  undefined — history visibly flipped between reads. Found by a test that was
+  failing two runs in three; the flake was the bug, not the test.

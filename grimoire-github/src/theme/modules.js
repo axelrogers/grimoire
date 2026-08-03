@@ -107,7 +107,7 @@ export const modulesStyles = () => ({
   stripRankName: {
     fontFamily: TYPE.display,
     fontSize: 16,
-    color: "var(--p-text)",
+    color: "var(--p-plateText)",
     fontWeight: 600,
   },
   stripProgressTrack: {
@@ -121,7 +121,7 @@ export const modulesStyles = () => ({
   stripNext: {
     fontFamily: TYPE.ui,
     fontSize: 12,
-    color: "var(--p-textSoft)",
+    color: "var(--p-plateTextSoft)",
   },
   stripCoins: {
     display: "flex",
@@ -136,7 +136,7 @@ export const modulesStyles = () => ({
     fontFamily: TYPE.ui,
     fontWeight: 700,
     fontSize: 16,
-    color: "var(--p-text)",
+    color: "var(--p-plateText)",
   },
 
   // Daily card

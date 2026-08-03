@@ -13,6 +13,12 @@ or free at first; full Stripe checkout by the film's release. Practitioner submi
 moderation and payouts come after launch.
 
 ## Next
+- [ ] **Amber fails contrast in day mode.** 14 items measure 2.9–3.3:1 against
+      the light ground where small text needs 4.5:1 — "Open the folio ›",
+      "All activity →", the % figures, category glyphs. The amber accent
+      (#A97E3F) simply isn't dark enough on #EFE6D6. Amethyst/day is close but
+      cleaner; both night modes are fine. Needs a design-system answer (a
+      darker accent step for small text on light grounds), not a patch.
 - [ ] **Write eight thin category seeds** (was: eight full spells). Spells are
       practitioner-driven; these only need to open each category credibly.
       Divination and Healing have nothing at all yet.

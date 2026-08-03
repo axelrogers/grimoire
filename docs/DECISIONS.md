@@ -287,3 +287,16 @@ as engagement scaffolding.
   book plate (chapter, page number, margin quote), the folio (still-life
   plate), and the ex-libris (monogram, frame, restraint). Source:
   `social-card-variants.html`, renders in either palette.
+
+- **Typefaces are self-hosted from npm (@fontsource), not Google Fonts.**
+  Surfaced because Axel said the card type looked "plain and dull" — it was
+  rendering in Times New Roman, since this sandbox blocks fonts.googleapis.com
+  and every screenshot had silently fallen back. Self-hosting removes a
+  third-party request from every page load, works offline, and means the
+  design can actually be verified from here. 47 woff2 files ship in the build.
+
+- **`--p-plateText` / `--p-plateTextSoft` added.** Plates (`--p-plate1/2`) are
+  DARK surfaces in both modes — in day they're the field colours, not a light
+  card. The rank strip was setting `--p-text` (dark ink) on one, which was
+  invisible in day mode. Only visible once real fonts made the screen legible
+  enough to notice.

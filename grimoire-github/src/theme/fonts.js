@@ -17,8 +17,10 @@ export const TYPE = {
   brand: "'Cinzel Decorative', serif",
 };
 
+// Families are loaded by main.jsx from @fontsource (self-hosted), NOT from a
+// Google Fonts @import — see the note there. This string carries only the
+// animation vocabulary now.
 export const FONTS = `
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Instrument+Sans:wght@400;500;600;700&family=Martian+Mono:wght@400;500&display=swap');
 
 @keyframes breathe {
   0%, 100% { transform: scale(1);   opacity: 0.85; }

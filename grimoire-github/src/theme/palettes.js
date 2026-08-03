@@ -104,6 +104,11 @@ export function tokensFor(palette = "amethyst", mode = "day") {
         "--p-dockActiveText": P.cream,
       };
 
+  // Plates are dark in both modes, so they need their own text colour.
+  // Without this, day mode puts dark ink on a dark plate — invisible.
+  v["--p-plateText"] = P.cream;
+  v["--p-plateTextSoft"] = `rgba(${rgbOf(P.cream)},0.66)`;
+
   v["--g-lit"] = P.lit;
   v["--g-ink"] = P.ink;
   v["--p-litDeep"] = P.litDeep;

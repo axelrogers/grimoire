@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { HEROES, selectStrategy, PROFILE, DAILY_CARD, COMMUNITY, FEATURED } from "../data.js";
+import { HEROES, selectStrategy, DAILY_CARD, COMMUNITY, FEATURED } from "../data.js";
 import { ApplePaySheet, CastingBeat, SuccessState } from "../components/CastFunnel.jsx";
+import { usePractice } from "../store/usePractice.js";
 
 export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }) {
+  const { cast: recordCast } = usePractice();
   // Funnel state. idle → pay → cast(tap3) → casting[hold→send] → done
   const [step, setStep] = useState("idle");
   const [phase, setPhase] = useState(null); // hold | send  (within "casting")
@@ -34,6 +36,12 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
 
   const tap = (next) => {
     setTaps((t) => t + 1);
+    // The cast is recorded as the held beat begins — the point of commitment.
+    // Failing to record must not break the ritual, so it's fire-and-forget
+    // with a logged error rather than an await that could stall the animation.
+    if (next === "casting") {
+      recordCast(hero).catch((e) => console.error("[grimoire] cast not recorded:", e));
+    }
     setStep(next);
   };
 
@@ -167,31 +175,32 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
 
 // ── PERSONAL STRIP ── rank progress + Grimoins, a thin glanceable bar.
 function PersonalStrip({ S }) {
+  const { rank, profile } = usePractice();
   return (
     <button style={S.strip}>
       <div style={S.stripRank}>
         <span style={{ ...S.stripNumeral, color: "var(--p-accent)" }}>
-          {PROFILE.rankNumeral}
+          {rank.numeral}
         </span>
         <div style={S.stripRankText}>
-          <div style={S.stripRankName}>{PROFILE.rank}</div>
+          <div style={S.stripRankName}>{rank.name}</div>
           <div style={S.stripProgressTrack}>
             <div
               style={{
                 ...S.stripProgressFill,
-                width: `${Math.round(PROFILE.progress * 100)}%`,
+                width: `${Math.round(rank.progress * 100)}%`,
                 background: "var(--p-accent)",
               }}
             />
           </div>
           <div style={S.stripNext}>
-            {Math.round((1 - PROFILE.progress) * 100)}% to {PROFILE.nextRank}
+            {rank.next ? `${rank.toNext} more to ${rank.next}` : "The last rank"}
           </div>
         </div>
       </div>
       <div style={S.stripCoins}>
         <span style={{ ...S.coinGlyph, color: "var(--p-accent)" }}>◉</span>
-        <span style={S.coinAmount}>{PROFILE.grimoins}</span>
+        <span style={S.coinAmount}>{profile.castCount}</span>
       </div>
     </button>
   );

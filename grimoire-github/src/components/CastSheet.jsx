@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { CATEGORIES } from "../data.js";
 import { ApplePaySheet, CastingBeat, SuccessState } from "./CastFunnel.jsx";
+import { usePractice } from "../store/usePractice.js";
 
 // ── CAST SHEET ── opened from Browse. Runs the identical three-tap cast:
 // Cast → Apple Pay → Cast now → held beat → success. Same promise everywhere.
 export default function CastSheet({ spell, C, S, onClose }) {
+  const { cast: recordCast } = usePractice();
   const accent = "var(--p-accent)";
   const [step, setStep] = useState("idle");
   const [phase, setPhase] = useState(null);
@@ -26,6 +28,9 @@ export default function CastSheet({ spell, C, S, onClose }) {
 
   const tap = (next) => {
     setTaps((t) => t + 1);
+    if (next === "casting") {
+      recordCast(spell).catch((e) => console.error("[grimoire] cast not recorded:", e));
+    }
     setStep(next);
   };
 

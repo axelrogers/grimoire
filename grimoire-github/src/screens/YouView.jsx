@@ -1,20 +1,15 @@
-import { useState } from "react";
-import { PROFILE, HISTORY } from "../data.js";
+import { usePractice, when } from "../store/usePractice.js";
 
 // ── YOU ── progression up top (rank, journey, Grimoins), practice below
 // (cast history with the "did it work?" verdict). Pending casts are live —
 // marking one feeds the success data that drives the whole trust mechanic.
 export default function YouView({ S }) {
-  const [history, setHistory] = useState(HISTORY);
-
-  const verdict = (id, worked) =>
-    setHistory((h) => h.map((c) => (c.id === id ? { ...c, worked } : c)));
-
-  const resolved = history.filter((c) => c.worked !== null);
-  const workedCount = resolved.filter((c) => c.worked).length;
-  const successRate = resolved.length
-    ? Math.round((workedCount / resolved.length) * 100)
-    : null;
+  // Real practice, from the store. Nothing here is sample data any more.
+  const { casts, profile, rank, answer } = usePractice();
+  const history = casts;
+  const successRate = profile.rate;
+  const answered = casts.filter((c) => c.worked !== null).length;
+  const verdict = (id, worked) => answer(id, worked);
 
   return (
     <>
@@ -26,20 +21,20 @@ export default function YouView({ S }) {
       {/* PROGRESSION */}
       <div style={S.youCrest}>
         <span style={{ ...S.youNumeral, color: "var(--p-accent)" }}>
-          {PROFILE.rankNumeral}
+          {rank.numeral}
         </span>
-        <div style={S.youRankName}>{PROFILE.rank}</div>
+        <div style={S.youRankName}>{rank.name}</div>
         <div style={S.youProgressTrack}>
           <div
             style={{
               ...S.youProgressFill,
-              width: `${Math.round(PROFILE.progress * 100)}%`,
+              width: `${Math.round(rank.progress * 100)}%`,
               background: "var(--p-accent)",
             }}
           />
         </div>
         <div style={S.youNext}>
-          {Math.round((1 - PROFILE.progress) * 100)}% to {PROFILE.nextRank}
+          {rank.next ? `${rank.toNext} more to ${rank.next}` : "The last rank"}
         </div>
       </div>
 
@@ -47,7 +42,7 @@ export default function YouView({ S }) {
       <div style={S.youStats}>
         <div style={S.youStat}>
           <div style={{ ...S.youStatNum, color: "var(--p-accent)" }}>
-            ◉ {PROFILE.grimoins}
+            ◉ {profile.castCount}
           </div>
           <div style={S.youStatLabel}>Grimoins</div>
           <button style={{ ...S.topUpBtn, color: "var(--p-litDeep)", borderColor: "var(--p-hair)" }}>
@@ -59,7 +54,9 @@ export default function YouView({ S }) {
             {successRate !== null ? `${successRate}%` : "—"}
           </div>
           <div style={S.youStatLabel}>Worked</div>
-          <div style={S.youStatSub}>{resolved.length} resolved</div>
+          <div style={S.youStatSub}>
+            {answered} of {casts.length} answered
+          </div>
         </div>
       </div>
 
@@ -73,7 +70,7 @@ export default function YouView({ S }) {
             <span style={{ ...S.covenGlyph, color: "var(--p-accent)" }}>{c.glyph}</span>
             <div style={S.covenMid}>
               <div style={S.covenName}>{c.title}</div>
-              <div style={S.covenLast}>{c.when}</div>
+              <div style={S.covenLast}>{when(c.castAt)}</div>
             </div>
             {c.worked === null ? (
               <div style={S.verdictBtns}>

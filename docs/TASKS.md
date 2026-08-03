@@ -56,6 +56,9 @@ moderation and payouts come after launch.
       cast animation timing.
 
 ## Done
+- [x] **Wired the app to the store.** Casting records, history is real and
+      survives reload, verdicts write, rank derives from actual casts. No
+      sample data left on You. Verified end to end. (2026-08-03)
 - [x] **Removed the fabricated trust numbers.** `stats` deleted, every `rate`
       nulled; surfaces render "Not yet rated". They return only when derived
       from real verdicts. (2026-08-03)

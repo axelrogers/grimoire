@@ -338,3 +338,18 @@ as engagement scaffolding.
   millisecond share a `castAt`, so sorting on that alone left their order
   undefined — history visibly flipped between reads. Found by a test that was
   failing two runs in three; the flake was the bug, not the test.
+
+- **Screens read through `usePractice()`, never the adapters.** One shared
+  snapshot with subscribers, so a cast on Today shows on You immediately
+  without prop-drilling or a state library. Every call is awaited even though
+  the local adapter resolves synchronously — nothing here changes when
+  Supabase swaps in.
+
+- **A cast is recorded as the held beat begins**, not on payment confirm and
+  not on success. That is the point of commitment and when Grimoire's half
+  runs. Recording is fire-and-forget with a logged error: a backend hiccup
+  must never break the ritual mid-animation.
+
+- **Grimoins are gone from the You screen**; the figure there is now the real
+  cast count. Consistent with the read that engagement scaffolding is what is
+  costing Astrea its users.

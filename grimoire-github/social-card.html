@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8">
+<link rel="stylesheet" href="node_modules/@fontsource/cinzel-decorative/700.css">
 <link rel="stylesheet" href="node_modules/@fontsource/eb-garamond/400.css">
 <link rel="stylesheet" href="node_modules/@fontsource/eb-garamond/500.css">
 <link rel="stylesheet" href="node_modules/@fontsource/instrument-sans/600.css">
@@ -8,13 +9,13 @@
   Regenerate: node scripts/make-social-card.mjs
   Amethyst is the default; add class="amber" to <body> for the amber cut.
 
-  ── SWAPPING IN THE REAL WORDMARK ──────────────────────────────────────
-  The full logo is coming from Axel. When it lands, drop it in public/brand/
-  and replace the .wordmark <div> with:
-      <img class="wordmark-img" src="public/brand/<file>" alt="Grimoire">
-  and uncomment .wordmark-img below. Target cap-height ~64px — the mark should
-  sit comfortably inside the frame with air around it, NOT bleed. An earlier
-  oversized-bleed version was rejected: the scale read as ridiculous.
+  ── THE WORDMARK ───────────────────────────────────────────────────────
+  Set in CINZEL DECORATIVE 700 — confirmed from Axel's standalone logo file,
+  and the brand face DESIGN.md §3 named all along. It is live type, not
+  artwork, so there is nothing to trace and no missing letters. The truncated
+  PNGs in public/brand/ are obsolete for the wordmark; the monogram is still
+  useful. An oversized-bleed version was tried and rejected — the mark sits
+  inside the frame with air around it.
 -->
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
@@ -40,9 +41,9 @@
   .stack{position:relative;z-index:2;text-align:center;padding:0 110px;
          margin-top:-26px}
 
-  .wordmark{font-size:82px;line-height:1;letter-spacing:.14em;font-weight:400;
-            text-indent:.14em;margin-bottom:26px}
-  /* .wordmark-img{height:64px;display:block;margin:0 auto 26px} */
+  .wordmark{font-family:'Cinzel Decorative',serif;font-weight:700;
+            font-size:68px;line-height:1.1;letter-spacing:.02em;
+            margin-bottom:26px}
 
   .rule{width:88px;height:1px;background:rgba(var(--lit),.45);margin:0 auto 24px}
 
@@ -59,8 +60,7 @@
   <div class="warm"></div>
   <div class="frame"></div>
   <div class="stack">
-    <!-- Placeholder until the full logo arrives. -->
-    <div class="wordmark">GRIMOIRE</div>
+    <div class="wordmark">Grimoire</div>
     <div class="rule"></div>
     <!-- Axel's line, from the prototype. -->
     <div class="line">Keep the book, and be kept.</div>

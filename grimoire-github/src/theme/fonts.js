@@ -10,10 +10,9 @@ export const TYPE = {
   body: "'Source Serif 4', Georgia, serif",       // --g-body (upright only)
   ui: "'Instrument Sans', system-ui, sans-serif", // --g-ui
   mono: "'Martian Mono', ui-monospace, monospace",// --g-mono
-  // Brand only. NOT in the @import below — the app has no wordmark component
-  // yet, so loading a decorative face nobody renders is pure download cost.
-  // When a wordmark lands, add Cinzel+Decorative back to the import or this
-  // will silently fall back to a system serif.
+  // Brand/wordmark ONLY — never UI copy (DESIGN.md rule 3). Confirmed as the
+  // real wordmark face from Axel's standalone logo file, weight 700. Now
+  // loaded in main.jsx, so this is safe to use for a wordmark component.
   brand: "'Cinzel Decorative', serif",
 };
 

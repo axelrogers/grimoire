@@ -308,3 +308,12 @@ as engagement scaffolding.
   he asked to keep it). Axel is supplying the full logo; the swap point is
   commented in `social-card.html` with a ~64px cap-height target. The mark
   should sit inside the frame, never bleed.
+
+- **The wordmark is Cinzel Decorative 700 — live type, not artwork.** Confirmed
+  from Axel's standalone logo file, and the face DESIGN.md §3 named as brand
+  all along. This closes the "truncated logo" problem entirely: there is
+  nothing to trace and no missing letters, because the mark was never a raster
+  in the first place. `@fontsource/cinzel-decorative` is now loaded in
+  main.jsx, so a wordmark component can use `TYPE.brand` safely.
+  The PNGs in `public/brand/` are obsolete for the wordmark (the monogram is
+  still useful). Rule 3 stands: brand only, never UI copy.

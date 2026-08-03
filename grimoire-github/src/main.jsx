@@ -12,6 +12,7 @@ import "@fontsource/instrument-sans/400.css";  // --g-ui
 import "@fontsource/instrument-sans/500.css";
 import "@fontsource/instrument-sans/600.css";
 import "@fontsource/instrument-sans/700.css";
+import "@fontsource/cinzel-decorative/700.css"; // brand/wordmark ONLY
 import "@fontsource/martian-mono/400.css";     // --g-mono
 import "@fontsource/martian-mono/500.css";
 

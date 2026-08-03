@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<!-- Source for public/social-card.png. Rendered at 1200x630 with Playwright;
+     see scripts/make-social-card.md. Kept in the repo so the card can be
+     regenerated when the wordmark or positioning line changes. -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Instrument+Sans:wght@600&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1200px;height:630px;background:#16100A;overflow:hidden;position:relative;
+       font-family:'EB Garamond',Georgia,serif;color:#EFE6D6}
+  .glow{position:absolute;border-radius:50%;filter:blur(90px)}
+  .g1{width:520px;height:520px;background:#8A5A20;opacity:.34;top:-160px;right:-120px}
+  .g2{width:520px;height:520px;background:#6B4415;opacity:.26;bottom:-220px;left:-140px}
+  .inner{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;
+         justify-content:center;padding:0 96px}
+  .rule{width:64px;height:1px;background:rgba(216,168,92,.55);margin-bottom:34px}
+  .mark{font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;
+        letter-spacing:.32em;text-transform:uppercase;color:#D8A85C;margin-bottom:26px}
+  h1{font-size:104px;line-height:1;letter-spacing:-.01em;font-weight:500;margin-bottom:26px}
+  p{font-size:34px;line-height:1.35;color:#EFE6D6;opacity:.72;max-width:20ch}
+  .foot{position:absolute;bottom:52px;left:96px;right:96px;display:flex;
+        justify-content:space-between;align-items:baseline;
+        font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;
+        letter-spacing:.22em;text-transform:uppercase;color:rgba(239,230,214,.5)}
+</style></head>
+<body>
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="inner">
+    <div class="mark">Grimoire</div>
+    <div class="rule"></div>
+    <h1>Keep the book.</h1>
+    <p>A working, cast tonight — and your part in it.</p>
+  </div>
+  <div class="foot"><span>Three taps to a spell</span><span>Protection · Severance · Sleep</span></div>
+</body></html>

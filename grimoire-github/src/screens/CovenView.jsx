@@ -57,7 +57,7 @@ export default function CovenView({ C, S }) {
                 <span style={S.covenName}>{p.name}</span>
                 {p.practitioner && (
                   <span style={{ ...S.covenBadge, color: "var(--p-accent)", borderColor: "var(--p-hair)" }}>
-                    {p.rate}%
+                    {p.rate == null ? "—" : `${p.rate}%`}
                   </span>
                 )}
               </div>

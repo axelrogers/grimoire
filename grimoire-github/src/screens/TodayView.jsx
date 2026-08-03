@@ -262,7 +262,7 @@ function FeaturedStrip({ S }) {
             <span style={{ ...S.featGlyph, color: "var(--p-accent)" }}>{p.glyph}</span>
             <div style={S.featName}>{p.name}</div>
             <div style={S.featCraft}>{p.craft}</div>
-            <div style={{ ...S.featRate, color: "var(--p-accent)" }}>{p.rate}% worked</div>
+            <div style={{ ...S.featRate, color: "var(--p-accent)" }}>{p.rate == null ? "Not yet rated" : `${p.rate}% worked`}</div>
           </button>
         ))}
       </div>

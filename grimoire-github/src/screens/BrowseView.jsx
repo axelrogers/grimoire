@@ -76,7 +76,7 @@ export default function BrowseView({ C, S }) {
               <div style={S.gridSub}>{s.sub}</div>
               <div style={S.gridFoot}>
                 <span style={{ ...S.gridRate, color: "var(--p-accent)" }}>
-                  {s.rate}% worked
+                  {s.rate == null ? "Not yet rated" : `${s.rate}% worked`}
                 </span>
                 <span style={S.gridPrice}>${s.price}</span>
               </div>

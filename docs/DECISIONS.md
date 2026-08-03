@@ -183,3 +183,33 @@ Architecture and key choices, with the "why", so settled ground isn't relitigate
   spells (*Deadline Ward*, *Still Life No. 11* vs *Deep Water Severance*),
   different copy voice and a different Today IA. Which is canonical is
   undecided, and it directly affects the spell-writing task.
+
+## 2026-08-03 — money
+
+- **Stripe is on the critical path for 18 September.** Chosen over a free /
+  invite-only launch and over manual payment links. Reason: willingness to pay
+  at $36–48 is the biggest unknown in the business, and free users cannot
+  answer it. There is also a real possibility that *paying is part of the
+  working* — a rite you paid for may land differently — in which case verdict
+  data gathered from a free launch would describe a different product.
+  Accepted cost: roughly two weeks, so the composition port on Browse, Coven
+  and You is the most likely thing to be cut.
+
+- **Processor risk checked, not assumed.** Stripe's restricted-businesses list
+  prohibits "psychic services and fortune tellers" only in specific
+  jurisdictions — Japan, Mexico and Thailand. Australia is not among them, so
+  this is not an obvious blocker. Stripe retains discretion and the list
+  changes; confirm directly before building on it.
+
+- **The fabricated trust numbers are gone.** Every spell carried a success
+  rate, a cast count and an "entered 2016" date describing casts that never
+  happened. On a free product that is uncomfortable; on a paid one, an
+  advertised "93% worked" for a $42 service is a claim, with exposure under
+  Australian Consumer Law. `stats` is deleted and every `rate` is now `null`,
+  which renders as "Not yet rated" rather than a number. They come back only
+  when derived from real verdicts. THIS IS NOT A PLACEHOLDER TO RESTORE.
+
+### Needs Axel before the payments build starts
+- A Stripe account, and confirmation of the selling entity + GST position.
+- Legal input on efficacy claims and a refund policy for a service of this
+  kind. Claude is not a lawyer and this is the sharpest risk in shipping paid.

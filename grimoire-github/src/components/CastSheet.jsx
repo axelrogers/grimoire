@@ -59,7 +59,9 @@ export default function CastSheet({ spell, C, S, onClose }) {
             {step !== "done" && <div style={S.cardSub}>{spell.sub}</div>}
             {step === "idle" && (
               <div style={S.rationale}>
-                {spell.rate}% of casters marked this one worked.
+                {spell.rate == null
+                  ? "No verdicts yet — this spell has not been rated."
+                  : `${spell.rate}% of casters marked this one worked.`}
               </div>
             )}
           </div>

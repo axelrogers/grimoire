@@ -13,9 +13,10 @@ from real casts. Marketplace / feed / subscriptions are v2.
       quote. Guide at `docs/WRITING-spells.md`. Axel's voice; Claude edits
       but does not draft. `unwrittenSlots()` counts what's left — wire it
       into a launch check so no slot reaches a paying caster.
-- [ ] **`stats` and `rate` are fabricated.** Cast counts, success rates and
-      "entered 2016" dates came across with the ported spells and describe
-      casts that never happened. Derive or hide before launch.
+- [ ] **Payments (Stripe) — now on the critical path.** Blocked on Axel: a
+      Stripe account, the selling entity + GST position, and legal input on
+      efficacy claims and refunds. ~2 weeks; expect to cut the Browse/Coven/You
+      composition port to fit.
 - [ ] **Verdict colour has no token.** Collapsing to one accent means
       "worked" and "not yet answered" render identically on cast history and
       the verdict buttons. The trust mechanic is binary and the system has no
@@ -23,12 +24,11 @@ from real casts. Marketplace / feed / subscriptions are v2.
 - [ ] **Eyeball the type-scale snap.** 41 font sizes moved onto the 12-step
       scale; visual rhythm changed and wants a human look, especially the
       casting glyph (58→68).
-- [ ] Decide on `rate`: derive from real verdicts or hide it. Hardcoded
-      success rates are a fabricated trust signal at launch.
+
 
 ## Later
 - [ ] Persistence + auth (schema follows the spell shape — do not model first).
-- [ ] Real payments behind the Apple Pay mock.
+
 - [ ] Strip the dev viewer switcher from `App.jsx` before launch.
 - [ ] Pre-existing lint: unused `taps` state in `CastSheet` + `TodayView`,
       unused `setIsMember` / `accent`, and setState-inside-effect in both cast
@@ -36,6 +36,10 @@ from real casts. Marketplace / feed / subscriptions are v2.
       cast animation timing.
 
 ## Done
+- [x] **Removed the fabricated trust numbers.** `stats` deleted, every `rate`
+      nulled; surfaces render "Not yet rated". They return only when derived
+      from real verdicts. (2026-08-03)
+- [x] **Settled the money question — Stripe on the critical path.** (2026-08-03)
 - [x] **Adopt the prototype as canonical content.** Catalogue rewritten to its
       shape and voice; four authored spells ported verbatim with their
       chapters, keepers, prices and margin quotes. (2026-08-03)

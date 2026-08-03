@@ -145,12 +145,11 @@ export const CATALOGUE = [
   //    design source — prices, chapters, keepers and margin quotes included.
   {
     id: "s1", cat: "severance", chapter: "Ch. II — Severance", page: "· 84 ·",
-    title: "Inbox Severance", price: 48, rate: 96, glyph: "☽",
+    title: "Inbox Severance", price: 48, rate: null, glyph: "☽",
     sub: "Quietly close the loop with someone you keep almost-texting.",
     plate: "Severance · still life no. 04",
     keeper: "Ophelia Márk",
     kept: "as kept by Ophelia Márk, after the Prague manuscript",
-    stats: "96% worked · 812 casts · entered 2016",
     working:
       "Quietly close the loop with someone you keep almost-texting. Not an " +
       "unsending; an ending. The working holds for a moon, or until you reply " +
@@ -162,12 +161,11 @@ export const CATALOGUE = [
   },
   {
     id: "s2", cat: "severance", chapter: "Ch. II — Severance", page: "· 61 ·",
-    title: "Ghost Unbinding", price: 36, rate: 89, glyph: "☽",
+    title: "Ghost Unbinding", price: 36, rate: null, glyph: "☽",
     sub: "For the one who left without ending it — an unbinding, not a forgetting.",
     plate: "Severance · still life no. 09",
     keeper: "Caleb North",
     kept: "as kept by Caleb North, from the Louisiana folios",
-    stats: "89% worked · 407 casts · entered 2019",
     working:
       "For the one who left without ending it. Severance is not forgetting; " +
       "it is letting go of the answer you were owed. Cast once. Do not cast " +
@@ -179,12 +177,11 @@ export const CATALOGUE = [
   },
   {
     id: "s3", cat: "protection", chapter: "Ch. III — Protection", page: "· 97 ·",
-    title: "Deadline Ward", price: 42, rate: 93, glyph: "⊕",
+    title: "Deadline Ward", price: 42, rate: null, glyph: "⊕",
     sub: "Hold the week at arm’s length while the work crests.",
     plate: "Protection · still life no. 11",
     keeper: "Marisol V.",
     kept: "as kept by Marisol V., tested across three deadlines",
-    stats: "93% worked · 611 casts · entered 2021",
     working:
       "A ward for the week the work tries to bury you. It does not move the " +
       "deadline; it moves you out from underneath it, one named hour at a time.",
@@ -195,12 +192,11 @@ export const CATALOGUE = [
   },
   {
     id: "s4", cat: "sleep", chapter: "Ch. V — Sleep & Dreams", page: "· 172 ·",
-    title: "Small-Hours Tether", price: 36, rate: 91, glyph: "◐",
+    title: "Small-Hours Tether", price: 36, rate: null, glyph: "◐",
     sub: "Bring the racing mind home before midnight.",
     plate: "Sleep · still life no. 02",
     keeper: "Caleb North",
     kept: "as kept by Caleb North, from the Louisiana folios",
-    stats: "91% worked · 358 casts · entered 2020",
     working:
       "For the mind that will not come home at night. The tether does not " +
       "force sleep; it shortens the rope, hour by hour, until the bed is " +

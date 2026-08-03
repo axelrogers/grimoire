@@ -12,8 +12,9 @@ export default function BrowseView({ C, S }) {
   const results = CATALOGUE.filter((s) => {
     const inCat = cat === "all" || s.cat === cat;
     const q = query.trim().toLowerCase();
-    const inQuery =
-      !q || s.title.toLowerCase().includes(q) || s.sub.toLowerCase().includes(q);
+    // Unwritten spells have no `sub` yet — searching must not throw on them.
+    const hay = `${s.title} ${s.sub || ""} ${s.chapter || ""}`.toLowerCase();
+    const inQuery = !q || hay.includes(q);
     return inCat && inQuery;
   });
 

@@ -301,9 +301,10 @@ as engagement scaffolding.
   invisible in day mode. Only visible once real fonts made the screen legible
   enough to notice.
 
-- **The wordmark bleed is deliberate.** Axel's call: the cropped mark was good,
-  it just needed adjusting. So the card oversizes the (truncated) artwork until
-  it runs off BOTH edges and the cut falls mid-letter — a book too large for
-  its page. This turns the broken asset into the device. Rule: never let the
-  crop land just after a complete letter, or it reads as a mistake.
-  "Three taps to a spell" stays — Axel likes the line.
+- **Social card: framed and restrained, NOT a bleed.** An oversized
+  bleeding-wordmark version was tried and rejected — "that size and scale is
+  ridiculous". The card is the double-ruled frame, a centred wordmark with air
+  around it, a short rule, Axel's line, and "Three taps to a spell" (his line,
+  he asked to keep it). Axel is supplying the full logo; the swap point is
+  commented in `social-card.html` with a ~64px cap-height target. The mark
+  should sit inside the frame, never bleed.

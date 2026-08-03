@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<!-- Three directions for the social card. Each uses a device that already
+     exists in the prototype's visual language rather than anything invented:
+       A · the book plate    — chapter line, page number, double rule, ornament
+       B · the folio         — the still-life plate the hero card leads with
+       C · the ex-libris     — monogram, heavy frame, restraint
+     Pick one (or parts of several) and I'll build it properly. -->
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  /* Amethyst is the default; amber renders by adding class="amber" to body. */
+  body{background:#000;font-family:'EB Garamond',Georgia,'Times New Roman',serif;
+       --ground:#150E1C; --text:#F0EAF4; --lit:195,164,227; --glow:#5E3E85}
+  body.amber{--ground:#16100A; --text:#EFE6D6; --lit:216,168,92; --glow:#8A5A20}
+  .card{width:1200px;height:630px;position:relative;overflow:hidden;
+        background:var(--ground);color:var(--text);margin-bottom:40px}
+  .warm{position:absolute;border-radius:50%;filter:blur(150px);background:var(--glow);pointer-events:none}
+  .ui{font-family:'Instrument Sans',system-ui,sans-serif;font-weight:600;text-transform:uppercase}
+
+  /* ── A · the book plate ─────────────────────────────── */
+  .a .frame{position:absolute;inset:30px;border:1px solid rgba(var(--lit),.32)}
+  .a .frame::after{content:"";position:absolute;inset:8px;border:1px solid rgba(var(--lit),.12)}
+  .a .warm{width:700px;height:700px;opacity:.15;top:-260px;right:-180px}
+  .a .body{position:absolute;inset:0;padding:96px 110px;display:flex;flex-direction:column;justify-content:center}
+  .a .chapter{font-size:12px;letter-spacing:.3em;color:rgba(var(--lit),.75);margin-bottom:26px}
+  .a h1{font-size:88px;line-height:.98;letter-spacing:.01em;font-weight:400}
+  .a .rule{width:100%;height:1px;background:rgba(var(--lit),.22);margin:30px 0 26px}
+  .a .quote{font-size:31px;line-height:1.3;opacity:.82;max-width:24ch}
+  .a .by{font-size:11px;letter-spacing:.24em;color:rgba(240,234,244,.45);margin-top:18px}
+  .a .page{position:absolute;bottom:58px;left:0;right:0;text-align:center;
+           font-size:15px;letter-spacing:.2em;color:rgba(var(--lit),.55)}
+
+  /* ── B · the folio ──────────────────────────────────── */
+  .b{display:flex}
+  .b .warm{width:640px;height:640px;opacity:.17;bottom:-280px;left:-160px}
+  .b .plate{width:470px;height:100%;background:color-mix(in srgb, var(--ground) 82%, white 4%);border-right:1px solid rgba(var(--lit),.2);
+            display:flex;align-items:center;justify-content:center;position:relative}
+  .b .plate .glyph{font-size:150px;color:rgba(var(--lit),1);opacity:.5;line-height:1}
+  .b .plate .cap{position:absolute;bottom:36px;left:0;right:0;text-align:center;
+                 font-size:10px;letter-spacing:.26em;color:rgba(240,234,244,.42)}
+  .b .right{flex:1;padding:82px 76px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
+  .b .eyebrow{font-size:11px;letter-spacing:.3em;color:rgba(var(--lit),.8);margin-bottom:22px}
+  .b h1{font-size:76px;line-height:1;letter-spacing:.01em;margin-bottom:20px}
+  .b .sub{font-size:29px;line-height:1.35;opacity:.76;max-width:19ch}
+  .b .foot{position:absolute;bottom:56px;left:76px;font-size:11px;letter-spacing:.26em;
+           color:rgba(240,234,244,.42)}
+
+  /* ── C · the ex-libris ──────────────────────────────── */
+  .c .warm{width:820px;height:820px;opacity:.13;top:50%;left:50%;transform:translate(-50%,-50%)}
+  .c .frame{position:absolute;inset:44px;border:2px solid rgba(var(--lit),.3)}
+  .c .frame::after{content:"";position:absolute;inset:6px;border:1px solid rgba(var(--lit),.18)}
+  .c .body{position:absolute;inset:0;display:flex;flex-direction:column;
+           align-items:center;justify-content:center;text-align:center}
+  .c .mono{width:96px;margin-bottom:30px;opacity:.92}
+  .c h1{font-size:66px;letter-spacing:.16em;font-weight:400;margin-bottom:22px}
+  .c .divider{display:flex;align-items:center;gap:14px;margin-bottom:24px;
+              color:rgba(var(--lit),.6);font-size:15px}
+  .c .divider span{display:block;width:74px;height:1px;background:rgba(var(--lit),.4)}
+  .c .line{font-size:27px;opacity:.78;letter-spacing:.01em}
+  .c .corner{position:absolute;font-size:11px;letter-spacing:.28em;color:rgba(var(--lit),.5)}
+</style></head>
+<body>
+
+  <!-- A · THE BOOK PLATE -->
+  <div class="card a">
+    <div class="warm"></div><div class="frame"></div>
+    <div class="body">
+      <div class="chapter ui">Ch. II — Severance</div>
+      <h1>Ghost<br>Unbinding</h1>
+      <div class="rule"></div>
+      <div class="quote">“My part was deleting the thread. The ward held after that.”</div>
+      <div class="by ui">Theo · Adept I · from the margin</div>
+    </div>
+    <div class="page">· 61 ·</div>
+  </div>
+
+  <!-- B · THE FOLIO -->
+  <div class="card b">
+    <div class="warm"></div>
+    <div class="plate">
+      <span class="glyph">☽</span>
+      <div class="cap ui">Severance · still life no. 09</div>
+    </div>
+    <div class="right">
+      <div class="eyebrow ui">The spell for tonight</div>
+      <h1>Grimoire</h1>
+      <div class="sub">A working, cast tonight — and your part in it.</div>
+      <div class="foot ui">Three taps to a spell</div>
+    </div>
+  </div>
+
+  <!-- C · THE EX-LIBRIS -->
+  <div class="card c">
+    <div class="warm"></div><div class="frame"></div>
+    <div class="body">
+      <img class="mono" src="public/brand/logo-monogram-cream.png" alt="">
+      <h1>GRIMOIRE</h1>
+      <div class="divider"><span></span>✦<span></span></div>
+      <div class="line">Keep the book, and be kept.</div>
+    </div>
+    <div class="corner ui" style="top:76px;left:76px">Est. in the margin</div>
+    <div class="corner ui" style="bottom:76px;right:76px">1,204 workings</div>
+  </div>
+
+</body></html>

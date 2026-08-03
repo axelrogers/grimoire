@@ -259,3 +259,31 @@ Astrea is drifting — over-gamified and convoluted, and losing people. The
 opening is a product with a clear, restrained foundation. This argues for
 restraint as a feature, and against reintroducing Grimoins, ranks and streaks
 as engagement scaffolding.
+
+## 2026-08-03 — brand
+
+- **Amethyst is the default palette; amber is a selectable option.** Reverses
+  DESIGN.md §1, which had amber as default. `PALETTE_KEYS` order drives the
+  switcher, so the default leads.
+
+- **The wordmark artwork is broken and must be replaced.**
+  `logo-wordmark-cream.png` / `-ink.png` (546×129) are truncated — they render
+  as "GRIMOI", cut off mid-stroke, and `trim` confirms the ink runs to the
+  canvas edge rather than the file having transparent padding. The same fault
+  is in the prototype's `grimoire-logo-primary.png` / `-inverse.png` (744×360),
+  which read "GRIMOII". The monogram (a single G, 159×134) is intact and
+  usable. Copied to `grimoire-github/public/brand/` with a README.
+  Reconstruction was considered and rejected: there is no "E" in any file to
+  trace, so the missing letters would have to be invented inside someone
+  else's high-contrast display face — a subtly wrong wordmark is worse than
+  none. Axel is sourcing the original; the typeface name alone would also do.
+
+- **Claude does not write brand copy.** The first social card carried a
+  tagline I wrote. Same principle as the rites: the voice is the product and
+  it is Axel's. Cards now use his own lines from the prototype.
+
+- **Social card is a placeholder pending Axel's direction.** Three directions
+  offered, each built from a device already in the prototype's language — the
+  book plate (chapter, page number, margin quote), the folio (still-life
+  plate), and the ex-libris (monogram, frame, restraint). Source:
+  `social-card-variants.html`, renders in either palette.

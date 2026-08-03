@@ -1,6 +1,6 @@
 // ─── Grimoire · Palettes ──────────────────────────────────────────────────
 // Two locked axes, four combinations (DESIGN.md §1):
-//   palette — amber (default) | amethyst   ·   mode — day | night
+//   palette — amethyst (default) | amber   ·   mode — day | night
 // Palette is a user-selectable identity, not seasonal skinning. Night is
 // candlelight, not inversion: grounds go deep, accents stay *lit*.
 //
@@ -39,12 +39,14 @@ export const PALETTES = {
   },
 };
 
-export const PALETTE_KEYS = Object.keys(PALETTES);
+// Amethyst is the default (Axel, 2026-08-03); amber remains a selectable
+// identity. Order here drives the switcher, so the default leads.
+export const PALETTE_KEYS = ["amethyst", "amber"];
 
 // The semantic layer. Returns the --p-* / --g-* map for one palette × mode,
 // which the app sets on its root element. Mirrors applyTheme() in the
 // prototype — if the two ever diverge, the prototype is the source of truth.
-export function tokensFor(palette = "amber", mode = "day") {
+export function tokensFor(palette = "amethyst", mode = "day") {
   const P = PALETTES[palette] || PALETTES.amber;
   const night = mode === "night";
   const lit = (a) => `rgba(${P.litRGB},${a})`;
@@ -139,7 +141,7 @@ function rgbOf(hex) {
 // values (the casting beat needs a real colour for its glow, and the Apple
 // Pay sheet is iOS system UI that sits outside the design system). They get
 // resolved values here rather than reaching for hex themselves.
-export function paletteMeta(palette = "amber", mode = "day") {
+export function paletteMeta(palette = "amethyst", mode = "day") {
   const P = PALETTES[palette] || PALETTES.amber;
   const night = mode === "night";
   return {

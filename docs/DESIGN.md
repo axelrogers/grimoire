@@ -9,7 +9,7 @@ proposal to change the system, not a one-off exception.
 
 Two locked axes, four combinations:
 
-- **Palette** — `amber` (default) or `amethyst`. User-selectable identity, not
+- **Palette** — `amethyst` (default, Axel 2026-08-03) or `amber`. User-selectable identity, not
   seasonal skinning.
 - **Mode** — `day` or `night`. Night is candlelight, not inversion: grounds go
   deep, accents stay *lit* (gold/lilac glow), rules and hairlines shift from

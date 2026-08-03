@@ -18,7 +18,7 @@ const TABS = [
 
 export default function App() {
   const [mode, setMode] = useState("day");
-  const [palette, setPalette] = useState("amber");
+  const [palette, setPalette] = useState("amethyst"); // default (Axel, 2026-08-03)
   const [isMember, setIsMember] = useState(true);
   const [tab, setTab] = useState("today");
 

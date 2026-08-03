@@ -1,60 +1,55 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8">
 <link rel="stylesheet" href="node_modules/@fontsource/eb-garamond/400.css">
-<link rel="stylesheet" href="node_modules/@fontsource/eb-garamond/500.css">
 <link rel="stylesheet" href="node_modules/@fontsource/instrument-sans/600.css">
-<link rel="stylesheet" href="node_modules/@fontsource/source-serif-4/400.css">
-
 <!--
-  Source for public/social-card.png (1200x630).
+  Source for public/social-card.png (1200x630). Regenerate:
+    node scripts/make-social-card.mjs
 
-  PLACEHOLDER — the aesthetic is Axel's to direct and has not been signed off.
-  What this version does differently from the first attempt: it uses the real
-  wordmark rather than typesetting the name, borrows the ruled frame and
-  ornament from the existing logo lockup, and carries Axel's own line from the
-  prototype instead of copy I invented. The voice is his; I shouldn't be
-  writing taglines.
+  The wordmark bleeds off both edges ON PURPOSE (Axel's call). The artwork
+  itself is truncated — it ends after "GRIMOI" — and rather than hide that,
+  the card oversizes it so the crop reads as a deliberate device: a book too
+  large for its page. Scale it so the cut falls mid-letter, never just after
+  one, or it looks like a mistake instead of a decision.
 
-  Regenerate: node scripts/make-social-card.mjs
+  Palette: amethyst (default). Add class="amber" to <body> for the amber cut.
 -->
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{width:1200px;height:630px;background:#12100E;overflow:hidden;
-       position:relative;display:flex;align-items:center;justify-content:center;
-       font-family:'EB Garamond',Georgia,'Times New Roman',serif;color:#EFE6D6}
+  body{width:1200px;height:630px;overflow:hidden;position:relative;
+       --ground:#150E1C; --text:#F0EAF4; --lit:195,164,227; --glow:#5E3E85;
+       background:var(--ground);color:var(--text);
+       font-family:'EB Garamond',Georgia,serif}
+  body.amber{--ground:#16100A; --text:#EFE6D6; --lit:216,168,92; --glow:#8A5A20}
 
-  /* The ruled plate, taken from the logo lockup's own border. */
-  .plate{position:absolute;inset:34px;border:1px solid rgba(216,168,92,.34)}
-  .plate::after{content:"";position:absolute;inset:9px;border:1px solid rgba(216,168,92,.13)}
+  .warm{position:absolute;width:900px;height:900px;border-radius:50%;
+        background:var(--glow);filter:blur(160px);opacity:.2;
+        top:50%;left:50%;transform:translate(-50%,-52%)}
 
-  .stack{position:relative;z-index:2;text-align:center;padding:0 90px}
-  .wordmark-type{font-size:96px;line-height:1;letter-spacing:.02em;font-weight:400;
-                 margin-bottom:28px}
+  /* The bleed. Wider than the canvas and pulled left so the mark is cut at
+     both ends — the crop is the composition, not an accident. */
+  .bleed{position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);
+         width:1560px;opacity:.96;
+         mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);
+         -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
 
-  .rule{width:120px;height:1px;background:rgba(216,168,92,.42);margin:0 auto 28px}
+  .rule{position:absolute;left:96px;right:96px;bottom:150px;height:1px;
+        background:rgba(var(--lit),.28)}
 
-  .line{font-size:40px;line-height:1.24;letter-spacing:.005em;color:#EFE6D6;opacity:.92}
-
-  .foot{position:absolute;left:0;right:0;bottom:64px;text-align:center;
-        font-family:'Instrument Sans',system-ui,sans-serif;font-size:13px;font-weight:600;
-        letter-spacing:.3em;text-transform:uppercase;color:rgba(216,168,92,.62)}
-
-  /* A single, very soft warmth behind the plate — candlelight, not gradient. */
-  .warm{position:absolute;width:760px;height:760px;border-radius:50%;
-        background:#8A5A20;filter:blur(150px);opacity:.16;
-        top:50%;left:50%;transform:translate(-50%,-56%)}
+  .foot{position:absolute;left:96px;right:96px;bottom:96px;display:flex;
+        justify-content:space-between;align-items:baseline;
+        font-family:'Instrument Sans',system-ui,sans-serif;font-size:13px;
+        font-weight:600;letter-spacing:.3em;text-transform:uppercase}
+  .foot .a{color:rgba(var(--lit),.85)}
+  .foot .b{color:rgba(240,234,244,.42)}
+  body.amber .foot .b{color:rgba(239,230,214,.42)}
 </style></head>
 <body>
   <div class="warm"></div>
-  <div class="plate"></div>
-  <div class="stack">
-    <!-- NOT using public/brand/logo-wordmark-*.png: those files are truncated
-         ("GRIMOI" — the final letters are cut off mid-stroke). Set in the
-         display face until working artwork exists. -->
-    <div class="wordmark-type">Grimoire</div>
-    <div class="rule"></div>
-    <!-- Axel's line, from the prototype's Keeper's Oath. -->
-    <div class="line">Keep the book, and be kept.</div>
+  <img class="bleed" src="public/brand/logo-wordmark-cream.png" alt="Grimoire">
+  <div class="rule"></div>
+  <div class="foot">
+    <span class="a">Three taps to a spell</span>
+    <span class="b">Protection · Severance · Sleep &amp; Dreams</span>
   </div>
-  <div class="foot">Three taps to a spell</div>
 </body></html>

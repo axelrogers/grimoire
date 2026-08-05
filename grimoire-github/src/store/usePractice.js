@@ -10,14 +10,20 @@
 import { useEffect, useState, useCallback } from "react";
 import { store, rankFor } from "./index.js";
 
-let snapshot = { casts: [], profile: { castCount: 0, workedCount: 0, rate: null }, loading: true };
+let snapshot = {
+  casts: [],
+  profile: { castCount: 0, workedCount: 0, rate: null },
+  session: null,
+  signInPending: null, // email a magic link was sent to, while we wait
+  loading: true,
+};
 const subs = new Set();
 const emit = () => subs.forEach((fn) => fn(snapshot));
 
 async function refresh() {
   try {
     const [casts, profile] = await Promise.all([store.listCasts(), store.profile()]);
-    snapshot = { casts, profile, loading: false };
+    snapshot = { ...snapshot, casts, profile, session: store.session(), loading: false };
   } catch (e) {
     // Never let a backend hiccup blank the screen — keep the last good data.
     console.error("[grimoire] practice refresh failed:", e);
@@ -51,12 +57,37 @@ export function usePractice() {
     await refresh();
   }, []);
 
+  const signIn = useCallback(async (email) => {
+    const r = await store.signIn({ email });
+    // Supabase sends a magic link and returns pending; the local store signs
+    // in immediately. Either way the snapshot reflects it.
+    snapshot = { ...snapshot, signInPending: r?.pending ? email : null };
+    await refresh();
+    return r;
+  }, []);
+
+  const signOut = useCallback(async () => {
+    await store.signOut();
+    snapshot = { ...snapshot, signInPending: null };
+    await refresh();
+  }, []);
+
+  // "The book asks" — pending verdicts whose cast is from before today.
+  // A working is held overnight before the book asks how it landed; asking
+  // in the same breath as casting would make the verdict worthless.
+  const midnight = new Date();
+  midnight.setHours(0, 0, 0, 0);
+  const asks = state.casts.filter((c) => c.worked === null && c.castAt < midnight.getTime());
+
   return {
     ...state,
     rank: rankFor(state.profile.castCount),
     pending: state.casts.filter((c) => c.worked === null),
+    asks,
     cast,
     answer,
+    signIn,
+    signOut,
     backend: store.backend,
   };
 }

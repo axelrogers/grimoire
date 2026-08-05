@@ -6,7 +6,9 @@ import { usePractice } from "../store/usePractice.js";
 // ── CAST SHEET ── opened from Browse. Runs the identical three-tap cast:
 // Cast → Apple Pay → Cast now → held beat → success. Same promise everywhere.
 export default function CastSheet({ spell, C, S, onClose }) {
-  const { cast: recordCast } = usePractice();
+  const { cast: recordCast, session, backend } = usePractice();
+  const [needsSign, setNeedsSign] = useState(false);
+  const mustSign = backend === "supabase" && !session;
   const accent = "var(--p-accent)";
   const [step, setStep] = useState("idle");
   const [phase, setPhase] = useState(null);
@@ -27,6 +29,10 @@ export default function CastSheet({ spell, C, S, onClose }) {
   }, [step]);
 
   const tap = (next) => {
+    if (next === "pay" && mustSign) {
+      setNeedsSign(true);
+      return;
+    }
     setTaps((t) => t + 1);
     if (next === "casting") {
       recordCast(spell).catch((e) => console.error("[grimoire] cast not recorded:", e));
@@ -64,9 +70,11 @@ export default function CastSheet({ spell, C, S, onClose }) {
             {step !== "done" && <div style={S.cardSub}>{spell.sub}</div>}
             {step === "idle" && (
               <div style={S.rationale}>
-                {spell.rate == null
-                  ? "No verdicts yet — this spell has not been rated."
-                  : `${spell.rate}% of casters marked this one worked.`}
+                {needsSign
+                  ? "The book keeps casts to a hand. Sign your record on the You page first."
+                  : spell.rate == null
+                    ? "No verdicts yet — this spell has not been rated."
+                    : `${spell.rate}% of casters marked this one worked.`}
               </div>
             )}
           </div>

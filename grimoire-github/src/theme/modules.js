@@ -223,5 +223,30 @@ export const modulesStyles = () => ({
     fontSize: 10,
     fontWeight: 700,
     marginTop: 6,
-  }
+  },
+
+  // ── The book asks ─────────────────────────────────────
+  askRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+    padding: "9px 0",
+    borderTop: "1px solid var(--p-hair)",
+  },
+  askGlyph: { fontSize: 19, lineHeight: 1, flexShrink: 0 },
+  askMid: { flex: 1, minWidth: 0 },
+  askTitle: {
+    fontFamily: TYPE.display,
+    fontSize: 16,
+    fontWeight: 500,
+    color: "var(--p-text)",
+    lineHeight: 1.2,
+  },
+  askWhen: {
+    fontFamily: TYPE.body,
+    fontSize: 12,
+    color: "var(--p-text)",
+    opacity: 0.6,
+    marginTop: 2,
+  },
 });

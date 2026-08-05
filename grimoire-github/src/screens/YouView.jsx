@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { usePractice, when } from "../store/usePractice.js";
 
 // ── YOU ── progression up top (rank, journey, Grimoins), practice below
@@ -5,7 +6,25 @@ import { usePractice, when } from "../store/usePractice.js";
 // marking one feeds the success data that drives the whole trust mechanic.
 export default function YouView({ S }) {
   // Real practice, from the store. Nothing here is sample data any more.
-  const { casts, profile, rank, answer } = usePractice();
+  const { casts, profile, rank, answer, session, signIn, signOut, signInPending } =
+    usePractice();
+  const [email, setEmail] = useState("");
+  const [signError, setSignError] = useState(null);
+
+  const begin = async () => {
+    const addr = email.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) {
+      setSignError("The book needs a reachable address.");
+      return;
+    }
+    setSignError(null);
+    try {
+      await signIn(addr);
+    } catch (e) {
+      console.error("[grimoire] sign-in failed:", e);
+      setSignError("The book could not reach that address. Try again.");
+    }
+  };
   const history = casts;
   const successRate = profile.rate;
   const answered = casts.filter((c) => c.worked !== null).length;
@@ -17,6 +36,52 @@ export default function YouView({ S }) {
         <div style={S.eyebrow}>Your practice</div>
         <div style={S.todayTitle}>You</div>
       </div>
+
+      {/* THE RECORD — sign in. Copy is the prototype's onboarding voice. */}
+      {!session && !signInPending && (
+        <div style={S.signCard}>
+          <div style={S.signTitle}>Your record</div>
+          <div style={S.signSub}>
+            Every hand keeps its own book. Sign yours to keep it across
+            devices.
+          </div>
+          <div style={S.signLabel}>Where the book may reach you</div>
+          <input
+            style={S.signInput}
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            placeholder="name@somewhere.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && begin()}
+          />
+          {signError && <div style={S.signError}>{signError}</div>}
+          <button style={S.signBtn} onClick={begin}>
+            Begin your record
+          </button>
+          <div style={S.signHint}>
+            Kept for the book alone — never sold, never shown.
+          </div>
+        </div>
+      )}
+      {!session && signInPending && (
+        <div style={S.signCard}>
+          <div style={S.signTitle}>The book has written to you</div>
+          <div style={S.signSub}>
+            A signing link is on its way to {signInPending}. Open it and the
+            record is yours.
+          </div>
+        </div>
+      )}
+      {session && !session.anonymous && (
+        <div style={S.signedRow}>
+          <span style={S.signedAs}>The record is signed.</span>
+          <button style={S.signOutBtn} onClick={signOut}>
+            Close the book
+          </button>
+        </div>
+      )}
 
       {/* PROGRESSION */}
       <div style={S.youCrest}>

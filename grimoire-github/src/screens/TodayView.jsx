@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react";
 import { HEROES, selectStrategy, DAILY_CARD, COMMUNITY, FEATURED } from "../data.js";
 import { ApplePaySheet, CastingBeat, SuccessState } from "../components/CastFunnel.jsx";
-import { usePractice } from "../store/usePractice.js";
+import { usePractice, when } from "../store/usePractice.js";
+
+// "Tonight" reads wrong mid-sentence; the ask row wants "last night".
+const whenLower = (ts) => {
+  const w = when(ts);
+  return w === "Tonight" ? "last night" : w.charAt(0).toLowerCase() + w.slice(1);
+};
 
 export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }) {
-  const { cast: recordCast } = usePractice();
+  const { cast: recordCast, session, backend, asks, answer } = usePractice();
+  const [needsSign, setNeedsSign] = useState(false);
+  const mustSign = backend === "supabase" && !session;
   // Funnel state. idle → pay → cast(tap3) → casting[hold→send] → done
   const [step, setStep] = useState("idle");
   const [phase, setPhase] = useState(null); // hold | send  (within "casting")
@@ -35,6 +43,10 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
   const accent = "var(--p-accent)"; // one accent per palette (DESIGN.md §1)
 
   const tap = (next) => {
+    if (next === "pay" && mustSign) {
+      setNeedsSign(true);
+      return;
+    }
     setTaps((t) => t + 1);
     // The cast is recorded as the held beat begins — the point of commitment.
     // Failing to record must not break the ritual, so it's fire-and-forget
@@ -104,7 +116,11 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
               <div style={S.cardTitle}>{hero.title}</div>
               {step !== "done" && <div style={S.cardSub}>{hero.sub}</div>}
               {step === "idle" && (
-                <div style={S.rationale}>{hero.rationale}</div>
+                <div style={S.rationale}>
+                  {needsSign
+                    ? "The book keeps casts to a hand. Sign your record on the You page first."
+                    : hero.rationale}
+                </div>
               )}
             </div>
           </div>
@@ -164,6 +180,41 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
             ...(step === "idle" || step === "done" ? {} : S.modulesMuted),
           }}
         >
+        {/* THE BOOK ASKS — verdicts held overnight, surfaced first. This is
+            the loop the trust layer feeds on: cast, hold, answer. */}
+        {asks.length > 0 && (
+          <div style={S.module}>
+            <div style={S.moduleHead}>
+              <span style={S.moduleEyebrow}>The book asks</span>
+            </div>
+            {asks.map((c) => (
+              <div key={c.id} style={S.askRow}>
+                <span style={{ ...S.askGlyph, color: "var(--p-accent)" }}>
+                  {c.glyph}
+                </span>
+                <div style={S.askMid}>
+                  <div style={S.askTitle}>{c.title}</div>
+                  <div style={S.askWhen}>Cast {whenLower(c.castAt)} — how did it land?</div>
+                </div>
+                <div style={S.verdictBtns}>
+                  <button
+                    style={{ ...S.verdictYes, borderColor: "var(--p-accent)", color: "var(--p-accent)" }}
+                    onClick={() => answer(c.id, true)}
+                  >
+                    Worked
+                  </button>
+                  <button
+                    style={{ ...S.verdictNo, borderColor: "var(--p-hair)", color: "var(--p-textSoft)" }}
+                    onClick={() => answer(c.id, false)}
+                  >
+                    Not yet
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
         <PersonalStrip S={S} />
         <DailyCard S={S} />
         <CommunityPeek S={S} />

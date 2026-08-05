@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .DS_Store
 dist/
+dist-single/
 build/
 
 # Secrets — the GitHub token lives in Drive and in $GRIMOIRE_GH_TOKEN only,

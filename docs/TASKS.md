@@ -56,6 +56,14 @@ moderation and payouts come after launch.
       cast animation timing.
 
 ## Done
+- [x] **Auth surface + cast guard.** Sign the record on You (prototype's
+      onboarding voice, magic-link pending state for Supabase); funnels refuse
+      payment for a cast that can't be kept to a hand. (2026-08-05)
+- [x] **The verdict loop is a mechanic.** Casts held overnight surface on
+      Today as "The book asks"; answering writes the verdict. (2026-08-05)
+- [x] **Browse ported — the Grand Index.** Table of contents with dotted
+      leaders, real counts/pages, chapter view with ledger rows and the margin
+      voice, concordance search. Measured from the prototype. (2026-08-05)
 - [x] **Wired the app to the store.** Casting records, history is real and
       survives reload, verdicts write, rank derives from actual casts. No
       sample data left on You. Verified end to end. (2026-08-03)

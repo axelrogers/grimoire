@@ -3,6 +3,33 @@
 Newest session first. Each checkpoint appends a dated entry: what changed,
 what's in flight, and anything the next session needs to know.
 
+## 2026-08-05 — Session 5
+
+**PUSHES ARE BLOCKED BY THE SANDBOX** as of this session: the git proxy
+refuses to forward ANY credential for axelrogers/grimoire ("not in this
+session's authorized repository set"). Reads work; the token is valid (same
+token pushed fine on 08-03). NOT a token problem — do not chase the PAT.
+Fix: a session with the repo attached as a source, or apply the Drive bundle
+from any push-capable environment. Unpushed commits are bundled to the
+Grimoire App Drive folder (grimoire-unpushed-*.bundle.b64) with restore
+instructions inline. Update the bundle at every checkpoint.
+
+**Built this session:** the auth surface (sign the record on You, prototype
+onboarding voice, magic-link pending state, cast guard so payment is never
+taken for a cast that can't be kept); the verdict loop ("The book asks" on
+Today for casts held overnight — nothing is asked before the day turns, or
+the verdict is worthless); and the Browse port — the Grand Index, measured
+from the prototype's index screen (34px masthead, TOC rows with dotted
+leaders, real counts and page ranges computed from the catalogue, chapter
+view with 44px head, the one authored epigraph ported verbatim, ledger rows,
+a voice from the margin, concordance search in-voice).
+
+**Two testing lessons:** innerText returns CSS-uppercased text, so
+case-sensitive assertions silently lie about visible content (an hour of
+debugging a sheet that was open the whole time); and the four-way suite
+needed updating for the new Browse IA — a ported screen changes navigation,
+so the tests that walk it must move too.
+
 ## 2026-08-03 — Session 4
 
 **The spells were already written.** Reading the prototype's source for the

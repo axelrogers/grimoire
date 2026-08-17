@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { HEROES, selectStrategy, DAILY_CARD, COMMUNITY, FEATURED } from "../data.js";
 import { ApplePaySheet, CastingBeat, SuccessState } from "../components/CastFunnel.jsx";
 import { usePractice, when } from "../store/usePractice.js";
+import { beginPayment, isPaidLive } from "../payment.js";
 
 // "Tonight" reads wrong mid-sentence; the ask row wants "last night".
 const whenLower = (ts) => {
@@ -47,6 +48,10 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
       setNeedsSign(true);
       return;
     }
+    // Stripe is live for this spell: leave for the payment link rather than
+    // the simulated sheet. The caster returns to ?paid=<id> and App resumes
+    // the cast. A spell with no link keeps the demo flow.
+    if (next === "pay" && isPaidLive(hero) && beginPayment(hero)) return;
     setTaps((t) => t + 1);
     // The cast is recorded as the held beat begins — the point of commitment.
     // Failing to record must not break the ritual, so it's fire-and-forget

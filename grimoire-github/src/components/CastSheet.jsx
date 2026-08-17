@@ -2,15 +2,19 @@ import { useState, useEffect } from "react";
 import { CATEGORIES } from "../data.js";
 import { ApplePaySheet, CastingBeat, SuccessState } from "./CastFunnel.jsx";
 import { usePractice } from "../store/usePractice.js";
+import { beginPayment, isPaidLive } from "../payment.js";
 
 // ── CAST SHEET ── opened from Browse. Runs the identical three-tap cast:
 // Cast → Apple Pay → Cast now → held beat → success. Same promise everywhere.
-export default function CastSheet({ spell, C, S, onClose }) {
+export default function CastSheet({ spell, C, S, onClose, startAt = "idle" }) {
   const { cast: recordCast, session, backend } = usePractice();
   const [needsSign, setNeedsSign] = useState(false);
   const mustSign = backend === "supabase" && !session;
   const accent = "var(--p-accent)";
-  const [step, setStep] = useState("idle");
+  // `startAt` is how a caster returning from Stripe re-enters: App hands the
+  // sheet back already paid, at the held beat, so the ritual resumes rather
+  // than asking for money a second time.
+  const [step, setStep] = useState(startAt);
   const [phase, setPhase] = useState(null);
   const [taps, setTaps] = useState(0);
 
@@ -28,11 +32,20 @@ export default function CastSheet({ spell, C, S, onClose }) {
     };
   }, [step]);
 
+  // NOTE: a cast resumed from payment (startAt === "casting") is recorded by
+  // App, not here — it holds the claim and can retry once a session exists.
+  // Recording it here as well would write the cast twice.
+
   const tap = (next) => {
     if (next === "pay" && mustSign) {
       setNeedsSign(true);
       return;
     }
+    // Stripe is live for this spell: leave for the payment link. The caster
+    // returns to ?paid=<id> and App resumes the sheet at the held beat.
+    // Without a link we fall back to the simulated sheet, so the app stays
+    // demoable with no Stripe account at all.
+    if (next === "pay" && isPaidLive(spell) && beginPayment(spell)) return;
     setTaps((t) => t + 1);
     if (next === "casting") {
       recordCast(spell).catch((e) => console.error("[grimoire] cast not recorded:", e));

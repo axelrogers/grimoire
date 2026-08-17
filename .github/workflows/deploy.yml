@@ -26,7 +26,28 @@ jobs:
         with:
           node-version: 20
       - run: npm install
+
+      # The Supabase keys are NOT in the repo — they live in Drive and, for
+      # deploys, in repository secrets. Vite inlines VITE_* at build time, so
+      # they have to be present HERE or the live site silently falls back to
+      # the browser-local store (see src/store/index.js · pickAdapter).
+      #
+      # The anon key is designed to be public — it ends up in the JS bundle
+      # either way — but it stays a secret here so there is one place to
+      # rotate it and it never lands in a commit.
+      - name: Check backend secrets are present
+        run: |
+          if [ -z "${{ secrets.VITE_SUPABASE_URL }}" ] || [ -z "${{ secrets.VITE_SUPABASE_ANON_KEY }}" ]; then
+            echo "::warning title=No Supabase keys::VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY are not set as repository secrets. This deploy will ship the LOCAL store: sign-in is per-browser and nothing persists across devices. Set them at Settings -> Secrets and variables -> Actions."
+          else
+            echo "Supabase keys present — building against the hosted backend."
+          fi
+
       - run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: grimoire-github/dist

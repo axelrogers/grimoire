@@ -121,3 +121,44 @@ before you take money. I'm not one.
 
 **The Stripe business description.** Only you can accurately say what the
 business does, and getting it wrong is the most common cause of a frozen account.
+
+---
+
+## 3 · The deploy needs the keys too (added 2026-08-17)
+
+`.env.local` only exists on a dev machine — it is gitignored, correctly, and
+GitHub Actions never sees it. **Vite inlines `VITE_*` at build time**, so if the
+Pages build runs without them, the live site quietly ships the browser-local
+store: sign-in works per-browser, and nothing persists across devices. Nobody
+sees an error. That is the worst possible failure for a launch, so:
+
+**Do this once, in the repo — 60 seconds:**
+
+1. `github.com/axelrogers/grimoire` → **Settings** → **Secrets and variables**
+   → **Actions** → **New repository secret**.
+2. Name `VITE_SUPABASE_URL`, value `https://gfmwptulboiutwveedoc.supabase.co`
+3. **New repository secret** again. Name `VITE_SUPABASE_ANON_KEY`, value the
+   `eyJ…` anon key from the Drive file `grimoire-supabase`.
+4. **Actions** tab → *Deploy to GitHub Pages* → **Run workflow** to rebuild.
+
+`.github/workflows/deploy.yml` passes both into the build step and prints a
+loud warning in the run summary if either is missing. It warns rather than
+fails, so a missing secret never blocks a deploy — check the summary.
+
+**Why a secret for a public key.** The anon key is designed to be public and is
+readable in the shipped bundle either way. Keeping it a secret is about having
+one place to rotate it, and about it never landing in a commit. The
+`service_role` key is a different animal and is not stored anywhere.
+
+### Verifying it actually took (Axel, real browser — the sandbox can't)
+
+`*.supabase.co` is blocked by the Cowork proxy, so sign-in cannot be tested
+from here at all. On the live site:
+
+1. Open https://axelrogers.github.io/grimoire/ → **You** → sign the record with
+   your email. You should get the *magic-link pending* state, not an instant
+   signature.
+2. Check your inbox, click the link, land back signed in.
+3. Cast something, answer the book's question the next day, then open the site
+   **in a different browser** and sign in again — the cast should be there.
+   If it isn't, the build ran without the secrets.

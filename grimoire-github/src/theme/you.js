@@ -219,4 +219,99 @@ export const youStyles = () => ({
     color: "var(--p-textSoft)",
     cursor: "pointer",
   },
+
+  // ── Your Record (ported 2026-08-17) ───────────────────────────────────
+  // The prototype's You: a ruled masthead, the rank worn as a disc, then the
+  // record itself as ledger rows. Masthead furniture is shared with browse.js
+  // (indexEyebrowRow / indexRule / indexEyebrow) so the book stays one book.
+  recordHead: { textAlign: "center", padding: "6px 8px 0" },
+  recordDisc: {
+    width: 64,
+    height: 64,
+    borderRadius: "50%",
+    border: "1px solid var(--p-rule)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "0 auto",
+    fontFamily: TYPE.display,
+    fontSize: 22,
+    color: "var(--p-accent)",
+  },
+  recordName: {
+    fontFamily: TYPE.display,
+    fontSize: 34,
+    fontWeight: 500,
+    letterSpacing: "-0.01em",
+    lineHeight: 1.05,
+    color: "var(--p-text)",
+    margin: "14px 0 0",
+  },
+  recordSince: {
+    fontFamily: TYPE.body,
+    fontSize: 14,
+    color: "var(--p-text)",
+    opacity: 0.65,
+    marginTop: 9,
+  },
+  recordTally: {
+    fontFamily: TYPE.ui,
+    fontSize: 10,
+    fontWeight: 700,
+    letterSpacing: "0.22em",
+    textTransform: "uppercase",
+    color: "var(--p-accent)",
+    marginTop: 12,
+  },
+  // Progress toward the next rank, quieter than the old crest.
+  recordTrack: {
+    height: 2,
+    background: "var(--p-hair)",
+    borderRadius: 2,
+    margin: "14px auto 0",
+    maxWidth: 180,
+    overflow: "hidden",
+  },
+  recordFill: { height: "100%", borderRadius: 2 },
+  recordNext: {
+    fontFamily: TYPE.body,
+    fontSize: 12,
+    color: "var(--p-text)",
+    opacity: 0.5,
+    marginTop: 7,
+  },
+
+  // A cast, as a line in the record: title, when, leader, verdict.
+  recordRow: {
+    display: "flex",
+    alignItems: "baseline",
+    gap: 10,
+    padding: "11px 0",
+    borderTop: "1px solid var(--p-hair)",
+  },
+  recordTitle: {
+    fontFamily: TYPE.display,
+    fontSize: 16,
+    fontWeight: 500,
+    color: "var(--p-text)",
+    whiteSpace: "nowrap",
+  },
+  recordWhen: {
+    fontFamily: TYPE.ui,
+    fontSize: 10,
+    fontWeight: 600,
+    color: "var(--p-text)",
+    opacity: 0.55,
+    whiteSpace: "nowrap",
+    flexShrink: 0,
+  },
+  recordEmpty: {
+    fontFamily: TYPE.body,
+    fontSize: 14,
+    lineHeight: 1.5,
+    color: "var(--p-text)",
+    opacity: 0.65,
+    textAlign: "center",
+    padding: "14px 0 16px",
+  },
 });

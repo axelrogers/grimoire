@@ -3,6 +3,64 @@
 Newest session first. Each checkpoint appends a dated entry: what changed,
 what's in flight, and anything the next session needs to know.
 
+## 2026-08-17 — Session 6
+
+**The backlog shipped.** Axel pushed the three stranded commits from his Mac
+overnight, so `origin/main` opened this session at `d1eb7df` and the 12-day
+block is over. Pushes are still refused from Cowork sessions by the git proxy —
+that is unchanged and not worth retrying. The working pattern now is: commit
+locally, `git bundle create <file> origin/main..main`, and send the bundle
+straight to Axel as a file. No base64, no Drive round trip, no splitting.
+
+**Supabase is wired.** Keys arrived in Drive; `.env.local` (gitignored)
+activates the hosted backend and `store.backend === "supabase"` is verified —
+by building a probe entry through Vite and running it under node, since
+`*.supabase.co` is blocked here and always will be. **The thing that would
+have bitten at launch:** Vite inlines `VITE_*` at build time and GitHub Actions
+never sees `.env.local`, so the Pages build was going to ship the browser-local
+store — sign-in working per-browser, nothing persisting across devices, and no
+error anywhere. `deploy.yml` now takes both values from repository secrets and
+warns loudly in the run summary if they are missing. Axel adds the secrets;
+sign-in itself is unverifiable from here and is his to test in a real browser.
+
+**Stripe, app side.** Payment links, per the 17 Aug decision. `src/payment.js`
+is the whole integration: four link slots, `beginPayment` out, `consumeReturn`
+back. A caster with a live link leaves for Stripe and returns to `?paid=<id>`;
+App resumes the sheet at the held beat and the working is delivered. The
+dashboard half is a click-list (`docs/STRIPE-payment-links.md`) because
+`api.stripe.com` is blocked and because links made by hand need no key in the
+app at all.
+
+Two things worth carrying forward. A paid return **with no session** used to
+deliver the working and silently lose the cast; the claim is now held in
+`localStorage` and written the moment a session exists — App owns that write,
+CastSheet deliberately does not, or it would record twice. And the return trip
+**cannot be verified without a server**: that is inherent to payment links, and
+the trade, its exposure and the signal to escalate are written into
+`payment.js` rather than left as folklore.
+
+**Coven and You ported** to the prototype's composition, following Browse:
+ruled masthead, volume cards, rows with dotted leaders. Both read as sections
+of one book now. What did not come across: the invented aggregates ("12,048
+hands", "341 gathered") — every figure is counted from data present — and
+"Tonight's circle", which draws a feature that does not exist. Two smaller
+corrections fell out of the port: the Grimoins label and "Top up" button were
+still sitting on the real cast count months after DECISIONS said Grimoins were
+cut, and Coven's "cast with a practitioner" invented a $14 spell when nothing
+in the catalogue matched. Both gone.
+
+**Verified this session:** build passes; lint at the 5 pre-existing errors;
+all four palette x mode combinations render both new screens with no page
+errors; payment return resumes the cast, records it exactly once, does not
+replay on reload, refuses an unknown spell id, and holds the claim when
+unsigned. Not verified, and not verifiable from here: Supabase sign-in, any
+Stripe call, and typography (`fonts.googleapis.com` is blocked).
+
+**Next session:** if Axel has added the secrets and tested sign-in, the live
+e2e is done and the remaining launch work is the eight seeds (his), the amber
+day-mode contrast, the verdict colour token, and a launch-readiness pass
+(error states, device sizes, strip the dev switcher).
+
 ## 2026-08-05 — Session 5
 
 **PUSHES ARE BLOCKED BY THE SANDBOX** as of this session: the git proxy

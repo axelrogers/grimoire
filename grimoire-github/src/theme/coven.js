@@ -110,5 +110,121 @@ export const covenStyles = () => ({
     fontSize: 14,
     cursor: "pointer",
     transition: "border-color 0.5s ease",
-  }
+  },
+
+  // ── Vol. III · The Coven Record (ported 2026-08-17) ───────────────────
+  // Same furniture as the Grand Index — ruled masthead, a volume card, rows
+  // with dotted leaders — so the two screens read as one book. The masthead
+  // itself reuses browse.js's indexEyebrowRow / indexTitle / indexSub.
+  covenHead: { textAlign: "center", padding: "4px 8px 0" },
+  covenCount: {
+    fontFamily: TYPE.ui,
+    fontSize: 10,
+    fontWeight: 700,
+    letterSpacing: "0.22em",
+    textTransform: "uppercase",
+    color: "var(--p-accent)",
+    marginTop: 12,
+  },
+
+  // A margin entry: someone else's hand, dated, in their own words.
+  marginRow: {
+    padding: "12px 0 13px",
+    borderTop: "1px solid var(--p-hair)",
+  },
+  marginTop: { display: "flex", alignItems: "baseline", gap: 8 },
+  marginName: {
+    fontFamily: TYPE.display,
+    fontSize: 16,
+    fontWeight: 600,
+    color: "var(--p-text)",
+  },
+  marginRank: {
+    fontFamily: TYPE.ui,
+    fontSize: 10,
+    fontWeight: 700,
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    color: "var(--p-text)",
+    opacity: 0.5,
+  },
+  marginWhen: {
+    fontFamily: TYPE.body,
+    fontSize: 12,
+    color: "var(--p-text)",
+    opacity: 0.5,
+    marginLeft: "auto",
+    flexShrink: 0,
+  },
+  marginNote: {
+    fontFamily: TYPE.body,
+    fontSize: 14,
+    lineHeight: 1.5,
+    color: "var(--p-text)",
+    opacity: 0.8,
+    marginTop: 6,
+  },
+  marginRef: {
+    display: "flex",
+    alignItems: "baseline",
+    gap: 8,
+    marginTop: 8,
+  },
+  marginRefName: {
+    fontFamily: TYPE.display,
+    fontSize: 14,
+    fontWeight: 500,
+    color: "var(--p-text)",
+    opacity: 0.75,
+    whiteSpace: "nowrap",
+  },
+  marginRefPage: {
+    fontFamily: TYPE.body,
+    fontSize: 12,
+    color: "var(--p-text)",
+    opacity: 0.55,
+    flexShrink: 0,
+  },
+
+  // A hand in the circle, as an index row.
+  handRow: {
+    display: "flex",
+    alignItems: "baseline",
+    gap: 10,
+    width: "100%",
+    background: "transparent",
+    border: "none",
+    borderTop: "1px solid var(--p-hair)",
+    padding: "13px 0",
+    textAlign: "left",
+  },
+  handGlyph: {
+    fontFamily: TYPE.display,
+    fontSize: 14,
+    width: 22,
+    flexShrink: 0,
+    opacity: 0.75,
+  },
+  handName: {
+    fontFamily: TYPE.display,
+    fontSize: 16,
+    fontWeight: 500,
+    color: "var(--p-text)",
+    whiteSpace: "nowrap",
+  },
+  handCraft: {
+    fontFamily: TYPE.body,
+    fontSize: 12,
+    color: "var(--p-text)",
+    opacity: 0.55,
+    flexShrink: 0,
+  },
+  covenFoot: {
+    fontFamily: TYPE.body,
+    fontSize: 13,
+    color: "var(--p-text)",
+    opacity: 0.5,
+    textAlign: "center",
+    padding: "16px 8px 0",
+  },
 });

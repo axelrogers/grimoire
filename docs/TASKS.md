@@ -13,6 +13,18 @@ or free at first; full Stripe checkout by the film's release. Practitioner submi
 moderation and payouts come after launch.
 
 ## Next
+
+**AXEL — the three that block a 26 Aug launch, in order:**
+- [ ] **Two repository secrets**, or the live site persists nothing across
+      devices and says nothing about it: `VITE_SUPABASE_URL` and
+      `VITE_SUPABASE_ANON_KEY` at Settings → Secrets and variables → Actions.
+      `docs/SETUP-supabase-stripe.md` §3. 60 seconds.
+- [ ] **Sign in on the live site, in a real browser**, and confirm a cast
+      survives into a second browser. This cannot be tested from the sandbox —
+      `*.supabase.co` is blocked — so it is unverified until you do it.
+- [ ] **The Stripe afternoon**: `docs/STRIPE-payment-links.md`, top to bottom.
+      Decide AUD vs USD *first* (§5) — it's fixed when each price is created.
+
 - [ ] **Amber fails contrast in day mode.** 14 items measure 2.9–3.3:1 against
       the light ground where small text needs 4.5:1 — "Open the folio ›",
       "All activity →", the % figures, category glyphs. The amber accent
@@ -22,21 +34,31 @@ moderation and payouts come after launch.
 - [ ] **Write eight thin category seeds** (was: eight full spells). Spells are
       practitioner-driven; these only need to open each category credibly.
       Divination and Healing have nothing at all yet.
-- [ ] **BLOCKING: a Supabase project + keys.** The backend is now WRITTEN and
-      waiting — schema in `supabase/schema.sql`, adapter in
-      `src/store/supabase.js`, contract-verified against the local one. Paste
-      the SQL, put the two keys in `.env.local`, and it activates itself.
-      See `docs/SETUP-supabase-stripe.md`.
+- [x] ~~**BLOCKING: a Supabase project + keys.**~~ DONE 17 Aug — keys arrived,
+      `.env.local` wired, `store.backend === "supabase"` verified locally, and
+      the deploy takes them from repository secrets. **Axel still owes the two
+      secrets and a real-browser sign-in test** (`docs/SETUP-supabase-stripe.md` §3);
+      sign-in cannot be tested from the sandbox at all.
 - [ ] ~~Write the remaining eight full spells.~~ Superseded: Four are authored and live
       (ported from the prototype); eight slots wait in `data.js` as
       ⟨spell 5⟩…⟨spell 12⟩. ~130 words each — working / theirs / yours /
       quote. Guide at `docs/WRITING-spells.md`. Axel's voice; Claude edits
       but does not draft. `unwrittenSlots()` counts what's left — wire it
       into a launch check so no slot reaches a paying caster.
-- [ ] **Payments (Stripe) — now on the critical path.** Blocked on Axel: a
-      Stripe account, the selling entity + GST position, and legal input on
-      efficacy claims and refunds. ~2 weeks; expect to cut the Browse/Coven/You
-      composition port to fit.
+- [x] ~~**Payments (Stripe).**~~ App side DONE 17 Aug — payment links, return
+      handling, held claims, `npm run check:prices`. What remains is Axel's
+      dashboard afternoon (above), plus still-open: the selling entity + GST
+      position, and legal input on efficacy claims and refunds before charging.
+- [x] ~~**Coven + You composition port.**~~ DONE 17 Aug. Both now read as
+      volumes of the same book as Browse. Not ported, on purpose: the
+      prototype's "Tonight's circle" (no such feature) and its invented
+      aggregate counts.
+- [ ] **The second Coven level — circles.** The prototype's `isCovenCircle`
+      branch is a full composition waiting for real circles to exist. Needs a
+      data shape (who, when, which working, who's gathered) before any pixels.
+- [ ] **Full Stripe checkout**, server-verified, to replace payment links
+      during the press build-up. The trigger is takings and Stripe
+      disagreeing, or volume making manual reconciliation silly.
 - [ ] **Verdict colour has no token.** Collapsing to one accent means
       "worked" and "not yet answered" render identically on cast history and
       the verdict buttons. The trust mechanic is binary and the system has no

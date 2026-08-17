@@ -353,3 +353,54 @@ as engagement scaffolding.
 - **Grimoins are gone from the You screen**; the figure there is now the real
   cast count. Consistent with the read that engagement scaffolding is what is
   costing Astrea its users.
+
+## 2026-08-17 (Session 6)
+
+- **Supabase keys reach the deploy through repository secrets**, injected in
+  `.github/workflows/deploy.yml`, not through a committed file. `.env.local`
+  covers local dev only; Vite inlines `VITE_*` at build time and Actions never
+  sees it, so without this the Pages build ships the browser-local store with
+  no error anywhere — the worst failure available to us, because it looks like
+  it works. The workflow warns rather than fails when the secrets are absent:
+  a missing secret must never be able to block a deploy of `main`.
+
+- **Payment at soft launch is Stripe Payment Links, not checkout** (confirms
+  the 17 Aug plan). No server, no webhook, no secret key in the app; four URLs
+  in `src/payment.js` and a dashboard click-list in
+  `docs/STRIPE-payment-links.md`. Full checkout replaces it during the press
+  build-up if the links prove out.
+
+- **The return trip from Stripe is not verified, knowingly.** Verification
+  needs a server, which is the thing payment links let us skip; a determined
+  person can hand-type `?paid=s1` and get a free casting. Accepted because the
+  exposure is one $36–48 spell at a time and every claim is written to a local
+  receipt trail for reconciliation. **The signal to bring checkout forward is
+  takings and Stripe disagreeing** — not more client-side checking, which a
+  client cannot provide about itself.
+
+- **A paid cast that can't be recorded is held, not dropped.** Returning
+  without a session used to deliver the working and silently lose the record.
+  The claim now persists in `localStorage` and is written the moment a session
+  exists, and the working is delivered either way, because they paid for it.
+  App owns that write; CastSheet deliberately does not, or it would double.
+
+- **Prices stay in `src/data.js`.** Stripe holds the same numbers, and nothing
+  reconciles them automatically, so `npm run check:prices` prints the pairing
+  and fails on a live link attached to an unwritten slot.
+
+- **Coven and You ported to the prototype's composition, minus its numbers.**
+  The invented aggregates ("12,048 hands", "341 gathered") did not come back
+  through the port; every figure is counted from the data present. The
+  prototype's "Tonight's circle" card is not rendered at all — it describes a
+  feature that does not exist, and drawing it would be a promise the app can't
+  keep. Its composition is in the prototype at `isCovenCircle` when circles
+  are real.
+
+- **Grimoins are actually gone now.** The 3 Aug decision removed them, but the
+  You screen kept the label and the "Top up" button on top of the real cast
+  count — one number wearing two meanings, neither of them true.
+
+- **No invented identity on You.** The prototype shows a name, initials and
+  "keeping since July 2026"; the store knows none of those. The disc carries
+  the rank numeral the practice earned, and the record dates itself from the
+  first cast or says nothing.

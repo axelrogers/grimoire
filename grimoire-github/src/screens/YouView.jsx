@@ -1,11 +1,30 @@
 import { useState } from "react";
 import { usePractice, when } from "../store/usePractice.js";
+import { COVEN } from "../data.js";
 
-// ── YOU ── progression up top (rank, journey, Grimoins), practice below
-// (cast history with the "did it work?" verdict). Pending casts are live —
-// marking one feeds the success data that drives the whole trust mechanic.
+// ── YOU · YOUR RECORD ─────────────────────────────────────────────────────
+// Ported to the prototype's composition (2026-08-17). The record reads as a
+// page of the book: ruled masthead, the rank worn as a disc, then the casts
+// themselves as ledger rows with dotted leaders, exactly as Browse and Coven
+// set them.
+//
+// What changed beyond composition:
+//
+// The "Grimoins ◉ 248 / Top up" tile is gone. DECISIONS.md recorded on 3 Aug
+// that Grimoins were cut — the read being that engagement scaffolding is what
+// is costing Astrea its users — but the label survived the edit and was
+// sitting on top of the real cast count, calling it a currency. One number,
+// two meanings, neither true.
+//
+// There is no invented identity here. The prototype shows a name, initials
+// and "keeping since July 2026"; the store knows none of those, so the disc
+// carries the rank numeral the practice actually earned, and the record dates
+// itself from the first cast or says nothing at all.
+
+const MONTHS = ["January","February","March","April","May","June","July",
+  "August","September","October","November","December"];
+
 export default function YouView({ S }) {
-  // Real practice, from the store. Nothing here is sample data any more.
   const { casts, profile, rank, answer, session, signIn, signOut, signInPending } =
     usePractice();
   const [email, setEmail] = useState("");
@@ -25,16 +44,20 @@ export default function YouView({ S }) {
       setSignError("The book could not reach that address. Try again.");
     }
   };
-  const history = casts;
-  const successRate = profile.rate;
+
   const answered = casts.filter((c) => c.worked !== null).length;
-  const verdict = (id, worked) => answer(id, worked);
+  const worked = casts.filter((c) => c.worked === true).length;
+
+  // Dated from the practice, not from an account creation date we don't have.
+  const first = casts.length ? new Date(Math.min(...casts.map((c) => c.castAt))) : null;
+  const since = first ? `keeping since ${MONTHS[first.getMonth()]} ${first.getFullYear()}` : null;
 
   return (
     <>
-      <div style={S.todayHead}>
-        <div style={S.eyebrow}>Your practice</div>
-        <div style={S.todayTitle}>You</div>
+      <div style={S.indexEyebrowRow}>
+        <span style={S.indexRule} />
+        <span style={S.indexEyebrow}>Your Record</span>
+        <span style={S.indexRule} />
       </div>
 
       {/* THE RECORD — sign in. Copy is the prototype's onboarding voice. */}
@@ -74,6 +97,32 @@ export default function YouView({ S }) {
           </div>
         </div>
       )}
+
+      {/* The crest: rank, and what the practice actually amounts to. */}
+      <div style={S.recordHead}>
+        <div style={S.recordDisc}>{rank.numeral}</div>
+        <div style={S.recordName}>{rank.name}</div>
+        {since && <div style={S.recordSince}>{since}</div>}
+        <div style={S.recordTally}>
+          {profile.castCount} cast
+          {answered > 0 && ` · ${worked} of ${answered} worked`}
+        </div>
+        {rank.next && (
+          <>
+            <div style={S.recordTrack}>
+              <div
+                style={{
+                  ...S.recordFill,
+                  width: `${Math.round(rank.progress * 100)}%`,
+                  background: "var(--p-accent)",
+                }}
+              />
+            </div>
+            <div style={S.recordNext}>{rank.toNext} more to {rank.next}</div>
+          </>
+        )}
+      </div>
+
       {session && !session.anonymous && (
         <div style={S.signedRow}>
           <span style={S.signedAs}>The record is signed.</span>
@@ -83,83 +132,66 @@ export default function YouView({ S }) {
         </div>
       )}
 
-      {/* PROGRESSION */}
-      <div style={S.youCrest}>
-        <span style={{ ...S.youNumeral, color: "var(--p-accent)" }}>
-          {rank.numeral}
-        </span>
-        <div style={S.youRankName}>{rank.name}</div>
-        <div style={S.youProgressTrack}>
-          <div
-            style={{
-              ...S.youProgressFill,
-              width: `${Math.round(rank.progress * 100)}%`,
-              background: "var(--p-accent)",
-            }}
-          />
-        </div>
-        <div style={S.youNext}>
-          {rank.next ? `${rank.toNext} more to ${rank.next}` : "The last rank"}
-        </div>
-      </div>
-
-      {/* Stat row */}
-      <div style={S.youStats}>
-        <div style={S.youStat}>
-          <div style={{ ...S.youStatNum, color: "var(--p-accent)" }}>
-            ◉ {profile.castCount}
-          </div>
-          <div style={S.youStatLabel}>Grimoins</div>
-          <button style={{ ...S.topUpBtn, color: "var(--p-litDeep)", borderColor: "var(--p-hair)" }}>
-            Top up
-          </button>
-        </div>
-        <div style={S.youStat}>
-          <div style={{ ...S.youStatNum, color: "var(--p-accent)" }}>
-            {successRate !== null ? `${successRate}%` : "—"}
-          </div>
-          <div style={S.youStatLabel}>Worked</div>
-          <div style={S.youStatSub}>
-            {answered} of {casts.length} answered
-          </div>
-        </div>
-      </div>
-
-      {/* PRACTICE — cast history */}
-      <div style={S.covenLabel}>
-        <span style={S.moduleEyebrow}>Cast history</span>
-      </div>
-      <div style={S.covenList}>
-        {history.map((c) => (
-          <div key={c.id} style={S.histRow}>
-            <span style={{ ...S.covenGlyph, color: "var(--p-accent)" }}>{c.glyph}</span>
-            <div style={S.covenMid}>
-              <div style={S.covenName}>{c.title}</div>
-              <div style={S.covenLast}>{when(c.castAt)}</div>
+      {/* THE RECORD ITSELF — every cast, and the book asking how it landed. */}
+      <div style={{ ...S.volCard, marginTop: 18 }}>
+        {/* "The record", not "Your record" — the masthead and the sign-in
+            card already say that, and three of them in one column reads as a
+            template rather than a page. */}
+        <div style={S.volLabel}>The record</div>
+        {casts.length === 0 ? (
+          <div style={S.recordEmpty}>Nothing cast yet. The book is patient.</div>
+        ) : (
+          casts.map((c) => (
+            <div key={c.id} style={S.recordRow}>
+              <span style={S.recordTitle}>{c.title}</span>
+              <span style={S.recordWhen}>{when(c.castAt)}</span>
+              <span style={S.tocLeader} />
+              {c.worked === null ? (
+                <div style={S.verdictBtns}>
+                  <button
+                    style={{
+                      ...S.verdictYes,
+                      borderColor: "var(--p-accent)",
+                      color: "var(--p-accent)",
+                    }}
+                    onClick={() => answer(c.id, true)}
+                  >
+                    Worked
+                  </button>
+                  <button
+                    style={{
+                      ...S.verdictNo,
+                      borderColor: "var(--p-hair)",
+                      color: "var(--p-textSoft)",
+                    }}
+                    onClick={() => answer(c.id, false)}
+                  >
+                    Not yet
+                  </button>
+                </div>
+              ) : c.worked ? (
+                <span style={{ ...S.verdictTag, color: "var(--p-accent)" }}>✓ Worked</span>
+              ) : (
+                <span style={{ ...S.verdictTag, color: "var(--p-textSoft)" }}>Didn&apos;t</span>
+              )}
             </div>
-            {c.worked === null ? (
-              <div style={S.verdictBtns}>
-                <button
-                  style={{ ...S.verdictYes, borderColor: "var(--p-accent)", color: "var(--p-accent)" }}
-                  onClick={() => verdict(c.id, true)}
-                >
-                  Worked
-                </button>
-                <button
-                  style={{ ...S.verdictNo, borderColor: "var(--p-hair)", color: "var(--p-textSoft)" }}
-                  onClick={() => verdict(c.id, false)}
-                >
-                  Not yet
-                </button>
-              </div>
-            ) : c.worked ? (
-              <span style={{ ...S.verdictTag, color: "var(--p-accent)" }}>✓ Worked</span>
-            ) : (
-              <span style={{ ...S.verdictTag, color: "var(--p-textSoft)" }}>Didn't</span>
-            )}
-          </div>
-        ))}
+          ))
+        )}
       </div>
+
+      {/* Hands you keep — the circle, from the record's side of the book. */}
+      {COVEN.length > 0 && (
+        <div style={{ ...S.volCard, marginTop: 14 }}>
+          <div style={S.volLabel}>Hands you keep</div>
+          {COVEN.slice(0, 3).map((p) => (
+            <div key={p.id} style={S.handRow}>
+              <span style={S.handName}>{p.name}</span>
+              <span style={S.tocLeader} />
+              <span style={S.handCraft}>{p.practitioner ? p.craft : p.rank}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }

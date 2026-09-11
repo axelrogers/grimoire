@@ -3,6 +3,33 @@
 Newest session first. Each checkpoint appends a dated entry: what changed,
 what's in flight, and anything the next session needs to know.
 
+## 2026-09-11 — Session 7 (design, no code)
+
+**A design session, by choice and by constraint.** Axel came back after a
+three-and-a-half-week gap with the launch timing set aside and a new
+direction: depth and character. This session shaped the first piece — **the
+arrival** — in conversation, to hand to Claude Code where it can run. The
+whole result is `docs/ARRIVAL.md`; the reasoning is in DECISIONS (11 Sep).
+
+**The shape:** on the first open of each day, a ~5 s movement from the door
+of a stone keeper's cottage on the cliffs (lamp still lit) to the table where
+the book opens and its page becomes Today. Painted in layers, live moon and
+weather over it, stand-in plates first. Four ways in (front door, garden,
+cliff, kitchen), noticed from real casts then invited. The page carries a
+line that remembers you, in Axel's phrasings. A pushed daily line is a
+separate later feature.
+
+**Sandbox, this session:** `registry.npmjs.org` is not on the egress
+allowlist, so `npm install` fails and nothing could be built or run —
+design-only was the right use of it. The GitHub API and the live site were
+also unreachable, so **whether the Supabase secrets were added and sign-in
+tested is still unknown** — don't report it either way. Pushes remain blocked;
+this session's commit ships as a bundle.
+
+**Next session:** Claude Code builds Arrival Phase 1 on Axel's Mac. A Cowork
+session is for shaping decisions; to build in Cowork, the npm registry needs
+adding to the network allowlist first.
+
 ## 2026-08-17 — Session 6
 
 **The backlog shipped.** Axel pushed the three stranded commits from his Mac

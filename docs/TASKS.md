@@ -14,6 +14,26 @@ moderation and payouts come after launch.
 
 ## Next
 
+**2026-09-11 — the depth direction leads now.** Axel set the launch timing
+aside in Sep; the dates below are history, not deadlines. First piece:
+**the arrival** (`docs/ARRIVAL.md`).
+
+- [ ] **Arrival, Phase 1** — build in Claude Code from `docs/ARRIVAL.md`
+      (daily gate, live sky module, plate slots with stand-ins, the movement,
+      remembered line). Show Axel before Phase 2.
+- [ ] **Axel: confirm the four pencilled items** at the foot of
+      `docs/ARRIVAL.md` (none block Phase 1).
+- [ ] **Axel: write the first dozen remembered-line phrasings.** His voice;
+      Claude edits, never drafts.
+- [ ] **Axel: concept images for the house** — no film stills in, no film
+      names in prompts (ARRIVAL.md decision 5).
+- [ ] Arrival, Phase 2 — four ways in + the invitation.
+- [ ] The daily line (push) — separate feature, after the arrival.
+- [ ] Commission final paintings — once the arrival runs and the look is set.
+
+### Earlier launch list (26 Aug plan)
+
+
 **AXEL — the three that block a 26 Aug launch, in order:**
 - [ ] **Two repository secrets**, or the live site persists nothing across
       devices and says nothing about it: `VITE_SUPABASE_URL` and

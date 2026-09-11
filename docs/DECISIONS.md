@@ -2,6 +2,36 @@
 
 Architecture and key choices, with the "why", so settled ground isn't relitigated.
 
+## 2026-09-11 — the arrival
+
+Full brief and reasoning: `docs/ARRIVAL.md`. Shaped with Axel in Cowork, to be
+built in Claude Code where it can be seen running.
+
+- **A daily arrival, not an intro.** First open of each day only; local
+  midnight, matching the verdict loop. Anything longer or more frequent turns
+  a threshold into a toll.
+- **The house, then the book, as one movement.** ~5 s, tap to skip. The house
+  carries mood; every word lives on the page. Two scenes would wear thin by
+  the second week.
+- **Painted, in layers.** Sky, moon, weather and light are composited over a
+  few house plates so the live sky doesn't multiply the artwork; palette is a
+  grade, not separate paintings.
+- **Inspired by a film's house, never copied.** The line is in the making: no
+  stills into generators, no film names in prompts, no plate recognisable as
+  the film's house, and the product never names the film.
+- **A stone keeper's cottage on a headland, lamp still lit, walled garden.**
+  The lit lamp is the house's own symbol — a light left on for whoever is
+  coming home — and what makes it unmistakably ours.
+- **Four ways in, noticed then invited.** Front door for everyone; garden,
+  cliff or kitchen once a counted lean is clear and the book asks. Stored, not
+  re-derived, so it never flickers. Not a reward mechanic (see `ranks.js`).
+- **Stand-ins first.** The build doesn't wait on art, nothing is commissioned
+  before the design has proved itself, and the illustrator brief is written
+  from what's been seen working.
+- **The page remembers you** from the real record, in phrasings Axel writes;
+  no true fact, no line. **The daily push line** is a separate, later,
+  opt-in feature with its own pool.
+
 ## 2026-07-20
 - **Continuity via Drive snapshots + internal git.** The Cowork workspace is
   ephemeral across sessions, so the project is snapshotted (tar.gz of the whole

@@ -141,6 +141,37 @@ function rgbOf(hex) {
   return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
 }
 
+// ── The arrival's stand-in plates ──────────────────────────────────────
+// Neutral greys for the provisional house (ARRIVAL.md decision 9). They are
+// set by the REAL sky's day/night, not the app's mode toggle — the house is
+// outside, and it's dark when it's dark. Palette reaches the house as a
+// colour grade over these (--p-glow1), never as separate art; the lamp burns
+// in the lit accent (--g-lit). Final paintings replace the plates, and most
+// of these tokens go with them.
+export function arrivalTokens(night) {
+  return night
+    ? {
+        "--a-skyTop": "#0B0F1C", "--a-skyLow": "#1E2536", "--a-star": "rgba(255,255,255,0.75)",
+        "--a-sea": "#10172A", "--a-land": "#090C13", "--a-stone": "#252A34",
+        "--a-stoneHi": "#343A46", "--a-roof": "#171A21", "--a-glass": "#0E1117",
+        "--a-path": "#1B1F28", "--a-wall": "#221F1C", "--a-wallLow": "#171513",
+        "--a-table": "#3A2D21", "--a-tableHi": "#4A3A2B", "--a-book": "#2B1E18",
+        "--a-page": "#EDE6D8", "--a-moon": "#E9E5D9", "--a-moonDark": "rgba(233,229,217,0.07)",
+        "--a-mist": "rgba(196,202,214,0.20)", "--a-rain": "rgba(196,206,222,0.34)",
+        "--a-label": "rgba(255,255,255,0.5)", "--a-gradeOpacity": "0.42",
+      }
+    : {
+        "--a-skyTop": "#9DB2C6", "--a-skyLow": "#DBE1E4", "--a-star": "rgba(255,255,255,0)",
+        "--a-sea": "#6D8596", "--a-land": "#56604E", "--a-stone": "#8B8983",
+        "--a-stoneHi": "#A5A39C", "--a-roof": "#5D5953", "--a-glass": "#3B3F45",
+        "--a-path": "#A49B88", "--a-wall": "#B7AA97", "--a-wallLow": "#998D7B",
+        "--a-table": "#6D5943", "--a-tableHi": "#846F59", "--a-book": "#4A3428",
+        "--a-page": "#F4EEE2", "--a-moon": "#F4F2EC", "--a-moonDark": "rgba(244,242,236,0.12)",
+        "--a-mist": "rgba(238,240,244,0.45)", "--a-rain": "rgba(88,98,114,0.34)",
+        "--a-label": "rgba(0,0,0,0.45)", "--a-gradeOpacity": "0.3",
+      };
+}
+
 // ── Compatibility shim ─────────────────────────────────────────────────
 // Some components still take a palette object and read a couple of concrete
 // values (the casting beat needs a real colour for its glow, and the Apple

@@ -8,7 +8,7 @@
 //   theme/styles.js     composes the slices below into `S`
 //   theme/{shell,casting,modules,browse,castSheet,coven,you}.js
 
-export { PALETTES, PALETTE_KEYS, tokensFor, paletteMeta } from "./theme/palettes.js";
+export { PALETTES, PALETTE_KEYS, tokensFor, paletteMeta, arrivalTokens } from "./theme/palettes.js";
 export { FONTS, TYPE } from "./theme/fonts.js";
 export { seg } from "./theme/controls.js";
 export { makeStyles } from "./theme/styles.js";

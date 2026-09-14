@@ -3,6 +3,9 @@ import { HEROES, selectStrategy, DAILY_CARD, COMMUNITY, FEATURED } from "../data
 import { ApplePaySheet, CastingBeat, SuccessState } from "../components/CastFunnel.jsx";
 import { usePractice, when } from "../store/usePractice.js";
 import { beginPayment, isPaidLive } from "../payment.js";
+import { useSky } from "../useSky.js";
+import { skyLine } from "../sky.js";
+import { rememberedLine } from "../remembers.js";
 
 // "Tonight" reads wrong mid-sentence; the ask row wants "last night".
 const whenLower = (ts) => {
@@ -10,8 +13,25 @@ const whenLower = (ts) => {
   return w === "Tonight" ? "last night" : w.charAt(0).toLowerCase() + w.slice(1);
 };
 
-export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }) {
-  const { cast: recordCast, session, backend, asks, answer } = usePractice();
+const DATE_FMT = new Intl.DateTimeFormat(undefined, { weekday: "long", day: "numeric", month: "long" });
+
+export default function TodayView({ mode, setMode, isMember, C, S, nightsAway = null, inking = false }) {
+  const { cast: recordCast, session, backend, asks, answer, profile } = usePractice();
+  const sky = useSky();
+  // Facts from the real record only (remembers.js). Path is "front" until
+  // Phase 2 gives the house its other ways in.
+  const line = rememberedLine(
+    {
+      hasRecord: profile.castCount > 0,
+      nightsAway,
+      weather: sky.weather,
+      path: "front",
+      waitingVerdict: asks.length > 0,
+    },
+    sky.at,
+  );
+  // Ink settles, line by line, just after the arrival hands over.
+  const ink = (i) => (inking ? { animation: `gp-ink 0.9s ease-out ${0.15 + i * 0.28}s both` } : {});
   const [needsSign, setNeedsSign] = useState(false);
   const mustSign = backend === "supabase" && !session;
   // Funnel state. idle → pay → cast(tap3) → casting[hold→send] → done
@@ -70,13 +90,22 @@ export default function TodayView({ mode, setMode, isMember, setIsMember, C, S }
 
   return (
     <>
-      {/* Today header — the display line dominates, everything else recedes */}
+      {/* Today header — the display line dominates, everything else recedes.
+          The date, the live sky and the remembered line are the page the
+          arrival's book opens onto; after an arrival they ink in. */}
       <div style={S.todayHead}>
         <div style={S.headRow}>
           <div>
+            <div style={{ ...S.pageDate, ...ink(0) }}>{DATE_FMT.format(sky.at)}</div>
             <div style={S.todayTitle}>Today</div>
             <div style={S.greeting}>Good evening, Axel.</div>
-            <div style={S.eyebrow}>Waning moon in Sagittarius · Mercury retrograde</div>
+            <div style={{ ...S.eyebrow, ...ink(1) }}>{skyLine(sky)}</div>
+            {line && (
+              <div style={{ ...S.remembered, ...ink(2) }}>
+                {line.text}
+                {line.placeholder && <span style={S.placeholderMark}>placeholder</span>}
+              </div>
+            )}
           </div>
           <button
             style={S.themeToggle}

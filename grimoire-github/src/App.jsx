@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { PALETTE_KEYS, tokensFor, paletteMeta, FONTS, seg, makeStyles } from "./theme.js";
 import "./tokens.css";
 import TodayView from "./screens/TodayView.jsx";
@@ -9,6 +9,9 @@ import CastSheet from "./components/CastSheet.jsx";
 import { CATALOGUE } from "./data.js";
 import { usePractice } from "./store/usePractice.js";
 import { paidClaim, heldClaim, holdClaim, releaseClaim } from "./payment.js";
+import Arrival from "./arrival/Arrival.jsx";
+import { arrivalToday } from "./arrival/gate.js";
+import { useSky } from "./useSky.js";
 
 // ── APP SHELL ── owns theme + viewer + tab state, draws the phone frame and
 // the persistent tab bar, and renders the active view. Screens live in
@@ -64,6 +67,20 @@ export default function App() {
       });
   }, [session, backend, recordCast]);
 
+  // The arrival: first open of the local day, never over a Stripe return
+  // (a paid caster lands straight back in their working). Decided once.
+  const sky = useSky();
+  const [arrival] = useState(() => arrivalToday({ resumingPayment: Boolean(paidClaim()) }));
+  const [arriving, setArriving] = useState(arrival.play);
+  const [inking, setInking] = useState(false);
+  const revealPage = useCallback(() => setInking(true), []);
+  const endArrival = useCallback(() => setArriving(false), []);
+  useEffect(() => {
+    if (!inking) return;
+    const t = setTimeout(() => setInking(false), 2600); // once, not on every tab return
+    return () => clearTimeout(t);
+  }, [inking]);
+
   // The semantic layer. Setting the tokens on the frame (rather than :root)
   // scopes the whole design system to the app subtree — nothing leaks, and
   // two palettes could render side by side if we ever wanted to compare them.
@@ -103,9 +120,10 @@ export default function App() {
               mode={mode}
               setMode={setMode}
               isMember={isMember}
-              setIsMember={setIsMember}
               C={C}
               S={S}
+              nightsAway={arrival.nightsAway}
+              inking={inking}
             />
           )}
           {tab === "browse" && <BrowseView C={C} S={S} />}
@@ -155,6 +173,11 @@ export default function App() {
             );
           })}
         </div>
+
+        {/* The arrival, over everything in the phone — tab bar included. */}
+        {arriving && (
+          <Arrival sky={sky} S={S} onReveal={revealPage} onDone={endArrival} />
+        )}
       </div>
     </div>
   );

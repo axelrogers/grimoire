@@ -46,6 +46,48 @@ export const FONTS = `
   from { transform: translateY(100%); }
   to   { transform: translateY(0); }
 }
+/* ── The arrival (ARRIVAL.md). Ritual, eased, no spring. ── */
+@keyframes gp-lampwake {
+  from { opacity: 0.25; }
+  to   { opacity: 1; }
+}
+@keyframes gp-lampbreath {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.84; }
+}
+@keyframes gp-drawin {
+  from { transform: scale(1); }
+  to   { transform: scale(3.4); }
+}
+@keyframes gp-doorlight {
+  0%   { opacity: 0; }
+  55%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+@keyframes gp-tablein {
+  from { opacity: 0; transform: scale(1.14); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes gp-bookopen {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(-172deg); }
+}
+@keyframes gp-pagefill {
+  from { opacity: 0; transform: scale(0.3); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes gp-ink {
+  from { opacity: 0; filter: blur(2px); transform: translateY(3px); }
+  to   { opacity: 1; filter: blur(0);   transform: translateY(0); }
+}
+@keyframes gp-rain {
+  from { background-position: 0 0; }
+  to   { background-position: -40px 220px; }
+}
+@keyframes gp-mist {
+  0%, 100% { transform: translateX(-4%); }
+  50%      { transform: translateX(4%); }
+}
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; }
 }

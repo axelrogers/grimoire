@@ -3,6 +3,50 @@
 Newest session first. Each checkpoint appends a dated entry: what changed,
 what's in flight, and anything the next session needs to know.
 
+## 2026-09-14 — Session 8 (Claude Code, Axel's Mac)
+
+**Arrival Phase 1 is built** — `arrival-phase-1`, one commit (`0ebd5ff`), off
+`main` because `main` auto-deploys. Session 7's bundle applied and pushed, so
+`main` is `8f8483b` and its Pages deploy is green.
+
+**What landed.** `src/sky.js` computes the moon (phase, illumination, sign)
+from Meeus ch. 47/48 and day/night from the clock — or from the sun's altitude
+where location is already granted. Today's hard-coded "Waning moon in
+Sagittarius · Mercury retrograde" is gone; Mercury retrograde went with it
+rather than be approximated. `src/arrival/` holds the gate (first open of the
+local day, per device, stood down over a `paidClaim()`), the movement, and
+named plate slots — a painting dropped into `src/arrival/plates/` named for
+its slot is used at the next build, no code change (see that folder's README
+for framing and registration). `src/remembers.js` carries the remembered line
+as data plus the condition each phrasing needs; the brief's three illustrative
+lines are marked `placeholder: true` and render with a visible mark, because
+the phrasings are Axel's.
+
+**The constraint that shaped the session: this Mac has no Node and no
+Homebrew, and little free disk.** Axel ruled out a local install — cloud is
+better. So verification went two ways. macOS ships JavaScriptCore
+(`.../JavaScriptCore.framework/Versions/A/Helpers/jsc`), which runs plain JS:
+`sky.js` with its exports stripped was checked against four eclipse anchors
+(Apr 2024, Mar 2025, Sep 2025, Aug 2026) and matched phase, illumination, sign
+and degree every time. For the app itself, a preview harness inlines the real
+source, transpiles it with Babel in the browser and runs it against React UMD
+— published as an Artifact, with a pill per state. Then StackBlitz on this
+branch installed the real dependencies, booted Vite and served the app: the
+genuine toolchain, in the cloud, nothing on disk.
+
+**Still unverified: `npm run build`.** The dev server compiles and serves, but
+the production build hasn't been seen to pass. Run it in StackBlitz (the
+browser pane was too small to read its terminal) or wherever Node exists.
+
+**Housekeeping.** The push credential was dead; Axel stored the fine-grained
+`grimoire-cowork` token (expires 26 Oct 2026) in the macOS keychain, so pushes
+work from here. The working copy now lives at `~/grimoire` rather than an
+ephemeral session folder.
+
+**Next session:** Axel's eye on the arrival before Phase 2 — timing lives in
+one `TIMING` object at the top of `Arrival.jsx`. Then the four pencilled items
+and his dozen phrasings.
+
 ## 2026-09-11 — Session 7 (design, no code)
 
 **A design session, by choice and by constraint.** Axel came back after a

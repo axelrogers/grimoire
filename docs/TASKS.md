@@ -18,9 +18,17 @@ moderation and payouts come after launch.
 aside in Sep; the dates below are history, not deadlines. First piece:
 **the arrival** (`docs/ARRIVAL.md`).
 
-- [ ] **Arrival, Phase 1** — build in Claude Code from `docs/ARRIVAL.md`
-      (daily gate, live sky module, plate slots with stand-ins, the movement,
-      remembered line). Show Axel before Phase 2.
+- [x] ~~**Arrival, Phase 1** — build in Claude Code from `docs/ARRIVAL.md`.~~
+      DONE 14 Sep on `arrival-phase-1` (`0ebd5ff`): daily gate, `src/sky.js`,
+      plate slots with labelled stand-ins, the movement, the remembered line.
+      Moon checked against four eclipse anchors; runs under real Vite in
+      StackBlitz. **Not merged to `main` — waiting on Axel's eye.**
+- [ ] **Axel: watch the arrival and say what to change** — timing is one
+      `TIMING` object at the top of `src/arrival/Arrival.jsx`. Also worth his
+      eye: amber vs amethyst in both modes.
+- [ ] **Verify `npm run build` passes**, then merge `arrival-phase-1`. The dev
+      server compiles; the production build hasn't been seen to pass. No Node
+      on Axel's Mac — run it in StackBlitz or a cloud session.
 - [ ] **Axel: confirm the four pencilled items** at the foot of
       `docs/ARRIVAL.md` (none block Phase 1).
 - [ ] **Axel: write the first dozen remembered-line phrasings.** His voice;
